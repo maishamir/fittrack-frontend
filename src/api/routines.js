@@ -1,0 +1,13 @@
+import axios from "axios";
+
+const BASE_URL = "http://localhost:3000";
+
+export async function getRoutines() {
+    const response = await axios.get(`${BASE_URL}/routines`);
+    return response.data;
+}
+
+export async function startSession(routineId) {
+    const response = await axios.post(`${BASE_URL}/rotuines/${routineId}/sessions`);
+    return response.data;
+}
