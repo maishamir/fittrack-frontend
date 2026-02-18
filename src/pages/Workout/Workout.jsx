@@ -3,9 +3,13 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Workout() {
-    const []
+  const { sessionId } = useParams();
+
   return (
-    <div>Workout</div>
+    <div>
+      <h1>Workout Page</h1>
+      <p>Session ID: {sessionId}</p>
+    </div>
   )
 }
 

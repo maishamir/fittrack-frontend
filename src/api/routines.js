@@ -8,6 +8,6 @@ export async function getRoutines() {
 }
 
 export async function startSession(routineId) {
-    const response = await axios.post(`${BASE_URL}/rotuines/${routineId}/sessions`);
+    const response = await axios.post(`${BASE_URL}/routines/${routineId}/sessions`);
     return response.data;
 }
