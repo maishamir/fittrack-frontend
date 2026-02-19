@@ -1,4 +1,5 @@
 import React from 'react'
+import './SetRow.scss'
 
 /**
  * 
@@ -16,19 +17,19 @@ import React from 'react'
 
 function SetRow({ set, index, onRepsBlur, onWeightBlur }) {
     return (
-        <div style={{ marginBottom: "0.5rem" }}>
-            <span>Set {index + 1}</span>
+        <div className='set-row'>
+            <span className='set-row__label'>Set {index + 1}</span>
 
-            <span>
+            <span className='set-row__target'>
                 Target: {" "}
                 {set.targetExactReps ?? `${set.targetMinReps}-${set.targetMaxReps}`} reps
             </span>
 
-            <div>
-                <input type="number" placeholder='Reps' defaultValue={set.actualReps ?? ""} onBlur={(e) => handleRepsBlur(e, set.id)} />
-                <input type="number" placeholder='Weight' defaultValue={set.actualWeight ?? ""} onBlur={(e) => handleWeightBlur(e, set.id)} />
-            </div>
-        </div>
+            {/* <div > */}
+            <input className='set-row__input' type="number" placeholder='Reps' defaultValue={set.actualReps ?? ""} onBlur={(e) => handleRepsBlur(e, set.id)} />
+            <input className='set-row__input' type="number" placeholder='Weight' defaultValue={set.actualWeight ?? ""} onBlur={(e) => handleWeightBlur(e, set.id)} />
+            {/* </div> */}
+        </div >
     )
 }
 

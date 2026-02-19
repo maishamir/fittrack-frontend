@@ -1,0 +1,29 @@
+@use "../../styles/abstracts/variables" as *;
+
+.set-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 120px 120px;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+
+    &__label {
+        color: $cloud;
+        font-size: 0.9rem;
+    }
+
+    &__input {
+        background-color: $shadow;
+        border: 1px solid $mist;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.6rem;
+
+        color: $moon;
+        font-size: 0.9rem;
+
+        &:focus {
+            outline: none;
+            border-color: $sky;
+        }
+    }
+}
