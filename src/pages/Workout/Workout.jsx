@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { getSession } from "../../api/sessions";
+import { getSession, updateSet } from "../../api/sessions";
 import axios from 'axios';
 
 function Workout() {
@@ -20,6 +20,47 @@ function Workout() {
   if (loading) return <p>Loading...</p>
   if (!session) return <p>No session found.</p>
 
+  /**
+   * When user finishes typing reps and clicks away, send that number to the backend to save it
+   */
+
+  async function handleRepsBlur(event, setId) {
+    const rawValue = event.target.value;
+    console.log("Reps blur triggered for set:", setId);
+
+
+    // convet empty string to null
+    const parsedReps = rawValue === "" ? null : Number(rawValue);
+
+    try {
+      console.log("Sending value:", parsedReps);
+
+      await updateSet(setId, {
+        actualReps: parsedReps,
+      })
+    } catch (error) {
+      console.error("Failed to update reps: ", error)
+    }
+  }
+
+  /**
+   * when user finishes typing reps and clicks away, send it to the backend
+   */
+
+  async function handleWeightBlur(event, setId) {
+    const rawValue = event.target.value;
+
+    const parsedWeight = rawValue === "" ? null : Number(rawValue);
+
+    try {
+      await updateSet(setId, {
+        actualWeight: parsedWeight,
+      })
+    } catch (error) {
+      console.error("Failed to update weight: ", error)
+    }
+  }
+
   return (
     <div>
       <h1>{session.routineNameSnapshot}</h1>
@@ -34,8 +75,8 @@ function Workout() {
               <span>Target: {set.targetExactReps ?? `${set.targetMinReps}-${set.targetMaxReps}`} reps</span>
 
               <div>
-                <input type="number" placeholder='Actual reps' defaultValue={set.actualReps ?? ''} />
-                <input type="number" placeholder='Weight' defaultValue={set.actualWeight ?? ''} />
+                <input type="number" placeholder='Reps' defaultValue={set.actualReps ?? ''} onBlur={(e) => handleRepsBlur(e, set.id)} />
+                <input type="number" placeholder='Weight' defaultValue={set.actualWeight ?? ''} onBlur={(e) => handleWeightBlur(e, set.id)} />
               </div>
             </div>
           ))}
