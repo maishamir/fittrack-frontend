@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getSession, updateSet } from "../../api/sessions";
+import SetRow from '../../components/SetRow/SetRow';
 import axios from 'axios';
 
 function Workout() {
@@ -96,19 +97,15 @@ function Workout() {
               <h3>{exercise.exercise.name}</h3>
 
               {exercise.sessionSets.map((set, index) => (
-                <div key={set.id} style={{ maginBottom: "0.5rem" }}>
-                  <span>Set {index + 1} - </span>
-                  <span>
-                    Target: {" "}
-                    {set.targetExactReps ?? `${set.targetMinReps} - ${set.targetMaxReps}`} reps
-                  </span>
-
-                  <div>
-                    <input type="number" placeholder='Reps' defaultValue={set.actualReps ?? ""} onBlur={(e) => handleRepsBlur(e, set.id)} />
-                    <input type="number" placeholder='Weight' defaultValue={set.actualWeight ?? ""} onBlur={(e) => handleWeightBlur(e, set.id)} />
-                  </div>
-                </div>
+                <SetRow
+                  key={set.id}
+                  set={set}
+                  index={index}
+                  onRepsBlur={handleRepsBlur}
+                  onWeightBlur={handleWeightBlur}
+                />
               ))}
+
             </div>
           ))}
         </div>
