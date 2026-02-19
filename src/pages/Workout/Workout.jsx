@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getSession, updateSet } from "../../api/sessions";
 import SetRow from '../../components/SetRow/SetRow';
 import axios from 'axios';
+import "./Workout.scss";
 
 function Workout() {
   const { sessionId } = useParams();
@@ -85,12 +86,12 @@ function Workout() {
   const groupedExercises = groupExercisesBySection(session.sessionExercises);
 
   return (
-    <div>
-      <h1>{session.routineNameSnapshot}</h1>
+    <div className='workout'>
+      <h1 className='workout__title'>{session.routineNameSnapshot}</h1>
 
       {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
-        <div key={sectionName} style={{ marginBottom: "2rem" }}>
-          <h2>{sectionName}</h2>
+        <div key={sectionName} className="workout__section" style={{ marginBottom: "2rem" }}>
+          <h2 className='workout__section-title'>{sectionName}</h2>
 
           {exercises.map((exercise) => (
             <div key={exercise.id} style={{ marginBottom: "2rem" }}>

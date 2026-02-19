@@ -1,0 +1,27 @@
+@use "../../styles/abstracts/variables" as *;
+
+.workout {
+    padding: 2rem 1.5rem;
+    max-width: 720px;
+    margin: 0 auto;
+
+    &__title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    &__section {
+        background: $midnight;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &__section-title {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: $fog;
+        margin-bottom: 1rem;
+    }
+}
