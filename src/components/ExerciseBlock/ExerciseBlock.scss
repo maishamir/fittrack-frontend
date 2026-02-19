@@ -1,0 +1,22 @@
+@use "../../styles/abstracts/variables" as *;
+
+.exercise {
+    padding: 1rem 0;
+    border-bottom: 1px solid $mist;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &__title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+
+    &__sets {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

@@ -4,6 +4,7 @@ import { getSession, updateSet } from "../../api/sessions";
 import SetRow from '../../components/SetRow/SetRow';
 import axios from 'axios';
 import "./Workout.scss";
+import ExerciseBlock from '../../components/ExerciseBlock/ExerciseBlock';
 
 function Workout() {
   const { sessionId } = useParams();
@@ -94,21 +95,9 @@ function Workout() {
           <h2 className='workout__section-title'>{sectionName}</h2>
 
           {exercises.map((exercise) => (
-            <div key={exercise.id} style={{ marginBottom: "2rem" }}>
-              <h3>{exercise.exercise.name}</h3>
-
-              {exercise.sessionSets.map((set, index) => (
-                <SetRow
-                  key={set.id}
-                  set={set}
-                  index={index}
-                  onRepsBlur={handleRepsBlur}
-                  onWeightBlur={handleWeightBlur}
-                />
-              ))}
-
-            </div>
-          ))}
+            <ExerciseBlock key={exercise.id} exercise={exercise} onRepsBlur={handleRepsBlur} onWeightBlur={handleWeightBlur} />
+          ))
+          }
         </div>
       ))}
     </div>
