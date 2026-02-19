@@ -61,27 +61,57 @@ function Workout() {
     }
   }
 
+  /**
+   * function that groups exercises by sectionLabel
+   */
+
+  function groupExercisesBySection(exercises) {
+    const grouped = {};
+
+    exercises.forEach((exercise) => {
+      const section = exercise.sectionLabel || "Uncategorized";
+
+      if (!grouped[section]) {
+        grouped[section] = [];
+      }
+
+      grouped[section].push(exercise);
+    })
+
+    return grouped;
+  }
+
+  const groupedExercises = groupExercisesBySection(session.sessionExercises);
+
   return (
     <div>
       <h1>{session.routineNameSnapshot}</h1>
 
-      {session.sessionExercises.map((exercise) => (
-        <div key={exercise.id} style={{ marginBottom: '2rem' }}>
-          <h2>{exercise.exercise.name}</h2>
+      {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
+        <div key={sectionName} style={{ marginBottom: "2rem" }}>
+          <h2>{sectionName}</h2>
 
-          {exercise.sessionSets.map((set, index) => (
-            <div key={set.id} style={{ marginBottom: '0.5rem' }}>
-              <span>Set {index + 1} - </span>
-              <span>Target: {set.targetExactReps ?? `${set.targetMinReps}-${set.targetMaxReps}`} reps</span>
+          {exercises.map((exercise) => (
+            <div key={exercise.id} style={{ marginBottom: "2rem" }}>
+              <h3>{exercise.exercise.name}</h3>
 
-              <div>
-                <input type="number" placeholder='Reps' defaultValue={set.actualReps ?? ''} onBlur={(e) => handleRepsBlur(e, set.id)} />
-                <input type="number" placeholder='Weight' defaultValue={set.actualWeight ?? ''} onBlur={(e) => handleWeightBlur(e, set.id)} />
-              </div>
+              {exercise.sessionSets.map((set, index) => (
+                <div key={set.id} style={{ maginBottom: "0.5rem" }}>
+                  <span>Set {index + 1} - </span>
+                  <span>
+                    Target: {" "}
+                    {set.targetExactReps ?? `${set.targetMinReps} - ${set.targetMaxReps}`} reps
+                  </span>
+
+                  <div>
+                    <input type="number" placeholder='Reps' defaultValue={set.actualReps ?? ""} onBlur={(e) => handleRepsBlur(e, set.id)} />
+                    <input type="number" placeholder='Weight' defaultValue={set.actualWeight ?? ""} onBlur={(e) => handleWeightBlur(e, set.id)} />
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
-
       ))}
     </div>
   )
