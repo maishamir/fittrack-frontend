@@ -5,6 +5,7 @@ import SetRow from '../../components/SetRow/SetRow';
 import axios from 'axios';
 import "./Workout.scss";
 import ExerciseBlock from '../../components/ExerciseBlock/ExerciseBlock';
+import { X } from 'lucide-react';
 
 function Workout() {
   const { sessionId } = useParams();
@@ -85,19 +86,41 @@ function Workout() {
   }
 
   const groupedExercises = groupExercisesBySection(session.sessionExercises);
+  const totalSets = session.sessionExercises.reduce(
+    (total, exercise) => total + exercise.sessionSets.length,
+    0
+  );
 
   return (
     <div className='workout'>
-      <h1 className='workout__title'>{session.routineNameSnapshot}</h1>
+      <div className="workout__header">
+        <div className="workout__header-left">
+          <h2 className='workout__title'>{session.routineNameSnapshot}</h2>
+          <p className="workout__progress">0/{totalSets} sets completed</p>
+        </div>
+        <button className='workout__close-button'><X className='close__icon'/></button>
+      </div>
+
+
 
       {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
-        <div key={sectionName} className="workout__section" style={{ marginBottom: "2rem" }}>
-          <h2 className='workout__section-title'>{sectionName}</h2>
+        <div key={sectionName} className="section-card">
 
-          {exercises.map((exercise) => (
-            <ExerciseBlock key={exercise.id} exercise={exercise} onRepsBlur={handleRepsBlur} onWeightBlur={handleWeightBlur} />
-          ))
-          }
+          <div className="section-card__header">
+            <h3 className="section-card__title">{sectionName}</h3>
+          </div>
+
+          <div className="section-card__body">
+            {exercises.map((exercise) => (
+              <ExerciseBlock
+                key={exercise.id}
+                exercise={exercise}
+                onRepsBlur={handleRepsBlur}
+                onWeightBlur={handleWeightBlur}
+              />
+            ))}
+          </div>
+
         </div>
       ))}
     </div>

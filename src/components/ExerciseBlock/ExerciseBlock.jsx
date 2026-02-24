@@ -10,36 +10,35 @@ import SetRow from '../SetRow/SetRow';
  * - rendering all sets for that exercise
  * 
  */
+import { ChevronDown, ChevronUp, Check, Trophy, } from 'lucide-react';
 
 function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur }) {
-
-    const [isOpen, setIsOpen] = useState(true);
-
-    const totalSets = exercise.sessionSets.length;
-
-    // hardcoded visual meta for now (no completion logic)
-    const firstSet = exercise.sessionSets[0];
-    const repRange = firstSet.targetExactReps ?? `${firstSet.targetMinReps}-${firstSet.targetMaxReps}`;
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className={`exercise ${isOpen ? 'exercise--open' : 'exercise--closed'}`}>
-            <div className="exercise__header" onClick={() => setIsOpen(!isOpen)}>
+        <div className="exercise">
 
-                <div className="exercise__header-left">
-                    <h3 className='exercise__title'>{exercise.exercise.name}</h3>
+            <button
+                className="exercise__header"
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                <div className="exercise__info">
+                    <div className="exercise__name">
+                        {exercise.exercise.name}
+                    </div>
+
                     <div className="exercise__meta">
-                        {totalSets} × {repRange} reps
+                        {exercise.sessionSets.length} × {exercise.sessionSets[0]?.targetExactReps ?? `${exercise.sessionSets[0]?.targetMinReps} - ${exercise.sessionSets[0]?.targetMaxReps}`} <span className="exercise__meta-marker">•</span> 0/2 done
                     </div>
                 </div>
 
-                <div className={`exercise__chevron ${isOpen ? 'exercise__chevron--open' : ''}`}>
-                    ▾
+                <div className="exercise__chevron">
+                    {isOpen ? <ChevronUp /> : <ChevronDown />}
                 </div>
-
-            </div>
+            </button>
 
             {isOpen && (
-                <div className="exercise__sets">
+                <div className="exercise__content">
                     {exercise.sessionSets.map((set, index) => (
                         <SetRow
                             key={set.id}
@@ -51,8 +50,9 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur }) {
                     ))}
                 </div>
             )}
+
         </div>
-    )
+    );
 }
 
-export default ExerciseBlock
+export default ExerciseBlock;

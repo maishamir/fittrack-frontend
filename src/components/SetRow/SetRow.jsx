@@ -14,23 +14,37 @@ import './SetRow.scss'
  * - Fetch data
  * - Manage session state
  */
-
+import { Check } from 'lucide-react';
 function SetRow({ set, index, onRepsBlur, onWeightBlur }) {
     return (
-        <div className='set-row'>
-            <span className='set-row__label'>Set {index + 1}</span>
+        <div className="set-row">
+            <div className="set-row__label">
+                Set {index + 1}
+            </div>
 
-            <span className='set-row__target'>
-                Target: {" "}
-                {set.targetExactReps ?? `${set.targetMinReps}-${set.targetMaxReps}`} reps
-            </span>
+            <div className="set-row__inputs">
+                <input
+                    className="set-row__input"
+                    type="number"
+                    placeholder="kg"
+                    defaultValue={set.actualWeight ?? ""}
+                    onBlur={(e) => onWeightBlur(e, set.id)}
+                />
 
-            {/* <div > */}
-            <input className='set-row__input' type="number" placeholder='Reps' defaultValue={set.actualReps ?? ""} onBlur={(e) => handleRepsBlur(e, set.id)} />
-            <input className='set-row__input' type="number" placeholder='Weight' defaultValue={set.actualWeight ?? ""} onBlur={(e) => handleWeightBlur(e, set.id)} />
-            {/* </div> */}
-        </div >
-    )
+                <input
+                    className="set-row__input"
+                    type="number"
+                    placeholder="reps"
+                    defaultValue={set.actualReps ?? ""}
+                    onBlur={(e) => onRepsBlur(e, set.id)}
+                />
+            </div>
+
+            <button className="set-row__check">
+                <Check />
+            </button>
+        </div>
+    );
 }
 
 export default SetRow

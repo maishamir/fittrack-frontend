@@ -1,8 +1,7 @@
 @use "../abstracts/variables" as *;
-
 body {
     margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Inter", sans-serif;
     background-color: $abyss;
     color: $moon;
 }
