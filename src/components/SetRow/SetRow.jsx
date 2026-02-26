@@ -1,50 +1,64 @@
-import React from 'react'
-import './SetRow.scss'
+import React, { useState } from "react";
+import "./SetRow.scss";
 
 /**
- * 
+ *
  * Renders one individual set row
- * 
- * Displays: 
+ *
+ * Displays:
  * - Set number
  * - Target Reps
  * - Inputs for actual reps + weight
- * 
+ *
  * Does NOT:
  * - Fetch data
  * - Manage session state
  */
-import { Check } from 'lucide-react';
+import { Check } from "lucide-react";
 function SetRow({ set, index, onRepsBlur, onWeightBlur }) {
-    return (
-        <div className="set-row">
-            <div className="set-row__label">
-                Set {index + 1}
-            </div>
+  const [isChecked, setIsChecked] = useState(false);
 
-            <div className="set-row__inputs">
-                <input
-                    className="set-row__input"
-                    type="number"
-                    placeholder="kg"
-                    defaultValue={set.actualWeight ?? ""}
-                    onBlur={(e) => onWeightBlur(e, set.id)}
-                />
+  function handleCheck() {
+    setIsChecked(!isChecked);
+  }
 
-                <input
-                    className="set-row__input"
-                    type="number"
-                    placeholder="reps"
-                    defaultValue={set.actualReps ?? ""}
-                    onBlur={(e) => onRepsBlur(e, set.id)}
-                />
-            </div>
+  return (
+    <div className={isChecked ? "set-row set-row--checked" : "set-row"}>
+      <div className="set-row__label">Set {index + 1}</div>
 
-            <button className="set-row__check">
-                <Check />
-            </button>
-        </div>
-    );
+      <div className="set-row__inputs">
+        <input
+          className={`set-row__input ${isChecked ? "set-row__input--checked" : ""}`}
+          type="number"
+          placeholder="kg"
+          defaultValue={set.actualWeight ?? ""}
+          onBlur={(e) => onWeightBlur(e, set.id)}
+          disabled={isChecked}
+        />
+
+        <input
+          className={`set-row__input ${isChecked ? "set-row__input--checked" : ""}`}
+          type="number"
+          placeholder="reps"
+          defaultValue={set.actualReps ?? ""}
+          onBlur={(e) => onRepsBlur(e, set.id)}
+          disabled={isChecked}
+        />
+      </div>
+
+      <button
+        className="set-row__check"
+        onClick={handleCheck}
+        className={
+          isChecked
+            ? "set-row__check set-row__check--checked"
+            : "set-row__check"
+        }
+      >
+        <Check color={isChecked ? "white" : "#8d9eb6"} height={16} width={16} />
+      </button>
+    </div>
+  );
 }
 
-export default SetRow
+export default SetRow;

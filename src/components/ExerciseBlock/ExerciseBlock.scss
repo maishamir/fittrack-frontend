@@ -1,29 +1,60 @@
 // // @use "../../styles/abstracts/variables" as *;
 
-
-
 .exercise {
-    background-color: #131D30;
-    // border-bottom-left-radius: 1rem;
-    // border-bottom-right-radius: 1rem; 
-    border-bottom: 1px solid white;
+  background-color: #131d30;
+  // border-bottom-left-radius: 1rem;
+  // border-bottom-right-radius: 1rem;
+  border-bottom: 0.5px solid #45556ca7;
 
-    &:last-of-type {
-        border-bottom-left-radius: 1rem;
-        border-bottom-right-radius: 1rem; 
-        border-bottom: none;
-    }
+  &:last-of-type {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-bottom: none;
+  }
 
-    &__content {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 0.75rem;
-        gap: 0.5rem;
-        
+  &__header {
+    background-color: transparent;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border: none;
+    padding: 0.75rem;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: #172034;
+      cursor: pointer;
     }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  &__name {
+    color: white;
+  }
+
+  &__meta {
+    color: #90a1b9;
+  }
+
+  &__chevron {
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
 }
-
 
 // .exercise {
 //     width: 100%;
@@ -93,7 +124,5 @@
 // //         margin-top: 2rem;
 // //         // padding: 0 1.25rem 1rem 1.25rem;
 // //     }
-
-
 
 // // }

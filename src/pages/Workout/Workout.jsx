@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getSession, updateSet } from "../../api/sessions";
-import SetRow from '../../components/SetRow/SetRow';
-import axios from 'axios';
+import SetRow from "../../components/SetRow/SetRow";
+import axios from "axios";
 import "./Workout.scss";
-import ExerciseBlock from '../../components/ExerciseBlock/ExerciseBlock';
-import { X } from 'lucide-react';
+import ExerciseBlock from "../../components/ExerciseBlock/ExerciseBlock";
+import { X, Trophy } from "lucide-react";
+import Timer from "../../components/Timer/Timer";
 
 function Workout() {
   const { sessionId } = useParams();
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchSession() {
@@ -21,8 +23,8 @@ function Workout() {
     fetchSession();
   }, [sessionId]);
 
-  if (loading) return <p>Loading...</p>
-  if (!session) return <p>No session found.</p>
+  if (loading) return <p>Loading...</p>;
+  if (!session) return <p>No session found.</p>;
 
   /**
    * When user finishes typing reps and clicks away, send that number to the backend to save it
@@ -32,7 +34,6 @@ function Workout() {
     const rawValue = event.target.value;
     console.log("Reps blur triggered for set:", setId);
 
-
     // convet empty string to null
     const parsedReps = rawValue === "" ? null : Number(rawValue);
 
@@ -41,9 +42,9 @@ function Workout() {
 
       await updateSet(setId, {
         actualReps: parsedReps,
-      })
+      });
     } catch (error) {
-      console.error("Failed to update reps: ", error)
+      console.error("Failed to update reps: ", error);
     }
   }
 
@@ -59,9 +60,9 @@ function Workout() {
     try {
       await updateSet(setId, {
         actualWeight: parsedWeight,
-      })
+      });
     } catch (error) {
-      console.error("Failed to update weight: ", error)
+      console.error("Failed to update weight: ", error);
     }
   }
 
@@ -80,7 +81,7 @@ function Workout() {
       }
 
       grouped[section].push(exercise);
-    })
+    });
 
     return grouped;
   }
@@ -88,24 +89,25 @@ function Workout() {
   const groupedExercises = groupExercisesBySection(session.sessionExercises);
   const totalSets = session.sessionExercises.reduce(
     (total, exercise) => total + exercise.sessionSets.length,
-    0
+    0,
   );
 
   return (
-    <div className='workout'>
+    <div className="workout">
       <div className="workout__header">
         <div className="workout__header-left">
-          <h2 className='workout__title'>{session.routineNameSnapshot}</h2>
+          <h2 className="workout__title">{session.routineNameSnapshot}</h2>
           <p className="workout__progress">0/{totalSets} sets completed</p>
         </div>
-        <button className='workout__close-button'><X className='close__icon'/></button>
-      </div>
-
-
+        <button className="workout__close-button" onClick={() => navigate("/")}>
+          <X color="#90A1B9" height={20} width={20} />
+        </button>
+          </div>
+          
+          <Timer />
 
       {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
         <div key={sectionName} className="section-card">
-
           <div className="section-card__header">
             <h3 className="section-card__title">{sectionName}</h3>
           </div>
@@ -120,11 +122,14 @@ function Workout() {
               />
             ))}
           </div>
-
         </div>
       ))}
+
+      <button className="workout__complete-button">
+        <Trophy height={20} width={20} /> Finish Workout
+      </button>
     </div>
-  )
+  );
 }
 
-export default Workout
+export default Workout;
