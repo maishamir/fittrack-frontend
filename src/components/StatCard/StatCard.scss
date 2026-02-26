@@ -1,0 +1,47 @@
+.statCard {
+  padding: 0.875rem;
+  height: 100%;
+  flex: 1;
+  border-radius: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  &__content {
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  &__label {
+    color: #90A1B9;
+    font-size: 0.65rem;
+  }
+}
+
+#statCard--streak {
+  // background-color: rgba(255, 106, 0, 0.2);
+
+  background: linear-gradient(
+    0deg,
+    hsla(25, 100%, 50%, 0.1) 0%,
+    hsla(25, 100%, 50%, 0.05) 100%
+  );
+  border: 1px solid rgba(255, 106, 0, 0.2);
+}
+
+#statCard--total {
+  border: 1px solid rgba(43, 128, 255, 0.2);
+  background: linear-gradient(
+    0deg,
+    rgba(43, 128, 255, 0.1) 0%,
+    rgba(43, 128, 255, 0.05) 100%
+  );
+}
+
+#statCard--today {
+  border: 1px solid rgba(172, 70, 255, 0.2);
+  background: linear-gradient(
+    0deg,
+    rgba(172, 70, 255, 0.1) 0%,
+    rgba(172, 70, 255, 0.05) 100%
+  );
+}

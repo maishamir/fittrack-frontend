@@ -1,0 +1,15 @@
+.home {
+    max-width: 575px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    &__stats {
+        margin-top: 0.75rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.625rem;
+        margin-bottom: 1.25rem;
+    }
+}
