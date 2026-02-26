@@ -36,7 +36,7 @@
     transition: all 0.15s ease-in-out;
 
     &:hover {
-        background-color: #253146;
+      background-color: #253146;
     }
   }
 
@@ -76,6 +76,8 @@
 }
 
 .section-card {
+  border: 1px solid #314158;
+  border-radius: 0.875rem;
   &__header {
     background-color: #172034;
     padding: 0.5rem 0.75rem;

@@ -1,0 +1,39 @@
+.timer {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #314158;
+  background-color: rgba(29, 41, 61, 0.5);
+  padding: 0.75rem;
+  border-radius: 0.875rem;
+  margin-bottom: 1rem;
+  // align-items: center
+
+  &__display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__buttons {
+    @extend .timer__display;
+
+    &--play {
+      height: 2rem;
+      width: 2rem;
+      background-color: #2b7fff;
+      border: none;
+      border-radius: 0.625rem;
+      cursor: pointer;
+      
+    }
+
+    &--restart {
+      height: 2rem;
+      width: 2rem;
+      background-color: #314158;
+      border: none;
+      border-radius: 0.625rem;
+      cursor: pointer;
+    }
+  }
+}

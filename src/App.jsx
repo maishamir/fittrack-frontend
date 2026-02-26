@@ -7,7 +7,7 @@ import "./App.scss";
 function App() {
   return (
     <div className="app">
-      <Header />
+      {/* <Header /> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
