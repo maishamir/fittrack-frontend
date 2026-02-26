@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import { Flame, TrendingUp, Calendar, CheckCircle2 } from "lucide-react";
 import "./Home.scss";
 import StatCard from "../../components/StatCard/StatCard";
+import Message from "../../components/Message/Message";
 
 function Home() {
   const [routines, setRoutines] = useState([]);
@@ -40,6 +41,8 @@ function Home() {
         <StatCard icon={<TrendingUp color="#51A2FF"/>} text={"total"} cardContent={"1"} />
         <StatCard icon={<Calendar color="#C27AFF"/>} text={"today"} cardContent={<CheckCircle2 width={20} height={20}/>} />
       </div>
+
+      <Message />
 
       <h2>Your Routines</h2>
       {routines.map((routine) => (
