@@ -7,6 +7,7 @@ import "./Home.scss";
 import StatCard from "../../components/StatCard/StatCard";
 import Message from "../../components/Message/Message";
 import ScheduledCard from "../../components/Scheduled/Scheduled";
+import RoutineCard from "../../components/RoutineCard/RoutineCard";
 
 function Home() {
   const [routines, setRoutines] = useState([]);
@@ -38,9 +39,9 @@ function Home() {
       <Header />
 
       <div className="home__stats">
-        <StatCard icon={<Flame color="#FF8904"/>} text={"streak"} cardContent={"0"} />
-        <StatCard icon={<TrendingUp color="#51A2FF"/>} text={"total"} cardContent={"0"} />
-        <StatCard icon={<Calendar color="#C27AFF"/>} text={"today"} cardContent={"—"} />
+        <StatCard icon={<Flame color="#FF8904" />} text={"streak"} cardContent={"0"} />
+        <StatCard icon={<TrendingUp color="#51A2FF" />} text={"total"} cardContent={"0"} />
+        <StatCard icon={<Calendar color="#C27AFF" />} text={"today"} cardContent={"—"} />
         {/* <StatCard icon={<Calendar color="#C27AFF"/>} text={"today"} cardContent={<CheckCircle2 width={20} height={20}/>} /> */}
       </div>
 
@@ -48,8 +49,8 @@ function Home() {
       <p className="home__section-title">Scheduled Today</p>
       <ScheduledCard />
 
-      <h2>Your Routines</h2>
-      {routines.map((routine) => (
+      <p className="home__section-title">Your Routines</p>
+      {/* {routines.map((routine) => (
         <div
           key={routine.id}
           style={{ display: "flex", gap: 12, alignItems: "center" }}
@@ -62,7 +63,26 @@ function Home() {
             {loadingId === routine.id ? "Starting..." : "Play"}
           </button>
         </div>
+      ))} */}
+
+      <p className="home__section-title">Your Routines</p>
+
+      {routines.map((routine) => (
+        <RoutineCard
+          key={routine.id}
+          routineName={routine.name}
+          numExercises={routine.numExercises} // adjust these prop names based on your data structure
+          numSets={routine.numSets}
+          onStart={() => handleStart(routine.id)}
+          isLoading={loadingId === routine.id}
+        />
       ))}
+
+      {/* {routines.map((routine) => (
+        <RoutineCard routineId={routine.id} routineName={routine.name} numExercises={6} numSets={17} />
+      ))} */}
+
+      {/* <RoutineCard routineName={"Push Day"} numExercises={6} numSets={17} /> */}
     </div>
   );
 }
