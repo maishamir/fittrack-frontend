@@ -50,22 +50,6 @@ function Home() {
       <ScheduledCard />
 
       <p className="home__section-title">Your Routines</p>
-      {/* {routines.map((routine) => (
-        <div
-          key={routine.id}
-          style={{ display: "flex", gap: 12, alignItems: "center" }}
-        >
-          <div>{routine.name}</div>
-          <button
-            onClick={() => handleStart(routine.id)}
-            disabled={loadingId == routine.id}
-          >
-            {loadingId === routine.id ? "Starting..." : "Play"}
-          </button>
-        </div>
-      ))} */}
-
-      <p className="home__section-title">Your Routines</p>
 
       {routines.map((routine) => (
         <RoutineCard
@@ -77,12 +61,6 @@ function Home() {
           isLoading={loadingId === routine.id}
         />
       ))}
-
-      {/* {routines.map((routine) => (
-        <RoutineCard routineId={routine.id} routineName={routine.name} numExercises={6} numSets={17} />
-      ))} */}
-
-      {/* <RoutineCard routineName={"Push Day"} numExercises={6} numSets={17} /> */}
     </div>
   );
 }
