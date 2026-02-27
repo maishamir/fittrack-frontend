@@ -6,6 +6,7 @@ import { Flame, TrendingUp, Calendar, CheckCircle2 } from "lucide-react";
 import "./Home.scss";
 import StatCard from "../../components/StatCard/StatCard";
 import Message from "../../components/Message/Message";
+import ScheduledCard from "../../components/Scheduled/Scheduled";
 
 function Home() {
   const [routines, setRoutines] = useState([]);
@@ -44,6 +45,8 @@ function Home() {
       </div>
 
       <Message />
+      <p className="home__section-title">Scheduled Today</p>
+      <ScheduledCard />
 
       <h2>Your Routines</h2>
       {routines.map((routine) => (
