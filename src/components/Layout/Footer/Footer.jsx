@@ -14,7 +14,7 @@ function Footer() {
                     </div>
                 </li>
                 <li>
-                    <div className="footer__item">
+                    <div className="footer__item" onClick={() => navigate('/calendar')}>
                         <CalendarDays className='footer__icon' />
                         <small className='footer__label'>Calendar</small>
                     </div>

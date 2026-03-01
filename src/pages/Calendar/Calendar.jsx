@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import "./Calendar.scss";
+import Layout from '../../components/Layout/Layout';
 
 // WHY A SEPARATE CALENDAR COMPONENT?
 // We're making this its own component so it can be reused anywhere in your app
@@ -204,126 +205,128 @@ function Calendar({ onDateSelect }) {
         // Main container for the entire calendar
         // WHY a div? Because we need a single parent element to wrap everything
         // className lets us style this later with CSS
-        <div className="calendar">
+        <Layout >
+            <div className="calendar">
 
-            {/* HEADER - Shows month/year and navigation arrows */}
-            {/* WHY a separate div? To group the header elements together for styling */}
-            <div className="calendar__header">
+                {/* HEADER - Shows month/year and navigation arrows */}
+                {/* WHY a separate div? To group the header elements together for styling */}
+                <div className="calendar__header">
 
-                {/* Display the current month and year */}
-                {/* WHY h2? It's a heading, and h2 is appropriate for a section title */}
-                <h2 className="calendar__month-year">{getMonthYearDisplay()}</h2>
+                    {/* Display the current month and year */}
+                    {/* WHY h2? It's a heading, and h2 is appropriate for a section title */}
+                    <h2 className="calendar__month-year">{getMonthYearDisplay()}</h2>
 
-                {/* Navigation buttons container */}
-                {/* WHY a separate div? To group the arrows together on the right side */}
-                <div className="calendar__nav">
+                    {/* Navigation buttons container */}
+                    {/* WHY a separate div? To group the arrows together on the right side */}
+                    <div className="calendar__nav">
 
-                    {/* PREVIOUS MONTH BUTTON */}
-                    {/* WHY button? Buttons are semantic - screen readers know it's clickable */}
-                    {/* onClick tells React "when this is clicked, run goToPreviousMonth" */}
-                    <button
-                        onClick={goToPreviousMonth}
-                        className="calendar__nav-btn"
-                        aria-label="Previous month"  // For screen readers/accessibility
-                    >
-                        {/* Using lucide-react icon for a clean left arrow */}
-                        {/* WHY an icon library? Looks better than text and is consistent */}
-                        <ChevronLeft />
-                    </button>
+                        {/* PREVIOUS MONTH BUTTON */}
+                        {/* WHY button? Buttons are semantic - screen readers know it's clickable */}
+                        {/* onClick tells React "when this is clicked, run goToPreviousMonth" */}
+                        <button
+                            onClick={goToPreviousMonth}
+                            className="calendar__nav-btn"
+                            aria-label="Previous month"  // For screen readers/accessibility
+                        >
+                            {/* Using lucide-react icon for a clean left arrow */}
+                            {/* WHY an icon library? Looks better than text and is consistent */}
+                            <ChevronLeft />
+                        </button>
 
-                    {/* NEXT MONTH BUTTON */}
-                    {/* Same concept as previous button, but goes forward */}
-                    <button
-                        onClick={goToNextMonth}
-                        className="calendar__nav-btn"
-                        aria-label="Next month"
-                    >
-                        <ChevronRight />
-                    </button>
-                </div>
-            </div>
-
-
-            {/* CALENDAR GRID - Where all the magic happens */}
-            {/* WHY a separate div? To contain the entire grid structure */}
-            <div className="calendar__grid">
-
-                {/* DAY NAME HEADERS (S, M, T, W, T, F, S) */}
-                {/* We map over the day names array to create one cell for each day */}
-                {/* WHY .map()? It's the React way to create multiple similar elements from an array */}
-                {getDayNames().map((dayName, index) => (
-                    // Each day name gets its own div
-                    // WHY a key? React needs a unique identifier for each item in a list
-                    // We use index because day names never change order or get added/removed
-                    <div
-                        key={index}
-                        className="calendar__day-name"
-                    >
-                        {dayName}
+                        {/* NEXT MONTH BUTTON */}
+                        {/* Same concept as previous button, but goes forward */}
+                        <button
+                            onClick={goToNextMonth}
+                            className="calendar__nav-btn"
+                            aria-label="Next month"
+                        >
+                            <ChevronRight />
+                        </button>
                     </div>
-                ))}
+                </div>
 
 
-                {/* DAY CELLS (1, 2, 3... 31) */}
-                {/* We map over our generated calendar days to create the grid of numbers */}
-                {generateCalendarDays().map((day, index) => (
-                    // Each day gets a div
-                    // WHY key={index}? Because we need unique keys, and the index works here
-                    // (the array doesn't change after it's created)
-                    <div
-                        key={index}
-                        className="calendar__day-cell"
-                    >
-                        {/* CONDITIONAL RENDERING: Only show a button if day is NOT null */}
-                        {/* WHY? Because null represents empty cells before the month starts */}
-                        {/* Example: If month starts on Wednesday, first 3 cells are empty */}
-                        {day !== null && (
-                            // Each actual day is a BUTTON (so it's clickable and accessible)
-                            // WHY button? It's clickable and screen readers know it's interactive
-                            <button
-                                onClick={() => handleDayClick(day)}  // When clicked, call our handler with the day number
-                                className={`
+                {/* CALENDAR GRID - Where all the magic happens */}
+                {/* WHY a separate div? To contain the entire grid structure */}
+                <div className="calendar__grid">
+
+                    {/* DAY NAME HEADERS (S, M, T, W, T, F, S) */}
+                    {/* We map over the day names array to create one cell for each day */}
+                    {/* WHY .map()? It's the React way to create multiple similar elements from an array */}
+                    {getDayNames().map((dayName, index) => (
+                        // Each day name gets its own div
+                        // WHY a key? React needs a unique identifier for each item in a list
+                        // We use index because day names never change order or get added/removed
+                        <div
+                            key={index}
+                            className="calendar__day-name"
+                        >
+                            {dayName}
+                        </div>
+                    ))}
+
+
+                    {/* DAY CELLS (1, 2, 3... 31) */}
+                    {/* We map over our generated calendar days to create the grid of numbers */}
+                    {generateCalendarDays().map((day, index) => (
+                        // Each day gets a div
+                        // WHY key={index}? Because we need unique keys, and the index works here
+                        // (the array doesn't change after it's created)
+                        <div
+                            key={index}
+                            className="calendar__day-cell"
+                        >
+                            {/* CONDITIONAL RENDERING: Only show a button if day is NOT null */}
+                            {/* WHY? Because null represents empty cells before the month starts */}
+                            {/* Example: If month starts on Wednesday, first 3 cells are empty */}
+                            {day !== null && (
+                                // Each actual day is a BUTTON (so it's clickable and accessible)
+                                // WHY button? It's clickable and screen readers know it's interactive
+                                <button
+                                    onClick={() => handleDayClick(day)}  // When clicked, call our handler with the day number
+                                    className={`
                   calendar__day-btn
                   ${isToday(day) ? 'calendar__day-btn--today' : ''}  
                   ${isSelectedDay(day) ? 'calendar__day-btn--selected' : ''}
                 `}
-                            // The className uses TEMPLATE LITERALS (the backticks) to conditionally add classes
-                            // WHY? So we can style today differently (maybe a circle) and selected day differently (maybe highlighted)
-                            // The ${} syntax lets us insert JavaScript expressions into the string
-                            // The ternary operator (condition ? ifTrue : ifFalse) adds a class only when the condition is true
-                            >
-                                {day}  {/* Display the actual day number */}
-                            </button>
-                        )}
+                                // The className uses TEMPLATE LITERALS (the backticks) to conditionally add classes
+                                // WHY? So we can style today differently (maybe a circle) and selected day differently (maybe highlighted)
+                                // The ${} syntax lets us insert JavaScript expressions into the string
+                                // The ternary operator (condition ? ifTrue : ifFalse) adds a class only when the condition is true
+                                >
+                                    {day}  {/* Display the actual day number */}
+                                </button>
+                            )}
+                        </div>
+                    ))}
+
+                </div>
+
+
+                {/* LEGEND - Shows what the colors mean */}
+                {/* This matches your design with "Completed" and "Scheduled" indicators */}
+                <div className="calendar__legend">
+
+                    {/* Completed indicator */}
+                    {/* WHY separate divs? So each legend item can have its own dot + text */}
+                    <div className="calendar__legend-item">
+                        {/* The dot - a small colored circle */}
+                        {/* WHY a span? It's inline and good for small decorative elements */}
+                        <span className="calendar__legend-dot calendar__legend-dot--completed"></span>
+                        {/* The label text */}
+                        <span className="calendar__legend-label">Completed</span>
                     </div>
-                ))}
 
-            </div>
+                    {/* Scheduled indicator */}
+                    <div className="calendar__legend-item">
+                        <span className="calendar__legend-dot calendar__legend-dot--scheduled"></span>
+                        <span className="calendar__legend-label">Scheduled</span>
+                    </div>
 
-
-            {/* LEGEND - Shows what the colors mean */}
-            {/* This matches your design with "Completed" and "Scheduled" indicators */}
-            <div className="calendar__legend">
-
-                {/* Completed indicator */}
-                {/* WHY separate divs? So each legend item can have its own dot + text */}
-                <div className="calendar__legend-item">
-                    {/* The dot - a small colored circle */}
-                    {/* WHY a span? It's inline and good for small decorative elements */}
-                    <span className="calendar__legend-dot calendar__legend-dot--completed"></span>
-                    {/* The label text */}
-                    <span className="calendar__legend-label">Completed</span>
-                </div>
-
-                {/* Scheduled indicator */}
-                <div className="calendar__legend-item">
-                    <span className="calendar__legend-dot calendar__legend-dot--scheduled"></span>
-                    <span className="calendar__legend-label">Scheduled</span>
                 </div>
 
             </div>
-
-        </div>
+        </Layout>
     );
 }
 
