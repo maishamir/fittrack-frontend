@@ -8,8 +8,6 @@ import Layout from '../../components/Layout/Layout';
 // Think of it like a LEGO block - you build it once, use it everywhere
 
 function Calendar({ onDateSelect }) {
-    // ===== STATE MANAGEMENT =====
-    // State is like the component's memory - it remembers things between re-renders
 
     // currentDate holds what month/year we're currently looking at
     // We initialize it with "new Date()" which gives us RIGHT NOW (today)
@@ -18,17 +16,10 @@ function Calendar({ onDateSelect }) {
 
     // selectedDate remembers which day the user clicked on
     // We start with null because the user hasn't clicked anything yet
-    // WHY null? null means "nothing selected yet" - it's like an empty box
     const [selectedDate, setSelectedDate] = useState(null);
 
 
-    // ===== HELPER FUNCTIONS =====
-    // These are like little mini-programs that do specific tasks
-    // We define them INSIDE the component so they have access to our state
-
-
     // This function moves us to the PREVIOUS month
-    // Think of it like pressing the "back" button on a calendar
     function goToPreviousMonth() {
         // We create a NEW date object (we don't modify the old one - that's a React no-no)
         const newDate = new Date(currentDate);
@@ -47,7 +38,6 @@ function Calendar({ onDateSelect }) {
 
 
     // This function moves us to the NEXT month
-    // It's basically the opposite of goToPreviousMonth
     function goToNextMonth() {
         const newDate = new Date(currentDate);
 
