@@ -5,8 +5,9 @@ import SetRow from "../../components/SetRow/SetRow";
 import axios from "axios";
 import "./Workout.scss";
 import ExerciseBlock from "../../components/ExerciseBlock/ExerciseBlock";
-import { X, Trophy } from "lucide-react";
+import { X, Trophy} from "lucide-react";
 import Timer from "../../components/Timer/Timer";
+import Layout from "../../components/Layout/Layout";
 
 function Workout() {
   const { sessionId } = useParams();
@@ -93,42 +94,44 @@ function Workout() {
   );
 
   return (
-    <div className="workout">
-      <div className="workout__header">
-        <div className="workout__header-left">
-          <h2 className="workout__title">{session.routineNameSnapshot}</h2>
-          <p className="workout__progress">0/{totalSets} sets completed</p>
+    <Layout>
+      <div className="workout">
+        <div className="workout__header">
+          <div className="workout__header-left">
+            <h2 className="workout__title">{session.routineNameSnapshot}</h2>
+            <p className="workout__progress">0/{totalSets} sets completed</p>
+          </div>
+          <button className="workout__close-button" onClick={() => navigate("/")}>
+            <X color="#90A1B9" height={20} width={20} />
+          </button>
         </div>
-        <button className="workout__close-button" onClick={() => navigate("/")}>
-          <X color="#90A1B9" height={20} width={20} />
+
+        <Timer />
+
+        {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
+          <div key={sectionName} className="section-card">
+            <div className="section-card__header">
+              <h3 className="section-card__title">{sectionName}</h3>
+            </div>
+
+            <div className="section-card__body">
+              {exercises.map((exercise) => (
+                <ExerciseBlock
+                  key={exercise.id}
+                  exercise={exercise}
+                  onRepsBlur={handleRepsBlur}
+                  onWeightBlur={handleWeightBlur}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <button className="workout__complete-button">
+          <Trophy height={20} width={20} /> Finish Workout
         </button>
-          </div>
-          
-          <Timer />
-
-      {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
-        <div key={sectionName} className="section-card">
-          <div className="section-card__header">
-            <h3 className="section-card__title">{sectionName}</h3>
-          </div>
-
-          <div className="section-card__body">
-            {exercises.map((exercise) => (
-              <ExerciseBlock
-                key={exercise.id}
-                exercise={exercise}
-                onRepsBlur={handleRepsBlur}
-                onWeightBlur={handleWeightBlur}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
-
-      <button className="workout__complete-button">
-        <Trophy height={20} width={20} /> Finish Workout
-      </button>
-    </div>
+      </div>
+    </Layout>
   );
 }
 

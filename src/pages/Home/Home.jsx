@@ -8,6 +8,7 @@ import StatCard from "../../components/StatCard/StatCard";
 import Message from "../../components/Message/Message";
 import ScheduledCard from "../../components/Scheduled/Scheduled";
 import RoutineCard from "../../components/RoutineCard/RoutineCard";
+import Layout from "../../components/Layout/Layout";
 
 function Home() {
   const [routines, setRoutines] = useState([]);
@@ -36,42 +37,43 @@ function Home() {
   }
 
   console.log(routines);
-  
+
   return (
-    <div className="home">
-      <Header />
+    <Layout>
+      <div className="home">
 
-      <div className="home__stats">
-        <StatCard icon={<Flame color="#FF8904" />} text={"streak"} cardContent={"0"} />
-        <StatCard icon={<TrendingUp color="#51A2FF" />} text={"total"} cardContent={"0"} />
-        <StatCard icon={<Calendar color="#C27AFF" />} text={"today"} cardContent={"—"} />
-        {/* <StatCard icon={<Calendar color="#C27AFF"/>} text={"today"} cardContent={<CheckCircle2 width={20} height={20}/>} /> */}
+        <div className="home__stats">
+          <StatCard icon={<Flame color="#FF8904" />} text={"streak"} cardContent={"0"} />
+          <StatCard icon={<TrendingUp color="#51A2FF" />} text={"total"} cardContent={"0"} />
+          <StatCard icon={<Calendar color="#C27AFF" />} text={"today"} cardContent={"—"} />
+          {/* <StatCard icon={<Calendar color="#C27AFF"/>} text={"today"} cardContent={<CheckCircle2 width={20} height={20}/>} /> */}
+        </div>
+
+        <Message />
+        <p className="home__section-title">Scheduled Today</p>
+        <ScheduledCard />
+
+        <p className="home__section-title">Your Routines</p>
+
+        {routines.map((routine) => {
+          const numExercises = routine.routineExercises?.length || 0;
+          const numSets = routine.routineExercises?.reduce((total, re) => {
+            return total + (re.routineSets?.length || 0);
+          }, 0) || 0;
+
+          return (
+            <RoutineCard
+              key={routine.id}
+              routineName={routine.name}
+              numExercises={numExercises}
+              numSets={numSets}
+              onStart={() => handleStart(routine.id)}
+              isLoading={loadingId === routine.id}
+            />
+          );
+        })}
       </div>
-
-      <Message />
-      <p className="home__section-title">Scheduled Today</p>
-      <ScheduledCard />
-
-      <p className="home__section-title">Your Routines</p>
-
-      {routines.map((routine) => {
-        const numExercises = routine.routineExercises?.length || 0;
-        const numSets = routine.routineExercises?.reduce((total, re) => {
-          return total + (re.routineSets?.length || 0);
-        }, 0) || 0;
-
-        return (
-          <RoutineCard
-            key={routine.id}
-            routineName={routine.name}
-            numExercises={numExercises}
-            numSets={numSets}
-            onStart={() => handleStart(routine.id)}
-            isLoading={loadingId === routine.id}
-          />
-        );
-      })}
-    </div>
+    </Layout>
   );
 }
 
