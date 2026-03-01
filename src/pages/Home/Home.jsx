@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getRoutines, startSession } from "../../api/routines";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/Layout/Header/Header";
 import { Flame, TrendingUp, Calendar, CheckCircle2 } from "lucide-react";
-import "./Home.scss";
 import StatCard from "../../components/Home/StatCard/StatCard";
 import Message from "../../components/Home/Message/Message";
 import ScheduledCard from "../../components/Home/Scheduled/Scheduled";
 import RoutineCard from "../../components/Home/RoutineCard/RoutineCard";
 import Layout from "../../components/Layout/Layout";
+import "./Home.scss";
+
 
 function Home() {
   const [routines, setRoutines] = useState([]);
