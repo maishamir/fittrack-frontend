@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/fitTrack-logo.png";
+import logo from "../../../assets/fitTrack-logo.png";
 import "./Header.scss"
 
 function Header() {

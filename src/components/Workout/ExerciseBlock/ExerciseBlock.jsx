@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ExerciseBlock.scss";
-import SetRow from "../Workout/SetRow/SetRow";
+import SetRow from "./../SetRow/SetRow";
 
 /**
  * Renders on execise inside a section

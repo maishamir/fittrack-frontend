@@ -4,7 +4,7 @@ import { getSession, updateSet } from "../../api/sessions";
 import SetRow from "../../components/Workout/SetRow/SetRow";
 import axios from "axios";
 import "./Workout.scss";
-import ExerciseBlock from "../../components/ExerciseBlock/ExerciseBlock";
+import ExerciseBlock from "../../components/Workout/ExerciseBlock/ExerciseBlock";
 import { X, Trophy } from "lucide-react";
 import Timer from "../../components/Workout/Timer/Timer";
 import Layout from "../../components/Layout/Layout";
