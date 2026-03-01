@@ -5,6 +5,8 @@ import Calendar from "./pages/Calendar/Calendar";
 import Header from "./components/Layout/Header/Header";
 
 import "./App.scss";
+import Routines from "./pages/Routines/Routines";
+import CreateRoutine from "./pages/CreateRoutine/CreateRoutine";
 
 function App() {
   return (
@@ -18,7 +20,7 @@ function App() {
 
           {/* New routes */}
           <Route path="/routines" element={<Routines />} />
-          <Route path="/routines/createRoutine" element={<Routines page={"create"}/> } />
+          <Route path="/routines/createRoutine" element={<CreateRoutine/> } />
         </Routes>
       </BrowserRouter>
     </div>
