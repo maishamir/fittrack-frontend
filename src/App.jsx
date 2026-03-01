@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Workout from "./pages/Workout/Workout";
+import Calendar from "./pages/Calendar/Calendar";
 import Header from "./components/Layout/Header/Header";
+
 import "./App.scss";
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/workout/:sessionId" element={<Workout />} />
+          <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </BrowserRouter>
     </div>
