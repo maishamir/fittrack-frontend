@@ -6,8 +6,13 @@
     align-items: center;
     padding: 1rem;
 
+    &__logo {
+        cursor: pointer;
+    }
+
     h1 {
         font-size: 1.125rem;
         font-weight: 400;
+        cursor: pointer;;
     }
 }
