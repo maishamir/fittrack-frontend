@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ExerciseBlock.scss";
-import SetRow from "../SetRow/SetRow";
+import SetRow from "../Workout/SetRow/SetRow";
 
 /**
  * Renders on execise inside a section
@@ -50,9 +50,9 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur }) {
             />
           ))}
         </div>
-          )}
-          
-          
+      )}
+
+
     </div>
   );
 }
