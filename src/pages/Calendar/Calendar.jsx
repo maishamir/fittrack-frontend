@@ -3,10 +3,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import "./Calendar.scss";
 import Layout from '../../components/Layout/Layout';
 
-// WHY A SEPARATE CALENDAR COMPONENT?
-// We're making this its own component so it can be reused anywhere in your app
-// Think of it like a LEGO block - you build it once, use it everywhere
-
 function Calendar({ onDateSelect }) {
 
     // currentDate holds what month/year we're currently looking at
@@ -40,9 +36,6 @@ function Calendar({ onDateSelect }) {
     // This function moves us to the NEXT month
     function goToNextMonth() {
         const newDate = new Date(currentDate);
-
-        // Same idea but we ADD 1 instead of subtract
-        // If you're in December (11) and do 11+1, JavaScript wraps to January of NEXT YEAR
         newDate.setMonth(currentDate.getMonth() + 1);
 
         setCurrentDate(newDate);
@@ -187,32 +180,20 @@ function Calendar({ onDateSelect }) {
         });
     }
 
-
-    // ===== RENDER / JSX =====
-    // This is what actually gets displayed on screen
-
     return (
-        // Main container for the entire calendar
-        // WHY a div? Because we need a single parent element to wrap everything
-        // className lets us style this later with CSS
         <Layout >
             <div className="calendar">
 
                 {/* HEADER - Shows month/year and navigation arrows */}
-                {/* WHY a separate div? To group the header elements together for styling */}
                 <div className="calendar__header">
 
                     {/* Display the current month and year */}
-                    {/* WHY h2? It's a heading, and h2 is appropriate for a section title */}
                     <h2 className="calendar__month-year">{getMonthYearDisplay()}</h2>
 
                     {/* Navigation buttons container */}
-                    {/* WHY a separate div? To group the arrows together on the right side */}
                     <div className="calendar__nav">
 
                         {/* PREVIOUS MONTH BUTTON */}
-                        {/* WHY button? Buttons are semantic - screen readers know it's clickable */}
-                        {/* onClick tells React "when this is clicked, run goToPreviousMonth" */}
                         <button
                             onClick={goToPreviousMonth}
                             className="calendar__nav-btn"
@@ -220,33 +201,26 @@ function Calendar({ onDateSelect }) {
                         >
                             {/* Using lucide-react icon for a clean left arrow */}
                             {/* WHY an icon library? Looks better than text and is consistent */}
-                            <ChevronLeft />
+                            <ChevronLeft color='white' size={20}/>
                         </button>
 
                         {/* NEXT MONTH BUTTON */}
-                        {/* Same concept as previous button, but goes forward */}
                         <button
                             onClick={goToNextMonth}
                             className="calendar__nav-btn"
                             aria-label="Next month"
                         >
-                            <ChevronRight />
+                            <ChevronRight color='white' size={20}/>
                         </button>
                     </div>
                 </div>
 
 
                 {/* CALENDAR GRID - Where all the magic happens */}
-                {/* WHY a separate div? To contain the entire grid structure */}
                 <div className="calendar__grid">
 
                     {/* DAY NAME HEADERS (S, M, T, W, T, F, S) */}
-                    {/* We map over the day names array to create one cell for each day */}
-                    {/* WHY .map()? It's the React way to create multiple similar elements from an array */}
                     {getDayNames().map((dayName, index) => (
-                        // Each day name gets its own div
-                        // WHY a key? React needs a unique identifier for each item in a list
-                        // We use index because day names never change order or get added/removed
                         <div
                             key={index}
                             className="calendar__day-name"
@@ -257,21 +231,14 @@ function Calendar({ onDateSelect }) {
 
 
                     {/* DAY CELLS (1, 2, 3... 31) */}
-                    {/* We map over our generated calendar days to create the grid of numbers */}
                     {generateCalendarDays().map((day, index) => (
-                        // Each day gets a div
-                        // WHY key={index}? Because we need unique keys, and the index works here
-                        // (the array doesn't change after it's created)
                         <div
                             key={index}
                             className="calendar__day-cell"
                         >
                             {/* CONDITIONAL RENDERING: Only show a button if day is NOT null */}
-                            {/* WHY? Because null represents empty cells before the month starts */}
-                            {/* Example: If month starts on Wednesday, first 3 cells are empty */}
                             {day !== null && (
                                 // Each actual day is a BUTTON (so it's clickable and accessible)
-                                // WHY button? It's clickable and screen readers know it's interactive
                                 <button
                                     onClick={() => handleDayClick(day)}  // When clicked, call our handler with the day number
                                     className={`
@@ -279,10 +246,6 @@ function Calendar({ onDateSelect }) {
                   ${isToday(day) ? 'calendar__day-btn--today' : ''}  
                   ${isSelectedDay(day) ? 'calendar__day-btn--selected' : ''}
                 `}
-                                // The className uses TEMPLATE LITERALS (the backticks) to conditionally add classes
-                                // WHY? So we can style today differently (maybe a circle) and selected day differently (maybe highlighted)
-                                // The ${} syntax lets us insert JavaScript expressions into the string
-                                // The ternary operator (condition ? ifTrue : ifFalse) adds a class only when the condition is true
                                 >
                                     {day}  {/* Display the actual day number */}
                                 </button>
@@ -294,16 +257,13 @@ function Calendar({ onDateSelect }) {
 
 
                 {/* LEGEND - Shows what the colors mean */}
-                {/* This matches your design with "Completed" and "Scheduled" indicators */}
                 <div className="calendar__legend">
 
                     {/* Completed indicator */}
-                    {/* WHY separate divs? So each legend item can have its own dot + text */}
                     <div className="calendar__legend-item">
                         {/* The dot - a small colored circle */}
                         {/* WHY a span? It's inline and good for small decorative elements */}
                         <span className="calendar__legend-dot calendar__legend-dot--completed"></span>
-                        {/* The label text */}
                         <span className="calendar__legend-label">Completed</span>
                     </div>
 
@@ -320,7 +280,6 @@ function Calendar({ onDateSelect }) {
     );
 }
 
-// WHY export? So other files can import and use this component
 export default Calendar;
 
 

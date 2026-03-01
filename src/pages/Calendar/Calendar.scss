@@ -1,180 +1,114 @@
-/* ===== CALENDAR STRUCTURAL CSS ===== */
-/* This file contains ONLY layout/grid structure */
-/* NO colors, fonts, borders, shadows, or decorative styles */
-
-
-/* Main calendar container */
-/* WHY? We need a wrapper to contain everything */
 .calendar {
-    /* No styles needed here for structure - just a container */
-}
+    // font-family: 'Inter', sans-serif;
+    margin-top: 1rem;
 
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-/* Header section (month/year + arrows) */
-/* WHY? We need the title on the left and arrows on the right */
-.calendar__header {
-    display: flex;
-    /* Makes children sit in a row */
-    justify-content: space-between;
-    /* Pushes month to left, arrows to right */
-    align-items: center;
-    /* Vertically centers everything */
-    margin-bottom: 20px;
-    /* Space between header and grid */
-}
+    &__month-year {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        font-weight: normal;
+    }
 
+    &__nav {
+        display: flex;
+        gap: 0.25rem;
+    }
 
-/* Month/year title */
-.calendar__month-year {
-    /* No structural styles needed - just text */
-}
+    &__nav-btn {
+        background: #1D293D;
+        border: none;
+        cursor: pointer;
+        height: 2.25rem;
+        width: 2.25rem;
+        border-radius: 0.625rem;
+    }
 
+    &__grid {
+        background: rgba(29, 41, 61, 0.50);
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        padding: 0.75rem;
+        border-radius: 0.875rem;
+        border: 1px solid #314158;
+    }
 
-/* Navigation buttons container */
-/* WHY? To keep the two arrow buttons together */
-.calendar__nav {
-    display: flex;
-    /* Puts buttons side by side */
-    gap: 10px;
-    /* Space between the two buttons */
-}
+    &__day-name {
+        text-align: center;
+        padding: 10px 0;
+        color: #90A1B9;
+        font-size: 0.75rem;
+    }
 
+    &__day-cell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-/* Individual nav buttons */
-.calendar__nav-btn {
-    /* Reset button styles so they don't look like default ugly buttons */
-    background: none;
-    border: none;
-    cursor: pointer;
-    /* Shows it's clickable */
-    padding: 8px;
-    /* Makes the clickable area bigger */
-}
+    &__day-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #CAD5E2;
+        font-size: 0.875rem;
+        font-family: 'Inter', sans-serif;
 
+        &:hover {
+            background: #31415881;
+            border-radius: 0.5rem;
+        }
 
-/* Main calendar grid */
-/* WHY? This is the MOST IMPORTANT part - it creates the 7-column calendar layout */
-.calendar__grid {
-    display: grid;
-    /* Grid layout is PERFECT for calendars */
-    grid-template-columns: repeat(7, 1fr);
-    /* 7 equal columns (Sun-Sat) */
-    /* WHY 7? Because there are 7 days in a week! */
-    /* 1fr means "1 fraction" - each column gets equal width */
-    gap: 8px;
-    /* Space between cells */
-}
+        &--today {
+            border: 1px solid rgba(43, 128, 255, 0.5);
+            background-color: rgba(43, 128, 255, 0.2);
+            border-radius: 0.725rem;
+            color: #51A2FF;
+        }
 
+        &--selected {}
+    }
 
-/* Day name headers (S, M, T, W, T, F, S) */
-/* WHY? These are the column headers showing which day is which */
-.calendar__day-name {
-    text-align: center;
-    /* Centers the letter */
-    padding: 10px 0;
-    /* Vertical space */
-}
+    &__legend {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 16px;
+    }
 
+    &__legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-/* Day cell container */
-/* WHY? Wraps each day button so we can control spacing */
-.calendar__day-cell {
-    /* The grid already handles layout, this is just a wrapper */
-    display: flex;
-    /* Allows us to center the button inside */
-    justify-content: center;
-    /* Centers horizontally */
-    align-items: center;
-    /* Centers vertically */
-}
+    &__legend-dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
 
+        &--completed {
+            background-color: #05DF72;
+        }
 
-/* Day button (the actual clickable numbers) */
-/* WHY? These are the 1, 2, 3... 31 buttons */
-.calendar__day-btn {
-    /* Reset button defaults */
-    background: none;
-    border: none;
-    cursor: pointer;
+        &--scheduled {
+            background-color: #51A2FF;
+        }
+    }
 
-    /* Make it square and centered */
-    width: 40px;
-    /* Fixed width */
-    height: 40px;
-    /* Same as width = square */
-
-    /* Center the number inside the button */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-/* Today modifier */
-/* WHY? So you can style today differently later */
-.calendar__day-btn--today {
-    /* You'll add styling here later */
-}
-
-
-/* Selected day modifier */
-/* WHY? So you can style the selected day differently later */
-.calendar__day-btn--selected {
-    /* You'll add styling here later */
-}
-
-
-/* Legend container */
-/* WHY? Shows what the colors mean at the bottom */
-.calendar__legend {
-    display: flex;
-    /* Puts items in a row */
-    justify-content: center;
-    /* Centers them horizontally */
-    gap: 20px;
-    /* Space between "Completed" and "Scheduled" */
-    margin-top: 20px;
-    /* Space above legend */
-}
-
-
-/* Individual legend item (dot + text) */
-/* WHY? Each item needs its dot and text side by side */
-.calendar__legend-item {
-    display: flex;
-    /* Dot and text in a row */
-    align-items: center;
-    /* Vertically centers them */
-    gap: 8px;
-    /* Space between dot and text */
-}
-
-
-/* Legend dot */
-/* WHY? The colored circle indicator */
-.calendar__legend-dot {
-    width: 12px;
-    /* Small circle */
-    height: 12px;
-    border-radius: 50%;
-    /* Makes it a circle (not a square) */
-    /* You'll add background colors later with modifiers */
-}
-
-
-/* Completed dot modifier */
-.calendar__legend-dot--completed {
-    /* You'll add the green background color here later */
-}
-
-
-/* Scheduled dot modifier */
-.calendar__legend-dot--scheduled {
-    /* You'll add the blue background color here later */
-}
-
-
-/* Legend label text */
-.calendar__legend-label {
-    /* No structural styles needed - just text */
+    &__legend-label {
+        font-size: 0.75rem;
+        color: #90A1B9;
+    }
 }
