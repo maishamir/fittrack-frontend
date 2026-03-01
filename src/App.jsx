@@ -15,6 +15,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/workout/:sessionId" element={<Workout />} />
           <Route path="/calendar" element={<Calendar />} />
+
+          {/* New routes */}
+          <Route path="/routines" element={<Routines />} />
+          <Route path="/routines/createRoutine" element={<Routines page={"create"}/> } />
         </Routes>
       </BrowserRouter>
     </div>
