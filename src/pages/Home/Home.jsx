@@ -34,6 +34,9 @@ function Home() {
       setLoadingId(null);
     }
   }
+
+  console.log(routines);
+  
   return (
     <div className="home">
       <Header />
@@ -51,16 +54,23 @@ function Home() {
 
       <p className="home__section-title">Your Routines</p>
 
-      {routines.map((routine) => (
-        <RoutineCard
-          key={routine.id}
-          routineName={routine.name}
-          numExercises={routine.numExercises} // adjust these prop names based on your data structure
-          numSets={routine.numSets}
-          onStart={() => handleStart(routine.id)}
-          isLoading={loadingId === routine.id}
-        />
-      ))}
+      {routines.map((routine) => {
+        const numExercises = routine.routineExercises?.length || 0;
+        const numSets = routine.routineExercises?.reduce((total, re) => {
+          return total + (re.routineSets?.length || 0);
+        }, 0) || 0;
+
+        return (
+          <RoutineCard
+            key={routine.id}
+            routineName={routine.name}
+            numExercises={numExercises}
+            numSets={numSets}
+            onStart={() => handleStart(routine.id)}
+            isLoading={loadingId === routine.id}
+          />
+        );
+      })}
     </div>
   );
 }
