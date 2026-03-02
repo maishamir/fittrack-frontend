@@ -110,6 +110,42 @@ function RoutinesList() {
                     ]
                 }
             ]
+        },
+        {
+            id: 3,
+            name: "Helloooo",
+            routineExercises: [
+                {
+                    id: 7,
+                    sectionLabel: "Warm Up",
+                    exercise: { name: "Leg Curl" },
+                    routineSets: [
+                        { targetMaxReps: 10 },
+                        { targetMaxReps: 10 },
+                        { targetMaxReps: 10 }
+                    ]
+                },
+                {
+                    id: 8,
+                    sectionLabel: "Main Workout",
+                    exercise: { name: "Leg Extension" },
+                    routineSets: [
+                        { targetMaxReps: 10 },
+                        { targetMaxReps: 10 },
+                        { targetMaxReps: 10 }
+                    ]
+                },
+                {
+                    id: 9,
+                    sectionLabel: "Cool Down",
+                    exercise: { name: "Cable Fly" },
+                    routineSets: [
+                        { targetMaxReps: 10 },
+                        { targetMaxReps: 10 },
+                        { targetMaxReps: 10 }
+                    ]
+                }
+            ]
         }
     ]);
 

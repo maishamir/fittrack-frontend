@@ -1,5 +1,5 @@
 .routines-list {
-    
+    overflow: scroll;
     margin-top: 0.75rem;
     &__header {
         display: flex;
@@ -23,6 +23,7 @@
         border: none;
         gap: 0.5rem;
         border-radius: 0.875rem;
+        cursor: pointer;
     }
 
     &__cards {

@@ -1,8 +1,11 @@
 .layout {
-    // background: linear-gradient(to bottom right, #0f0615a4, #6333d41b, #0801202b);
 
     height: 100vh;
     padding: 1rem;
+
+    &__content {
+        padding-bottom: 5rem;
+    }
 
 
 }
