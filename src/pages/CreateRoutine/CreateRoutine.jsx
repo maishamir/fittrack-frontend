@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Plus, Save, X } from 'lucide-react'
+import Layout from '../../components/Layout/Layout';
+import './CreateRoutine.scss'
+
 
 function CreateRoutine() {
-  // State for the routine name input
   const [routineName, setRoutineName] = useState('');
-  
+
   // State for the three sections (Warm Up, Main Workout, Cool Down)
   // Each section has a name and an array of exercises
   const [sections, setSections] = useState([
@@ -38,70 +40,69 @@ function CreateRoutine() {
   }
 
   return (
-    <div className="create-routine">
-      {/* Close button in top right */}
-      <button 
-        className="create-routine__close"
-        onClick={handleClose}
-      >
-        <X />
-      </button>
+    <Layout >
+      <div className="create-routine">
 
-      {/* Page title */}
-      <h1 className="create-routine__title">New Routine</h1>
+        <div className="create-routine__header">
+          <h1 className="create-routine__title">New Routine</h1>
+          <button
+            className="create-routine__close"
+            onClick={handleClose}
+          >
+            <X color='#90A1B9' size={20}/>
+          </button>
+        </div>
 
-      {/* Routine name input */}
-      <input
-        type="text"
-        className="create-routine__name-input"
-        placeholder="Routine name (e.g., Push Day)"
-        value={routineName}
-        onChange={handleRoutineNameChange}
-      />
+        <input
+          type="text"
+          className="create-routine__name-input"
+          placeholder="Routine name (e.g., Push Day)"
+          value={routineName}
+          onChange={handleRoutineNameChange}
+        />
 
-      {/* Sections container */}
-      <div className="create-routine__sections">
-        {sections.map((section) => (
-          <div key={section.id} className="create-routine__section">
-            {/* Section header with name and Add button */}
-            <div className="create-routine__section-header">
-              <h2 className="create-routine__section-name">{section.name}</h2>
-              <button 
-                className="create-routine__add-btn"
-                onClick={() => handleAddExercise(section.id)}
-              >
-                <Plus />
-                Add
-              </button>
+        {/* Sections container */}
+        <div className="create-routine__sections">
+          {sections.map((section) => (
+            <div key={section.id} className="create-routine__section">
+              <div className="create-routine__section-header">
+                <h2 className="create-routine__section-name">{section.name}</h2>
+                <button
+                  className="create-routine__add-btn"
+                  onClick={() => handleAddExercise(section.id)}
+                >
+                  <Plus size={14} />
+                  Add
+                </button>
+              </div>
+
+              {/* Section content - either exercises or "No exercises" message */}
+              <div className="create-routine__section-content">
+                {section.exercises.length === 0 ? (
+                  <p className="create-routine__empty-message">No exercises</p>
+                ) : (
+                  <div className="create-routine__exercises">
+                    {section.exercises.map((exercise) => (
+                      <div key={exercise.id} className="create-routine__exercise">
+                        {exercise.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
+          ))}
+        </div>
 
-            {/* Section content - either exercises or "No exercises" message */}
-            <div className="create-routine__section-content">
-              {section.exercises.length === 0 ? (
-                <p className="create-routine__empty-message">No exercises</p>
-              ) : (
-                <div className="create-routine__exercises">
-                  {section.exercises.map((exercise) => (
-                    <div key={exercise.id} className="create-routine__exercise">
-                      {exercise.name}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
+        <button
+          className="create-routine__save-btn"
+          onClick={handleSaveRoutine}
+        >
+          <Save />
+          Save Routine
+        </button>
       </div>
-
-      {/* Save button at bottom */}
-      <button 
-        className="create-routine__save-btn"
-        onClick={handleSaveRoutine}
-      >
-        <Save />
-        Save Routine
-      </button>
-    </div>
+    </Layout>
   );
 }
 
