@@ -3,10 +3,11 @@ import { Plus, Save, X } from 'lucide-react'
 import Layout from '../../components/Layout/Layout';
 import './CreateRoutine.scss'
 import { useNavigate } from 'react-router-dom';
-
+import SelectExerciseModal from '../../components/SelectExerciseModal/SelectExerciseModal';
 
 function CreateRoutine() {
   const [routineName, setRoutineName] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   // State for the three sections (Warm Up, Main Workout, Cool Down)
@@ -71,7 +72,7 @@ function CreateRoutine() {
                 <h2 className="create-routine__section-name">{section.name}</h2>
                 <button
                   className="create-routine__add-btn"
-                  onClick={() => handleAddExercise(section.id)}
+                  onClick={() => setIsModalOpen(true)}
                 >
                   <Plus size={14} />
                   Add
@@ -95,6 +96,8 @@ function CreateRoutine() {
             </div>
           ))}
         </div>
+
+        <SelectExerciseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
         <button
           className="create-routine__save-btn"

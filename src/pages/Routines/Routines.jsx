@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { Plus, Play } from 'lucide-react'
 import "./Routines.scss";
 import Layout from '../../components/Layout/Layout';
+import SelectExerciseModal from "../../components/SelectExerciseModal/SelectExerciseModal";
 
 function RoutinesList() {
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(true);
 
     // State to hold all routines
     // HARDCODED TEST DATA - Replace with actual API call later
@@ -202,6 +204,7 @@ function RoutinesList() {
         <Layout >
             <div className="routines-list">
                 {/* Header with title and New button */}
+                <SelectExerciseModal />
                 <div className="routines-list__header">
                     <h1 className="routines-list__title">Routines</h1>
                     <button
