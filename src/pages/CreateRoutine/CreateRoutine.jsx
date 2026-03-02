@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { Plus, Save, X } from 'lucide-react'
 import Layout from '../../components/Layout/Layout';
 import './CreateRoutine.scss'
+import { useNavigate } from 'react-router-dom';
 
 
 function CreateRoutine() {
   const [routineName, setRoutineName] = useState('');
+  const navigate = useNavigate();
 
   // State for the three sections (Warm Up, Main Workout, Cool Down)
   // Each section has a name and an array of exercises
@@ -49,7 +51,7 @@ function CreateRoutine() {
             className="create-routine__close"
             onClick={handleClose}
           >
-            <X color='#90A1B9' size={20}/>
+            <X color='#90A1B9' size={20} onClick={() => navigate("/routines")}/>
           </button>
         </div>
 
