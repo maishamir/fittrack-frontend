@@ -60,6 +60,7 @@ function Home() {
           const numSets = routine.routineExercises?.reduce((total, re) => {
             return total + (re.routineSets?.length || 0);
           }, 0) || 0;
+          
 
           return (
             <RoutineCard

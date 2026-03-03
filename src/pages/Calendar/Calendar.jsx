@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import "./Calendar.scss";
 import Layout from '../../components/Layout/Layout';
+import ScheduleWorkoutModal from '../../components/ScheduleWorkoutModal/ScheduleWorkoutModal';
 
 function Calendar({ onDateSelect }) {
+
+    // state to check to set open or close status on routine selector modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // currentDate holds what month/year we're currently looking at
     // We initialize it with "new Date()" which gives us RIGHT NOW (today)
@@ -56,6 +60,7 @@ function Calendar({ onDateSelect }) {
 
         // Update our selectedDate state so we remember what they clicked
         setSelectedDate(clickedDate);
+        setIsModalOpen(true);
 
         // Call the onDateSelect function that was passed in as a prop
         // This lets the PARENT component know "hey, the user picked a date!"
@@ -64,6 +69,7 @@ function Calendar({ onDateSelect }) {
         if (onDateSelect) {
             onDateSelect(clickedDate);
         }
+        
     }
 
 
@@ -276,6 +282,8 @@ function Calendar({ onDateSelect }) {
                 </div>
 
             </div>
+        <ScheduleWorkoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} routineDate={selectedDate}/>
+
         </Layout>
     );
 }
