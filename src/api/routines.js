@@ -11,3 +11,8 @@ export async function startSession(routineId) {
     const response = await axios.post(`${BASE_URL}/routines/${routineId}/sessions`);
     return response.data;
 }
+
+export async function deleteRoutine(routineId) {
+    const response = await axios.delete(`${BASE_URL}/routines/${routineId}`)
+    return response.data;
+}
