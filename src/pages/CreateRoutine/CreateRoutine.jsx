@@ -4,6 +4,7 @@ import Layout from '../../components/Layout/Layout';
 import './CreateRoutine.scss'
 import { useNavigate } from 'react-router-dom';
 import SelectExerciseModal from '../../components/SelectExerciseModal/SelectExerciseModal';
+import { createRoutine } from '../../api/routines';
 
 function CreateRoutine() {
   const [routineName, setRoutineName] = useState('');
@@ -18,6 +19,10 @@ function CreateRoutine() {
     { id: 3, name: 'Cool Down', exercises: [] }
   ]);
 
+//   const [routine, setRoutine] = useState();
+  
+  
+
   // Handle routine name input change
   function handleRoutineNameChange(e) {
     setRoutineName(e.target.value);
@@ -31,8 +36,22 @@ function CreateRoutine() {
   }
 
   // Handle saving the routine
-  function handleSaveRoutine() {
-    console.log('Saving routine:', { routineName, sections });
+  async function handleSaveRoutine() {
+    // console.log('Saving routine:', { routineName, sections });
+
+    try {
+        const routineData = {
+            name: routineName,
+            tags: []
+        }
+
+        const response = await createRoutine(routineData)
+        console.log(response);
+        navigate("/routines")
+    } catch (error) {
+        console.error(error);
+    }   
+    
     // You'll implement the save logic here later (API call, etc.)
   }
 
