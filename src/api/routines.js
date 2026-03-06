@@ -21,3 +21,7 @@ export async function createRoutine(routineData) {
     const response = await axios.post(`${BASE_URL}/routines/`, routineData);
     return response.data;
 }
+
+// export async function addExerciseToRoutine( ) {
+
+// }

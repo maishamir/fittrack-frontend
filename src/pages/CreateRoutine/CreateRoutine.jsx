@@ -4,11 +4,12 @@ import Layout from '../../components/Layout/Layout';
 import './CreateRoutine.scss'
 import { useNavigate } from 'react-router-dom';
 import SelectExerciseModal from '../../components/SelectExerciseModal/SelectExerciseModal';
-import { createRoutine } from '../../api/routines';
+import {createRoutine } from '../../api/routines';
 
 function CreateRoutine() {
   const [routineName, setRoutineName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentSectionId, setCurrentSectionId] = useState(null);
   const navigate = useNavigate();
 
   // State for the three sections (Warm Up, Main Workout, Cool Down)
@@ -21,8 +22,6 @@ function CreateRoutine() {
 
 //   const [routine, setRoutine] = useState();
   
-  
-
   // Handle routine name input change
   function handleRoutineNameChange(e) {
     setRoutineName(e.target.value);
@@ -30,9 +29,23 @@ function CreateRoutine() {
 
   // Handle clicking the Add button for a section
   // This would open a modal or navigate to exercise selection
-  function handleAddExercise(sectionId) {
-    console.log('Add exercise to section:', sectionId);
+  function handleAddExercise(exercise) {
+    console.log(`Add exercise to section ${currentSectionId}`, exercise);
+    // todo: get the section to add to
+    // todo: add the exercise to the array (DO NOT OVERRIDE IT)
+
+    const section = sections.find(section => section.id === currentSectionId)
+    const updatedExercises = sections
+    console.log(section.exercises);
+    
+
     // You'll implement the modal/navigation logic here later
+
+  }
+
+  function handleOpenModal(sectionId) {
+    setCurrentSectionId(sectionId);
+    setIsModalOpen(true)
   }
 
   // Handle saving the routine
@@ -91,7 +104,7 @@ function CreateRoutine() {
                 <h2 className="create-routine__section-name">{section.name}</h2>
                 <button
                   className="create-routine__add-btn"
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => handleOpenModal(section.id)}
                 >
                   <Plus size={14} />
                   Add
@@ -116,7 +129,7 @@ function CreateRoutine() {
           ))}
         </div>
 
-        <SelectExerciseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <SelectExerciseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSelect={handleAddExercise}/>
 
         <button
           className="create-routine__save-btn"

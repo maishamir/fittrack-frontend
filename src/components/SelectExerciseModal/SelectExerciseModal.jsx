@@ -1,7 +1,7 @@
 import React from "react";
 import "./SelectExerciseModal.scss";
 
-function SelectExerciseModal({ isOpen, onClose }) {
+function SelectExerciseModal({ isOpen, onClose,  onSelect}) {
   // HARDCODED TEST DATA - Replace with actual API call later
   // Organized by muscle group for easy browsing
   const exercisesByMuscleGroup = {
@@ -36,11 +36,11 @@ function SelectExerciseModal({ isOpen, onClose }) {
   };
 
   // When user clicks an exercise, add it to the routine and close modal
-  function handleExerciseSelect(exercise) {
-    console.log("Selected exercise:", exercise);
-    // You'll add logic to add exercise to routine here
-    onClose();
-  }
+//   function handleExerciseSelect(exercise) {
+//     console.log("Selected exercise:", exercise);
+//     // You'll add logic to add exercise to routine here
+//     onClose();
+//   }
 
   // Don't render anything if modal is closed
   if (!isOpen) return null;
@@ -67,7 +67,7 @@ function SelectExerciseModal({ isOpen, onClose }) {
                   <button
                     key={exercise.id}
                     className="exercise-modal__exercise-btn"
-                    onClick={() => handleExerciseSelect(exercise)}
+                    onClick={() => onSelect(exercise)}
                   >
                     {exercise.name}
                   </button>
