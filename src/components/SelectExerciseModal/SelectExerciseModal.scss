@@ -7,7 +7,7 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  animation: fadeIn 0.2s ease-out;
+  animation: fadeIn 0.1s ease-out;
 }
 
 @keyframes fadeIn {
@@ -27,14 +27,16 @@
   right: 0;
   max-height: 65vh; // Takes up 80% of screen height max
   z-index: 1000; // Above backdrop
-  animation: slideUp 0.3s ease-out;
+  animation: slideUp 0.3s ease;
   background-color: #0F172B;
   border-top: 1px solid #314158;
   border-top-right-radius: 1.5rem;
+  border-top-left-radius: 1.5rem;
   
 
     &__header {
         padding: 1rem;
+        border-bottom: 0.5px solid #314158;
     }
 
     &__title {
@@ -67,7 +69,8 @@
     cursor: pointer;
     padding: 0.625rem 0.75rem;
     margin-bottom: 0.5rem;
-    border: 1px solid #314158;
+    // border: 1px solid #314158;
+    border: none;
     background-color: rgba(29, 41, 61, 0.5);
     color: white;
     border-radius: 0.875rem;
@@ -80,10 +83,11 @@
 
 // Slide up animation
 @keyframes slideUp {
-  from {
-    transform: translateY(100%); // Start below screen
+  0%, 100% {
+    transform: translateY(0); /* Start and end at the bottom */
+    /* Use translateY for performance when possible */
   }
-  to {
-    transform: translateY(0); // End at natural position
+  50% {
+    transform: translateY(-20px); /* Move 100px upwards at the midpoint */
   }
 }

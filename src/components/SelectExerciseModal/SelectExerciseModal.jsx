@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SelectExerciseModal.scss";
 import { v4 as uuidv4 } from 'uuid';
+import { getExercises } from "../../api/exercises";
 
 function SelectExerciseModal({ isOpen, onClose, onSelect }) {
+    
   // HARDCODED TEST DATA - Replace with actual API call later
   // Organized by muscle group for easy browsing
+
+  const [exercises, setExercises] = useState([]);
+
+  useEffect(() => {
+    async function fetchExercises() {
+        const data = await getExercises();
+        setExercises(data)
+    }
+    fetchExercises();
+  }, [])
+
+  console.log("EXERCISES => ", exercises);
+
+  const groupedExercises = Object.groupBy(exercises, ({primaryMuscleGroup}) => primaryMuscleGroup);
+
+  console.log("Grouped exercises: ", groupedExercises);
+  
+
   const exercisesByMuscleGroup = {
     CHEST: [
       { id: 1, name: "Bench Press" },
@@ -36,12 +56,9 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
     ],
   };
 
-  // When user clicks an exercise, add it to the routine and close modal
-  //   function handleExerciseSelect(exercise) {
-  //     console.log("Selected exercise:", exercise);
-  //     // You'll add logic to add exercise to routine here
-  //     onClose();
-  //   }
+//   fetch all exercises
+
+
 
   // Don't render anything if modal is closed
   if (!isOpen) return null;
@@ -60,7 +77,7 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
 
         {/* Scrollable list of exercises grouped by muscle */}
         <div className="exercise-modal__content">
-          {Object.entries(exercisesByMuscleGroup).map(
+          {Object.entries(groupedExercises).map(
             ([muscleGroup, exercises]) => (
               <div key={muscleGroup} className="exercise-modal__group">
                 <h3 className="exercise-modal__group-label">{muscleGroup}</h3>

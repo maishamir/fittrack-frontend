@@ -156,11 +156,8 @@ function CreateRoutine() {
                 {section.exercises.length === 0 ? (
                   <p className="create-routine__empty-message">No exercises</p>
                 ) : (
-                  <div>
+                  <div className='create-routine__exercise-sets'>
                     {section.exercises.map((exercise) => (
-                      // <div key={exercise.id} className="create-routine__exercise">
-                      //   {exercise.name}
-                      // </div>
                       <CreateSet exercise={exercise}/>
                     ))}
                   </div>

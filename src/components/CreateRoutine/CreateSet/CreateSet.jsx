@@ -17,7 +17,7 @@ function CreateSet({ exercise, onDelete }) {
           className="create-set__delete"
           onClick={() => onDelete(exercise.id)}
         >
-          <Trash2 size={20} />
+          <Trash2 size={20} color='#90A1B9'/>
         </button>
       </div>
 

@@ -1,41 +1,50 @@
 .create-set {
-    &__header {
+  display: flex;
+  //    border: 1px solid red;
+  background-color: rgba(29, 41, 61, 0.5);
+  flex-direction: column;
+  padding: 0.625rem;
+  border-radius: 0.625rem;
+  //    width: 100%;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
 
-    }
+  &__info {
+  }
 
-    &__info {
+  &__name {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: normal;
+  }
 
-    }
+  &__muscle {
+  }
 
+  &__delete {
+    background-color: transparent;
+    border: none;
+  }
 
-    &__info {
+  &__inputs {
+    display: flex;
+    gap: 0.5rem;
+  }
 
-    }
+  &__input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
 
-    &__name {
-
-    }
-
-    &__muscle {
-
-    }
-
-    &__delete {
-
-    }
-
-
-    &__inputs {
-
-    }
-
-    &__input-group {
-
-    }
-
-    &__input {
-
-    }
-
-    
+  &__input {
+    width: 100%;
+    padding: 0.375rem 0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(15, 23, 43, 0.5);
+    border: 1px solid #45556c;
+    color: white;
+  }
 }
