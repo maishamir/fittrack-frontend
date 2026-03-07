@@ -1,0 +1,49 @@
+import React, { useState } from 'react'
+import { Trash2 } from 'lucide-react'
+import "./CreateSet.scss"
+
+function CreateSet({ exercise, onDelete }) {
+  const [sets, setSets] = useState(3);
+  const [reps, setReps] = useState(10);
+
+  return (
+    <div className="create-set">
+      <div className="create-set__header">
+        <div className="create-set__info">
+          <h3 className="create-set__name">{exercise.name}</h3>
+          <p className="create-set__muscle">{exercise.muscleGroup}</p>
+        </div>
+        <button 
+          className="create-set__delete"
+          onClick={() => onDelete(exercise.id)}
+        >
+          <Trash2 size={20} />
+        </button>
+      </div>
+
+      <div className="create-set__inputs">
+        <div className="create-set__input-group">
+          <label className="create-set__label">Sets</label>
+          <input
+            type="number"
+            className="create-set__input"
+            value={sets}
+            onChange={(e) => setSets(e.target.value)}
+          />
+        </div>
+
+        <div className="create-set__input-group">
+          <label className="create-set__label">Reps</label>
+          <input
+            type="number"
+            className="create-set__input"
+            value={reps}
+            onChange={(e) => setReps(e.target.value)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default CreateSet;

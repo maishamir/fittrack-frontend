@@ -4,7 +4,9 @@ import Layout from '../../components/Layout/Layout';
 import './CreateRoutine.scss'
 import { useNavigate } from 'react-router-dom';
 import SelectExerciseModal from '../../components/SelectExerciseModal/SelectExerciseModal';
-import {createRoutine } from '../../api/routines';
+import { createRoutine } from '../../api/routines';
+import CreateSet from '../../components/CreateRoutine/CreateSet/CreateSet';
+
 
 function CreateRoutine() {
   const [routineName, setRoutineName] = useState('');
@@ -20,8 +22,8 @@ function CreateRoutine() {
     { id: 3, name: 'Cool Down', exercises: [] }
   ]);
 
-//   const [routine, setRoutine] = useState();
-  
+  //   const [routine, setRoutine] = useState();
+
   // Handle routine name input change
   function handleRoutineNameChange(e) {
     setRoutineName(e.target.value);
@@ -30,18 +32,52 @@ function CreateRoutine() {
   // Handle clicking the Add button for a section
   // This would open a modal or navigate to exercise selection
   function handleAddExercise(exercise) {
-    console.log(`Add exercise to section ${currentSectionId}`, exercise);
-    // todo: get the section to add to
-    // todo: add the exercise to the array (DO NOT OVERRIDE IT)
-
-    const section = sections.find(section => section.id === currentSectionId)
-    const updatedExercises = sections
-    console.log(section.exercises);
-    
-
-    // You'll implement the modal/navigation logic here later
-
+    const newExercise = {
+      ...exercise,
+      sets: 3,
+      reps: 10
+    }
+    const updatedSections = sections.map(section => {
+      if (section.id == currentSectionId) {
+        return {
+          ...section,
+          exercises: [...section.exercises, newExercise]
+        };
+      }
+      return section;
+    })
+    setSections(updatedSections);
+    setIsModalOpen(false)
   }
+
+
+  function handleExerciseUpdate(sectionId, exerciseId, field, value) {
+    let section = sections.find(section => section.id === sectionId);
+    let exerciseToUpdate = section.exercises.find(exercise => exercise.id === exerciseId);
+    exerciseToUpdate[field] = value;
+
+    const updatedSections = sections.map(section => {
+      if (section.id === sectionId) {
+        return {
+          ...section,
+          exercises: section.exercises.map(exercise => {
+            if (exercise.id === exerciseId) {
+              return {
+                ...exercise,
+                [field]: value
+              };
+            }
+            return exercise;
+          })
+
+        };
+      }
+      return section;
+    })
+
+    setSections(updatedSections);
+  }
+
 
   function handleOpenModal(sectionId) {
     setCurrentSectionId(sectionId);
@@ -53,18 +89,18 @@ function CreateRoutine() {
     // console.log('Saving routine:', { routineName, sections });
 
     try {
-        const routineData = {
-            name: routineName,
-            tags: []
-        }
+      const routineData = {
+        name: routineName,
+        tags: []
+      }
 
-        const response = await createRoutine(routineData)
-        console.log(response);
-        navigate("/routines")
+      const response = await createRoutine(routineData)
+      console.log(response);
+      navigate("/routines")
     } catch (error) {
-        console.error(error);
-    }   
-    
+      console.error(error);
+    }
+
     // You'll implement the save logic here later (API call, etc.)
   }
 
@@ -74,6 +110,10 @@ function CreateRoutine() {
     // You'll implement navigation back or modal close here
   }
 
+  
+
+
+  // === RENDER === ///
   return (
     <Layout >
       <div className="create-routine">
@@ -84,7 +124,7 @@ function CreateRoutine() {
             className="create-routine__close"
             onClick={handleClose}
           >
-            <X color='#90A1B9' size={20} onClick={() => navigate("/routines")}/>
+            <X color='#90A1B9' size={20} onClick={() => navigate("/routines")} />
           </button>
         </div>
 
@@ -116,11 +156,12 @@ function CreateRoutine() {
                 {section.exercises.length === 0 ? (
                   <p className="create-routine__empty-message">No exercises</p>
                 ) : (
-                  <div className="create-routine__exercises">
+                  <div>
                     {section.exercises.map((exercise) => (
-                      <div key={exercise.id} className="create-routine__exercise">
-                        {exercise.name}
-                      </div>
+                      // <div key={exercise.id} className="create-routine__exercise">
+                      //   {exercise.name}
+                      // </div>
+                      <CreateSet exercise={exercise}/>
                     ))}
                   </div>
                 )}
@@ -129,7 +170,7 @@ function CreateRoutine() {
           ))}
         </div>
 
-        <SelectExerciseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSelect={handleAddExercise}/>
+        <SelectExerciseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSelect={handleAddExercise} />
 
         <button
           className="create-routine__save-btn"
