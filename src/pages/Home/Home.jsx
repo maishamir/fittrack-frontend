@@ -36,7 +36,6 @@ function Home() {
     }
   }
 
-  console.log(routines);
 
   return (
     <Layout>
@@ -46,7 +45,6 @@ function Home() {
           <StatCard icon={<Flame color="#FF8904" />} text={"streak"} cardContent={"0"} />
           <StatCard icon={<TrendingUp color="#51A2FF" />} text={"total"} cardContent={"0"} />
           <StatCard icon={<Calendar color="#C27AFF" />} text={"today"} cardContent={"—"} />
-          {/* <StatCard icon={<Calendar color="#C27AFF"/>} text={"today"} cardContent={<CheckCircle2 width={20} height={20}/>} /> */}
         </div>
 
         <Message />

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Trash2 } from 'lucide-react'
-import "./CreateSet.scss"
+import React, { useState } from "react";
+import { Trash2 } from "lucide-react";
+import "./CreateSet.scss";
 
 function CreateSet({ exercise, onDelete }) {
   const [sets, setSets] = useState(3);
@@ -13,11 +13,12 @@ function CreateSet({ exercise, onDelete }) {
           <h3 className="create-set__name">{exercise.name}</h3>
           <p className="create-set__muscle">{exercise.muscleGroup}</p>
         </div>
-        <button 
-          className="create-set__delete"
-          onClick={() => onDelete(exercise.id)}
-        >
-          <Trash2 size={20} color='#90A1B9'/>
+        <button className="create-set__delete">
+          <Trash2
+            size={20}
+            color="#90A1B9"
+            onClick={onDelete}
+          />
         </button>
       </div>
 

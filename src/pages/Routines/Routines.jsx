@@ -20,7 +20,6 @@ function RoutinesList() {
       // You'll replace this with your actual API call
       const data = await getRoutines();
       setRoutines(data);
-
     }
 
     fetchRoutines();
@@ -46,6 +45,8 @@ function RoutinesList() {
   // Handle clicking Delete button
   async function handleDeleteRoutine(routineId) {
     const routine = routines.find((routine) => routine.id === routineId);
+    console.log("Routine => ", routine);
+
     const routineName = routine.name;
     if (
       !confirm(`Are you sure you want to delete the routine "${routineName}"?`)

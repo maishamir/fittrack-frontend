@@ -22,6 +22,7 @@ export async function createRoutine(routineData) {
     return response.data;
 }
 
-// export async function addExerciseToRoutine( ) {
-
-// }
+export async function addExerciseToRoutine(routineId) {
+    const response = await axios.post(`${BASE_URL}/${routineId}/exercises`);
+    return response.data;
+}

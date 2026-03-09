@@ -18,11 +18,9 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
     fetchExercises();
   }, [])
 
-  console.log("EXERCISES => ", exercises);
 
   const groupedExercises = Object.groupBy(exercises, ({primaryMuscleGroup}) => primaryMuscleGroup);
 
-  console.log("Grouped exercises: ", groupedExercises);
   
 
   const exercisesByMuscleGroup = {
@@ -77,7 +75,7 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
 
         {/* Scrollable list of exercises grouped by muscle */}
         <div className="exercise-modal__content">
-          {Object.entries(groupedExercises).map(
+          {Object.entries(exercisesByMuscleGroup).map(
             ([muscleGroup, exercises]) => (
               <div key={muscleGroup} className="exercise-modal__group">
                 <h3 className="exercise-modal__group-label">{muscleGroup}</h3>
