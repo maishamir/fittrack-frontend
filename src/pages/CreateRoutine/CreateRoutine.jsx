@@ -48,10 +48,6 @@ function CreateRoutine() {
   }
 
   function handleDeleteExercise(exerciseId, sectionId) {
-    // console.log(exerciseId, sectionId);
-    const routineSection = sections.find((section) => section.id === sectionId);
-    const exercisesToDeleteFrom = routineSection.exercises;
-
     const updatedSections = sections.map((section) => {
       if (section.id !== sectionId) return section;
       return {
@@ -61,7 +57,7 @@ function CreateRoutine() {
     });
 
     setSections(updatedSections);
-    // console.log(updatedSections);
+
   }
 
   function handleExerciseUpdate(sectionId, exerciseId, field, value) {
