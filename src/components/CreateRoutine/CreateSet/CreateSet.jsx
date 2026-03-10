@@ -28,7 +28,7 @@ function CreateSet({ exercise, onDelete }) {
           <input
             type="number"
             className="create-set__input"
-            value={sets}
+            placeholder={sets}
             onChange={(e) => setSets(e.target.value)}
           />
         </div>
@@ -38,7 +38,7 @@ function CreateSet({ exercise, onDelete }) {
           <input
             type="number"
             className="create-set__input"
-            value={reps}
+            placeholder={reps}
             onChange={(e) => setReps(e.target.value)}
           />
         </div>

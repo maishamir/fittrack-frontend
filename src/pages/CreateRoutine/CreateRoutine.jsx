@@ -4,7 +4,7 @@ import Layout from "../../components/Layout/Layout";
 import "./CreateRoutine.scss";
 import { useNavigate } from "react-router-dom";
 import SelectExerciseModal from "../../components/SelectExerciseModal/SelectExerciseModal";
-import { createRoutine, addExerciseToRoutine } from "../../api/routines";
+import { createRoutine } from "../../api/routines";
 import CreateSet from "../../components/CreateRoutine/CreateSet/CreateSet";
 
 function CreateRoutine() {
@@ -57,7 +57,6 @@ function CreateRoutine() {
     });
 
     setSections(updatedSections);
-
   }
 
   function handleExerciseUpdate(sectionId, exerciseId, field, value) {
@@ -96,9 +95,18 @@ function CreateRoutine() {
   // Handle saving the routine
   async function handleSaveRoutine() {
     try {
+      const routineExercisesData = sections.flatMap((section) =>
+        section.exercises.map((ex, index) => ({
+          exerciseId: ex.id,
+          sectionLabel: section.name,
+          orderIndex: index,
+        })),
+      );
+
       const routineData = {
         name: routineName,
         tags: [],
+        routineExercises: routineExercisesData,
       };
 
       const response = await createRoutine(routineData);
