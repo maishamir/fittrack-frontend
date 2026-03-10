@@ -60,31 +60,19 @@ function CreateRoutine() {
   }
 
   function handleExerciseUpdate(sectionId, exerciseId, field, value) {
-    let section = sections.find((section) => section.id === sectionId);
-    let exerciseToUpdate = section.exercises.find(
-      (exercise) => exercise.id === exerciseId,
-    );
-    exerciseToUpdate[field] = value;
-
-    const updatedSections = sections.map((section) => {
-      if (section.id === sectionId) {
+    setSections(
+      sections.map((section) => {
+        if (section.id !== sectionId) return section;
         return {
           ...section,
           exercises: section.exercises.map((exercise) => {
-            if (exercise.id === exerciseId) {
-              return {
-                ...exercise,
-                [field]: value,
-              };
-            }
-            return exercise;
+            if (exercise.id !== exerciseId) return exercise;
+            return { ...exercise, [field]: value };
           }),
         };
-      }
-      return section;
-    });
-
-    setSections(updatedSections);
+      }),
+    );
+    console.log(sections);
   }
 
   function handleOpenModal(sectionId) {
@@ -100,6 +88,12 @@ function CreateRoutine() {
           exerciseId: ex.id,
           sectionLabel: section.name,
           orderIndex: index,
+          routineSets: {
+            create: Array.from({ length: ex.sets }, (_, i) => ({
+              orderIndex: i,
+              targetExactReps: Number(ex.reps),
+            })),
+          },
         })),
       );
 
@@ -168,6 +162,9 @@ function CreateRoutine() {
                         onDelete={() =>
                           handleDeleteExercise(exercise.id, section.id)
                         }
+                        sectionId={section.id}
+                        exerciseId={exercise.id}
+                        onUpdate={handleExerciseUpdate}
                       />
                     ))}
                   </div>

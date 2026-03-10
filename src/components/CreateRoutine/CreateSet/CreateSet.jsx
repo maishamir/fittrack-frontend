@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Trash2 } from "lucide-react";
 import "./CreateSet.scss";
 
-function CreateSet({ exercise, onDelete }) {
+function CreateSet({ exercise, onDelete, onUpdate, sectionId, exerciseId }) {
   const [sets, setSets] = useState(3);
   const [reps, setReps] = useState(10);
 
@@ -14,11 +14,7 @@ function CreateSet({ exercise, onDelete }) {
           <p className="create-set__muscle">{exercise.muscleGroup}</p>
         </div>
         <button className="create-set__delete">
-          <Trash2
-            size={20}
-            color="#90A1B9"
-            onClick={onDelete}
-          />
+          <Trash2 size={20} color="#90A1B9" onClick={onDelete} />
         </button>
       </div>
 
@@ -28,8 +24,10 @@ function CreateSet({ exercise, onDelete }) {
           <input
             type="number"
             className="create-set__input"
-            placeholder={sets}
-            onChange={(e) => setSets(e.target.value)}
+            placeholder="3"
+            onChange={(e) =>
+              onUpdate(sectionId, exerciseId, "sets", e.target.value)
+            }
           />
         </div>
 
@@ -38,8 +36,10 @@ function CreateSet({ exercise, onDelete }) {
           <input
             type="number"
             className="create-set__input"
-            placeholder={reps}
-            onChange={(e) => setReps(e.target.value)}
+            placeholder="10"
+            onChange={(e) =>
+              onUpdate(sectionId, exerciseId, "reps", e.target.value)
+            }
           />
         </div>
       </div>
