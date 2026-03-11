@@ -27,6 +27,11 @@
         height: 2.25rem;
         width: 2.25rem;
         border-radius: 0.625rem;
+        transition: 0.15s ease;
+
+        &:hover {
+            background-color: #334155;
+        }
     }
 
     &__grid {

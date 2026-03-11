@@ -1,70 +1,72 @@
 .routine-modal {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    max-height: 65vh;
-    z-index: 1000;
-    background-color: #0F172B;
-    border-top: 1px solid #314158;
-    border-top-right-radius: 1.5rem;
-    border-top-left-radius: 1.5rem;
-    animation: slideUp 0.3s ease-out;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 65vh;
+  z-index: 1000;
+  background-color: #0f172b;
+  border-top: 1px solid #314158;
+  border-top-right-radius: 1.5rem;
+  border-top-left-radius: 1.5rem;
+  animation: slideUp 0.3s ease-out;
 
-    &--closing {
-        animation: slideOut 0.3s ease-out;
-    }
+  &--closing {
+    animation: slideOut 0.3s ease;
+  }
 
-    &__header {
-        padding: 1rem;
-        border-bottom: 0.7px solid #1D293D;
-    }
-    
-    &__title {
-        font-size: 1.125rem;
-        font-weight: normal;
-    }
+  &__header {
+    padding: 1rem;
+    border-bottom: 0.7px solid #1d293d;
+  }
 
-    &__selectedDate {
-        font-size: 0.875rem;
-        color: #90A1B9;
-    }
+  &__title {
+    font-size: 1.125rem;
+    font-weight: normal;
+  }
 
-    &__list {
-        overflow-y: auto;
-        max-height: calc(65vh - 60px);
-        padding: 0.75rem;
-        display: flex;
-        gap: 0.5rem;
-    }
+  &__selectedDate {
+    font-size: 0.875rem;
+    color: #90a1b9;
+  }
 
-    &__exercise-btn {
-        width: 100%;
-        padding: 0.75rem;
-        border: none;
-        border-radius: 0.875rem;
-        display: flex;
-        color: white;
-        font-size: 0.875rem;
-        background-color: rgba(29, 41, 61, 0.5);
-        border: 1px solid #314158;
-        cursor: pointer;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-    }
+  &__list {
+    overflow-y: auto;
+    max-height: calc(65vh - 60px);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
-    &__numExercises {
-        color: #90A1B9;
-    }
+  &__exercise-btn {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.875rem;
+    display: flex;
+    color: white;
+    font-size: 0.875rem;
+    background-color: rgba(29, 41, 61, 0.5);
+    border: 1px solid #314158;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
 
+  &__numExercises {
+    color: #90a1b9;
+  }
 }
 
 @keyframes slideOut {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(100%);
-    }
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0.25;
+  }
 }
