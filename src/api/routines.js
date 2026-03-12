@@ -23,3 +23,8 @@ export async function createRoutine(routineData) {
   const response = await axios.post(`${BASE_URL}/routines/`, routineData);
   return response.data;
 }
+
+export async function getRoutineById(routineId) {
+  const response = await axios.get(`${BASE_URL}/routines/${routineId}`)
+  return response.data;
+}

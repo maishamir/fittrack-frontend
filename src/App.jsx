@@ -7,6 +7,7 @@ import Header from "./components/Layout/Header/Header";
 import "./App.scss";
 import Routines from "./pages/Routines/Routines";
 import CreateRoutine from "./pages/CreateRoutine/CreateRoutine";
+import EditRoutine from "./pages/EditRoutine/EditRoutine";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           {/* New routes */}
           <Route path="/routines" element={<Routines />} />
           <Route path="/routines/createRoutine" element={<CreateRoutine/> } />
+
+          <Route path="/routines/:routineId/edit" element={<EditRoutine />}/>
+
+
         </Routes>
       </BrowserRouter>
     </div>

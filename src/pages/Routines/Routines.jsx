@@ -40,6 +40,9 @@ function RoutinesList() {
   function handleEditRoutine(routineId) {
     console.log("Editing routine:", routineId);
     // You'll add navigation to edit page here
+    console.log("Navigating...");
+
+    navigate(`/routines/${routineId}/edit`)
   }
 
   // Handle clicking Delete button
