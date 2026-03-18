@@ -2,15 +2,23 @@ import React, { useState } from "react";
 import { Trash2 } from "lucide-react";
 import "./CreateSet.scss";
 
-function CreateSet({ exercise, onDelete, onUpdate, sectionId, exerciseId }) {
+function CreateSet({
+  exercise,
+  exerciseName,
+  onDelete,
+  onUpdate,
+  sectionId,
+  exerciseId,
+}) {
   const [sets, setSets] = useState(3);
   const [reps, setReps] = useState(10);
 
+  
   return (
     <div className="create-set">
       <div className="create-set__header">
         <div className="create-set__info">
-          <h3 className="create-set__name">{exercise.name}</h3>
+          <h3 className="create-set__name">{exerciseName}</h3>
           <p className="create-set__muscle">{exercise.muscleGroup}</p>
         </div>
         <button className="create-set__delete">

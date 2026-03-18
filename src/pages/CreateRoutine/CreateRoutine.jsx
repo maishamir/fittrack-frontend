@@ -72,7 +72,6 @@ function CreateRoutine() {
         };
       }),
     );
-    console.log(sections);
   }
 
   function handleOpenModal(sectionId) {
@@ -103,7 +102,7 @@ function CreateRoutine() {
         routineExercises: routineExercisesData,
       };
 
-      const response = await createRoutine(routineData);
+      await createRoutine(routineData);
       navigate("/routines");
     } catch (error) {
       console.error(error);
@@ -162,6 +161,7 @@ function CreateRoutine() {
                         onDelete={() =>
                           handleDeleteExercise(exercise.id, section.id)
                         }
+                        exerciseName={exercise.name}
                         sectionId={section.id}
                         exerciseId={exercise.id}
                         onUpdate={handleExerciseUpdate}

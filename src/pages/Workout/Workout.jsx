@@ -101,31 +101,36 @@ function Workout() {
             <h2 className="workout__title">{session.routineNameSnapshot}</h2>
             <p className="workout__progress">0/{totalSets} sets completed</p>
           </div>
-          <button className="workout__close-button" onClick={() => navigate("/")}>
+          <button
+            className="workout__close-button"
+            onClick={() => navigate("/")}
+          >
             <X color="#90A1B9" height={20} width={20} />
           </button>
         </div>
 
         <Timer />
 
-        {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
-          <div key={sectionName} className="section-card">
-            <div className="section-card__header">
-              <h3 className="section-card__title">{sectionName}</h3>
-            </div>
+        <div className="sections">
+          {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
+            <div key={sectionName} className="section-card">
+              <div className="section-card__header">
+                <h3 className="section-card__title">{sectionName}</h3>
+              </div>
 
-            <div className="section-card__body">
-              {exercises.map((exercise) => (
-                <ExerciseBlock
-                  key={exercise.id}
-                  exercise={exercise}
-                  onRepsBlur={handleRepsBlur}
-                  onWeightBlur={handleWeightBlur}
-                />
-              ))}
+              <div className="section-card__body">
+                {exercises.map((exercise) => (
+                  <ExerciseBlock
+                    key={exercise.id}
+                    exercise={exercise}
+                    onRepsBlur={handleRepsBlur}
+                    onWeightBlur={handleWeightBlur}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
 
         <button className="workout__complete-button">
           <Trophy height={20} width={20} /> Finish Workout

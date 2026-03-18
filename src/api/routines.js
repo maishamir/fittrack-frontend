@@ -28,3 +28,8 @@ export async function getRoutineById(routineId) {
   const response = await axios.get(`${BASE_URL}/routines/${routineId}`)
   return response.data;
 }
+
+export async function editRoutine(routineId, routineData) {
+    const response = await axios.patch(`${BASE_URL}/routines/${routineId}`, routineData);
+    return response.data;
+}
