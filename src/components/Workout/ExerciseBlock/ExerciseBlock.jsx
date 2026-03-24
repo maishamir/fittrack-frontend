@@ -14,6 +14,12 @@ import { ChevronDown, ChevronUp, Check, Trophy } from "lucide-react";
 
 function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [completedSets, setCompletedSets] = useState(0);
+
+  function handleSetComplete(isNowChecked) {
+    setCompletedSets((prev) => (isNowChecked ? prev + 1 : prev - 1));
+    onSetComplete(isNowChecked);
+  }
 
   return (
     <div className="exercise">
@@ -25,7 +31,8 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete }) {
             {exercise.sessionSets.length} ×{" "}
             {exercise.sessionSets[0]?.targetExactReps ??
               `${exercise.sessionSets[0]?.targetMinReps} - ${exercise.sessionSets[0]?.targetMaxReps}`}{" "}
-            <span className="exercise__meta-marker">•</span> 0/2 done
+            <span className="exercise__meta-marker">•</span> {completedSets}/
+            {exercise.sessionSets.length} done
           </div>
         </div>
 
@@ -47,13 +54,11 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete }) {
               index={index}
               onRepsBlur={onRepsBlur}
               onWeightBlur={onWeightBlur}
-              onSetComplete={onSetComplete}
+              onSetComplete={handleSetComplete}
             />
           ))}
         </div>
       )}
-
-
     </div>
   );
 }
