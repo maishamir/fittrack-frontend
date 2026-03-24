@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Plus, Play } from "lucide-react";
 import "./Routines.scss";
-import { deleteRoutine, getRoutines } from "../../api/routines";
+import { deleteRoutine, getRoutines, startSession } from "../../api/routines";
 import Layout from "../../components/Layout/Layout";
 import SelectExerciseModal from "../../components/SelectExerciseModal/SelectExerciseModal";
 
 function RoutinesList() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [loadingId, setLoadingId] = useState(null);
 
   // State to hold all routines
   // HARDCODED TEST DATA - Replace with actual API call later
@@ -31,9 +32,16 @@ function RoutinesList() {
   }
 
   // Handle clicking the Play button
-  function handlePlayRoutine(routineId) {
-    console.log("Starting routine:", routineId);
-    // You'll add navigation to workout session here
+  async function handlePlayRoutine(routineId) {
+    try {
+        setLoadingId(routineId);
+        const session = await startSession(routineId);
+
+        const sessionId = session.id ?? session.session.Id;
+        navigate(`/workout/${sessionId}`);
+    } finally {
+        setLoadingId(null);
+    }
   }
 
   // Handle clicking Edit button

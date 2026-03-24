@@ -15,11 +15,13 @@ import "./SetRow.scss";
  * - Manage session state
  */
 import { Check } from "lucide-react";
-function SetRow({ set, index, onRepsBlur, onWeightBlur }) {
+function SetRow({ set, index, onRepsBlur, onWeightBlur, onSetComplete }) {
   const [isChecked, setIsChecked] = useState(false);
 
   function handleCheck() {
-    setIsChecked(!isChecked);
+    const currCheck = !isChecked;
+    setIsChecked(currCheck);
+    onSetComplete(currCheck);
   }
 
   return (

@@ -12,7 +12,7 @@ import SetRow from "./../SetRow/SetRow";
  */
 import { ChevronDown, ChevronUp, Check, Trophy } from "lucide-react";
 
-function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur }) {
+function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -47,6 +47,7 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur }) {
               index={index}
               onRepsBlur={onRepsBlur}
               onWeightBlur={onWeightBlur}
+              onSetComplete={onSetComplete}
             />
           ))}
         </div>

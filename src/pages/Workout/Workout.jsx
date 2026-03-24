@@ -8,11 +8,13 @@ import ExerciseBlock from "../../components/Workout/ExerciseBlock/ExerciseBlock"
 import { X, Trophy } from "lucide-react";
 import Timer from "../../components/Workout/Timer/Timer";
 import Layout from "../../components/Layout/Layout";
+import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 function Workout() {
   const { sessionId } = useParams();
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [completedSets, setCompletedSets] = useState(0)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -93,13 +95,21 @@ function Workout() {
     0,
   );
 
+
+  function handleSetComplete(isSetChecked) {
+    setCompletedSets(prev => isSetChecked ? prev + 1 : prev - 1)
+  }
+
+  console.log("COMPLETED SETS ==> ", completedSets);
+  
+
   return (
     <Layout>
       <div className="workout">
         <div className="workout__header">
           <div className="workout__header-left">
             <h2 className="workout__title">{session.routineNameSnapshot}</h2>
-            <p className="workout__progress">0/{totalSets} sets completed</p>
+            <p className="workout__progress">{completedSets}/{totalSets} sets completed</p>
           </div>
           <button
             className="workout__close-button"
@@ -108,6 +118,7 @@ function Workout() {
             <X color="#90A1B9" height={20} width={20} />
           </button>
         </div>
+          <ProgressBar totalSets={totalSets} completedSets={completedSets}/>
 
         <Timer />
 
@@ -125,6 +136,7 @@ function Workout() {
                     exercise={exercise}
                     onRepsBlur={handleRepsBlur}
                     onWeightBlur={handleWeightBlur}
+                    onSetComplete={handleSetComplete}
                   />
                 ))}
               </div>

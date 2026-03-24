@@ -26,7 +26,6 @@ function ScheduleWorkoutModal({ isOpen, onClose, routineDate }) {
   // === HELPER FUNCTIONS === //
   // Select a routine to schedule it and then close the modal
   function handleRoutineSelect(routine) {
-    console.log("Selected routine: ", routine);
     // TODO: ADD FUNCTION TO SELECT ROUTINE
     onclose();
   }
