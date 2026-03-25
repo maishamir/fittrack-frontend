@@ -289,25 +289,3 @@ function Calendar({ onDateSelect }) {
 }
 
 export default Calendar;
-
-
-// ===== HOW TO USE THIS COMPONENT =====
-// In your parent component (like Home.jsx), you'd use it like this:
-//
-// function Home() {
-//   function handleDateSelection(date) {
-//     console.log("User selected:", date);
-//     // Here you could open a modal to schedule a workout
-//     // or navigate to a workout scheduling page
-//   }
-//
-//   return (
-//     <div>
-//       <Calendar onDateSelect={handleDateSelection} />
-//     </div>
-//   );
-// }
-//
-// The onDateSelect prop is a CALLBACK FUNCTION
-// WHY? Because the Calendar component needs to tell its parent when something happens
-// This is called "lifting state up" - the parent controls what happens when a date is clicked

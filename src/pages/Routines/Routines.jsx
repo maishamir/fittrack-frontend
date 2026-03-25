@@ -34,29 +34,24 @@ function RoutinesList() {
   // Handle clicking the Play button
   async function handlePlayRoutine(routineId) {
     try {
-        setLoadingId(routineId);
-        const session = await startSession(routineId);
+      setLoadingId(routineId);
+      const session = await startSession(routineId);
 
-        const sessionId = session.id ?? session.session.Id;
-        navigate(`/workout/${sessionId}`);
+      const sessionId = session.id ?? session.session.Id;
+      navigate(`/workout/${sessionId}`);
     } finally {
-        setLoadingId(null);
+      setLoadingId(null);
     }
   }
 
   // Handle clicking Edit button
   function handleEditRoutine(routineId) {
-    console.log("Editing routine:", routineId);
-    // You'll add navigation to edit page here
-    console.log("Navigating...");
-
-    navigate(`/routines/${routineId}/edit`)
+    navigate(`/routines/${routineId}/edit`);
   }
 
   // Handle clicking Delete button
   async function handleDeleteRoutine(routineId) {
     const routine = routines.find((routine) => routine.id === routineId);
-    console.log("Routine => ", routine);
 
     const routineName = routine.name;
     if (

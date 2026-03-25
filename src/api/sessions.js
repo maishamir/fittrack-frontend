@@ -16,3 +16,8 @@ export async function completeSession(sessionId) {
     const response = await axios.patch(`${BASE_URL}/sessions/${sessionId}/complete`);
     return response.data;
 }
+
+export async function getSessionById(sessionId) {
+    const response = await axios.get(`${BASE_URL}/sessions/${sessionId}`);
+    return response.data;
+}

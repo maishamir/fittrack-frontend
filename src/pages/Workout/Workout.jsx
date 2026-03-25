@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSession, updateSet } from "../../api/sessions";
+import { getSession, updateSet, completeSession } from "../../api/sessions";
 import SetRow from "../../components/Workout/SetRow/SetRow";
 import axios from "axios";
 import "./Workout.scss";
@@ -37,7 +37,6 @@ function Workout() {
   );
 
   const isComplete = completedSets === totalSets;
-  console.log("Is complete? ", isComplete);
 
   /**
    * When user finishes typing reps and clicks away, send that number to the backend to save it
@@ -45,14 +44,11 @@ function Workout() {
 
   async function handleRepsBlur(event, setId) {
     const rawValue = event.target.value;
-    console.log("Reps blur triggered for set:", setId);
 
-    // convet empty string to null
+    // convert empty string to null
     const parsedReps = rawValue === "" ? null : Number(rawValue);
 
     try {
-      console.log("Sending value:", parsedReps);
-
       await updateSet(setId, {
         actualReps: parsedReps,
       });
@@ -99,26 +95,24 @@ function Workout() {
     return grouped;
   }
 
-  //   const groupedExercises = groupExercisesBySection(session.sessionExercises);
-  //   const totalSets = session.sessionExercises.reduce(
-  //     (total, exercise) => total + exercise.sessionSets.length,
-  //     0,
-  //   );
-
   function handleSetComplete(isSetChecked) {
     setCompletedSets((prev) => (isSetChecked ? prev + 1 : prev - 1));
   }
 
-  function handleCompleteRoutine() {
-    if (completedSets === totalSets) alert("Confettiii");
-    console.log(completedSets, totalSets);
+  async function handleCompleteRoutine() {
+    try {
+      await completeSession(sessionId);
+      navigate("/");
+    } catch (error) {
+      console.error("Couldn't complete session: ", error);
+    }
   }
-
   return (
     <Layout>
       {isComplete && (
         <Confetti
-          confettiSource={{ x: 0, y: 300, w: window.innerWidth, h: 0 } } recycle={false}
+          confettiSource={{ x: 0, y: 300, w: window.innerWidth, h: 0 }}
+          recycle={false}
         />
       )}
       <div className="workout">
