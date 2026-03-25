@@ -16,6 +16,7 @@ function Workout() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const [completedSets, setCompletedSets] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,8 +36,6 @@ function Workout() {
     (total, exercise) => total + exercise.sessionSets.length,
     0,
   );
-
-  const isComplete = completedSets === totalSets;
 
   /**
    * When user finishes typing reps and clicks away, send that number to the backend to save it
@@ -102,19 +101,14 @@ function Workout() {
   async function handleCompleteRoutine() {
     try {
       await completeSession(sessionId);
-      navigate("/");
+      setIsComplete(completedSets === totalSets);
     } catch (error) {
       console.error("Couldn't complete session: ", error);
     }
   }
   return (
     <Layout>
-      {isComplete && (
-        <Confetti
-          confettiSource={{ x: 0, y: 300, w: window.innerWidth, h: 0 }}
-          recycle={false}
-        />
-      )}
+      {isComplete && <Confetti recycle={false} />}
       <div className="workout">
         <div className="workout__header">
           <div className="workout__header-left">
