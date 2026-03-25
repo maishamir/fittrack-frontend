@@ -114,5 +114,12 @@
     gap: 0.5rem;
     border: none;
     border-radius: 0.875rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+      transform: scale(1.025) translateY(-2px);
+      filter: brightness(1.5);
+    }
   }
 }

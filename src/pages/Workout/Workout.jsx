@@ -5,16 +5,17 @@ import SetRow from "../../components/Workout/SetRow/SetRow";
 import axios from "axios";
 import "./Workout.scss";
 import ExerciseBlock from "../../components/Workout/ExerciseBlock/ExerciseBlock";
-import { X, Trophy } from "lucide-react";
+import { X, Trophy, Recycle } from "lucide-react";
 import Timer from "../../components/Workout/Timer/Timer";
 import Layout from "../../components/Layout/Layout";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import Confetti from "react-confetti";
 
 function Workout() {
   const { sessionId } = useParams();
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [completedSets, setCompletedSets] = useState(0)
+  const [completedSets, setCompletedSets] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +29,15 @@ function Workout() {
 
   if (loading) return <p>Loading...</p>;
   if (!session) return <p>No session found.</p>;
+
+  const groupedExercises = groupExercisesBySection(session.sessionExercises);
+  const totalSets = session.sessionExercises.reduce(
+    (total, exercise) => total + exercise.sessionSets.length,
+    0,
+  );
+
+  const isComplete = completedSets === totalSets;
+  console.log("Is complete? ", isComplete);
 
   /**
    * When user finishes typing reps and clicks away, send that number to the backend to save it
@@ -89,27 +99,35 @@ function Workout() {
     return grouped;
   }
 
-  const groupedExercises = groupExercisesBySection(session.sessionExercises);
-  const totalSets = session.sessionExercises.reduce(
-    (total, exercise) => total + exercise.sessionSets.length,
-    0,
-  );
-
+  //   const groupedExercises = groupExercisesBySection(session.sessionExercises);
+  //   const totalSets = session.sessionExercises.reduce(
+  //     (total, exercise) => total + exercise.sessionSets.length,
+  //     0,
+  //   );
 
   function handleSetComplete(isSetChecked) {
-    setCompletedSets(prev => isSetChecked ? prev + 1 : prev - 1)
+    setCompletedSets((prev) => (isSetChecked ? prev + 1 : prev - 1));
   }
 
-  console.log("COMPLETED SETS ==> ", completedSets);
-  
+  function handleCompleteRoutine() {
+    if (completedSets === totalSets) alert("Confettiii");
+    console.log(completedSets, totalSets);
+  }
 
   return (
     <Layout>
+      {isComplete && (
+        <Confetti
+          confettiSource={{ x: 0, y: 300, w: window.innerWidth, h: 0 } } recycle={false}
+        />
+      )}
       <div className="workout">
         <div className="workout__header">
           <div className="workout__header-left">
             <h2 className="workout__title">{session.routineNameSnapshot}</h2>
-            <p className="workout__progress">{completedSets}/{totalSets} sets completed</p>
+            <p className="workout__progress">
+              {completedSets}/{totalSets} sets completed
+            </p>
           </div>
           <button
             className="workout__close-button"
@@ -118,7 +136,7 @@ function Workout() {
             <X color="#90A1B9" height={20} width={20} />
           </button>
         </div>
-          <ProgressBar totalSets={totalSets} completedSets={completedSets}/>
+        <ProgressBar totalSets={totalSets} completedSets={completedSets} />
 
         <Timer />
 
@@ -144,7 +162,10 @@ function Workout() {
           ))}
         </div>
 
-        <button className="workout__complete-button">
+        <button
+          className="workout__complete-button"
+          onClick={handleCompleteRoutine}
+        >
           <Trophy height={20} width={20} /> Finish Workout
         </button>
       </div>
