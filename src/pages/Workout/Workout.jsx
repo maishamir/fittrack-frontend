@@ -102,6 +102,9 @@ function Workout() {
     try {
       await completeSession(sessionId);
       setIsComplete(completedSets === totalSets);
+      if (!isComplete) {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Couldn't complete session: ", error);
     }
