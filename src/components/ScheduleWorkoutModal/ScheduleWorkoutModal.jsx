@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ScheduleWorkoutModal.scss";
 import { getRoutines } from "../../api/routines";
+import { startSession } from "../../api/routines";
 
 function ScheduleWorkoutModal({ isOpen, onClose, routineDate }) {
   const [routines, setRoutines] = useState([]);
@@ -25,9 +26,18 @@ function ScheduleWorkoutModal({ isOpen, onClose, routineDate }) {
 
   // === HELPER FUNCTIONS === //
   // Select a routine to schedule it and then close the modal
-  function handleRoutineSelect(routine) {
+  async function handleRoutineSelect(routineId) {
     // TODO: ADD FUNCTION TO SELECT ROUTINE
-    onclose();
+    try {
+      const session = await startSession(routineId, {
+        scheduledDate: routineDate,
+      });
+      console.log(session);
+
+      onClose();
+    } catch (error) {
+      console.error("Could not schedule routine", error);
+    }
   }
 
   function formatDate(date) {
@@ -65,7 +75,11 @@ function ScheduleWorkoutModal({ isOpen, onClose, routineDate }) {
           {routines.map((routine) => {
             const numExercises = routine.routineExercises?.length || 0;
             return (
-              <button className="routine-modal__exercise-btn" key={routine.id}>
+              <button
+                className="routine-modal__exercise-btn"
+                key={routine.id}
+                onClick={() => handleRoutineSelect(routine.id)}
+              >
                 <p className="routine-modal__routine-name">{routine.name}</p>
                 <small className="routine-modal__numExercises">
                   {numExercises} exercises

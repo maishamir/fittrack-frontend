@@ -27,7 +27,11 @@ function Home() {
   async function handleStart(routineId) {
     try {
       setLoadingId(routineId);
-      const session = await startSession(routineId);
+      const today = new Date()
+      const routineDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+      console.log(routineDate);
+      
+      const session = await startSession(routineId, {date: routineDate});
 
       const sessionId = session.id ?? session.session.Id;
       navigate(`/workout/${sessionId}`);
