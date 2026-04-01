@@ -3,7 +3,13 @@ import "./ScheduleWorkoutModal.scss";
 import { getRoutines } from "../../api/routines";
 import { startSession } from "../../api/routines";
 
-function ScheduleWorkoutModal({ isOpen, onClose, routineDate, onSchedule }) {
+function ScheduleWorkoutModal({
+  isOpen,
+  onClose,
+  routineDate,
+  onSchedule,
+  scheduled,
+}) {
   const [routines, setRoutines] = useState([]);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -71,7 +77,16 @@ function ScheduleWorkoutModal({ isOpen, onClose, routineDate, onSchedule }) {
           <small className="routine-modal__selectedDate">{formattedDate}</small>
         </div>
 
+        {scheduled.length > 0 && (
+          <div className="routine-modal__list">
+            {scheduled.map((session) => {
+              return <button className="routine-modal__exercise-btn">{session.routineNameSnapshot}</button>
+            })}
+          </div>
+        )}
+
         <div className="routine-modal__list">
+          <h2 className="routine-modal__list-title">Add Routine</h2>
           {routines.map((routine) => {
             const numExercises = routine.routineExercises?.length || 0;
             return (

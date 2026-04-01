@@ -20,6 +20,7 @@ function Calendar({ onDateSelect }) {
 
   const [allSessions, setAllSessions] = useState(null);
   const [scheduledDates, setScheduledDates] = useState(null);
+  const [scheduledSessions, setScheduledSessions] = useState([])
 
   async function fetchAndSetSessions() {
     const data = await getScheduledSessions();
@@ -78,6 +79,24 @@ function Calendar({ onDateSelect }) {
       day, // The day they clicked (1-31)
     );
 
+
+    //// User clicks a day ✅
+    //// In handleDayClick, build the date string for that day (same format as your scheduledDates Set) ✅
+    let clickedDateStr = clickedDate.toISOString().split("T")[0];
+
+    //// Filter allSessions to find any sessions where their scheduledDate matches that date string ✅
+    
+    const schedSessions = allSessions.filter(session => (
+        clickedDateStr === session.scheduledDate.split("T")[0]
+    ))
+
+    setScheduledSessions(schedSessions)
+    
+    
+    //// Store the result in state like setSelectedDaySessions(matches) ✅
+    // Pass selectedDaySessions to the modal
+    // In the modal, if selectedDaySessions has items, render them with Start and Delete buttons. Otherwise just show the routine picker.
+
     // Update our selectedDate state so we remember what they clicked
     setSelectedDate(clickedDate);
     setIsModalOpen(true);
@@ -90,6 +109,10 @@ function Calendar({ onDateSelect }) {
       onDateSelect(clickedDate);
     }
   }
+
+  console.log(scheduledSessions);
+  
+    
 
   // ===== DATE CALCULATIONS =====
   // These functions figure out what days to show in the calendar grid
@@ -293,6 +316,7 @@ function Calendar({ onDateSelect }) {
         onClose={() => setIsModalOpen(false)}
         routineDate={selectedDate}
         onSchedule={handleScheduled}
+        scheduled={scheduledSessions}
       />
     </Layout>
   );
