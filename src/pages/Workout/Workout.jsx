@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSession, updateSet, completeSession } from "../../api/sessions";
+import { getSessionById, updateSet, completeSession } from "../../api/sessions";
 import SetRow from "../../components/Workout/SetRow/SetRow";
 import axios from "axios";
 import "./Workout.scss";
 import ExerciseBlock from "../../components/Workout/ExerciseBlock/ExerciseBlock";
 import { X, Trophy, Recycle } from "lucide-react";
 import Timer from "../../components/Workout/Timer/Timer";
-import Layout from "../../components/Layout/Layout";
+import Layout from 
+"../../components/Layout/Layout";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Confetti from "react-confetti";
 
@@ -21,7 +22,7 @@ function Workout() {
 
   useEffect(() => {
     async function fetchSession() {
-      const data = await getSession(sessionId);
+      const data = await getSessionById(sessionId);
       setSession(data);
       setLoading(false);
     }

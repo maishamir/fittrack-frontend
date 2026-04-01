@@ -7,6 +7,8 @@ export async function getRoutines() {
   return response.data;
 }
 
+
+
 export async function startSession(routineId, routineDate) {
   const response = await axios.post(
     `${BASE_URL}/routines/${routineId}/sessions`, routineDate

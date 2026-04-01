@@ -3,7 +3,7 @@ import "./ScheduleWorkoutModal.scss";
 import { getRoutines } from "../../api/routines";
 import { startSession } from "../../api/routines";
 
-function ScheduleWorkoutModal({ isOpen, onClose, routineDate }) {
+function ScheduleWorkoutModal({ isOpen, onClose, routineDate, onSchedule }) {
   const [routines, setRoutines] = useState([]);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -29,12 +29,12 @@ function ScheduleWorkoutModal({ isOpen, onClose, routineDate }) {
   async function handleRoutineSelect(routineId) {
     // TODO: ADD FUNCTION TO SELECT ROUTINE
     try {
+      onClose();
       const session = await startSession(routineId, {
         scheduledDate: routineDate,
       });
-      console.log(session);
 
-      onClose();
+      onSchedule(routineDate);
     } catch (error) {
       console.error("Could not schedule routine", error);
     }

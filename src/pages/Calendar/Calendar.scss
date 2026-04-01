@@ -1,119 +1,132 @@
 .calendar {
-    // font-family: 'Inter', sans-serif;
-    margin-top: 1rem;
+  // font-family: 'Inter', sans-serif;
+  margin-top: 1rem;
 
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &__month-year {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: normal;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  &__nav-btn {
+    background: #1d293d;
+    border: none;
+    cursor: pointer;
+    height: 2.25rem;
+    width: 2.25rem;
+    border-radius: 0.625rem;
+    transition: 0.15s ease;
+
+    &:hover {
+      background-color: #334155;
+    }
+  }
+
+  &__grid {
+    background: rgba(29, 41, 61, 0.5);
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    padding: 0.75rem;
+    border-radius: 0.875rem;
+    border: 1px solid #314158;
+  }
+
+  &__day-name {
+    text-align: center;
+    padding: 10px 0;
+    color: #90a1b9;
+    font-size: 0.75rem;
+  }
+
+  &__day-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__day-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #cad5e2;
+    font-size: 0.875rem;
+    font-family: "Inter", sans-serif;
+    position: relative;
+
+    &:hover {
+      background: #31415881;
+      border-radius: 0.5rem;
     }
 
-    &__month-year {
-        font-size: 1rem;
-        line-height: 1.5rem;
-        font-weight: normal;
+    &--today {
+      border: 1px solid rgba(43, 128, 255, 0.5);
+      background-color: rgba(43, 128, 255, 0.2);
+      border-radius: 0.725rem;
+      color: #51a2ff;
     }
 
-    &__nav {
-        display: flex;
-        gap: 0.25rem;
+    &--scheduled {
+      background: #31415881;
+      border-radius: 0.5rem;
+      &::after {
+        content: "";
+        height: 4px;
+        width: 4px;
+        background-color: #51a2ff;
+        position: absolute;
+        bottom: 0.25rem;
+        border-radius: 1000px;
+      }
+    }
+  }
+
+  &__legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  &__legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__legend-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+
+    &--completed {
+      background-color: #05df72;
     }
 
-    &__nav-btn {
-        background: #1D293D;
-        border: none;
-        cursor: pointer;
-        height: 2.25rem;
-        width: 2.25rem;
-        border-radius: 0.625rem;
-        transition: 0.15s ease;
-
-        &:hover {
-            background-color: #334155;
-        }
+    &--scheduled {
+      background-color: #51a2ff;
     }
+  }
 
-    &__grid {
-        background: rgba(29, 41, 61, 0.50);
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 8px;
-        padding: 0.75rem;
-        border-radius: 0.875rem;
-        border: 1px solid #314158;
-    }
-
-    &__day-name {
-        text-align: center;
-        padding: 10px 0;
-        color: #90A1B9;
-        font-size: 0.75rem;
-    }
-
-    &__day-cell {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &__day-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #CAD5E2;
-        font-size: 0.875rem;
-        font-family: 'Inter', sans-serif;
-
-        &:hover {
-            background: #31415881;
-            border-radius: 0.5rem;
-        }
-
-        &--today {
-            border: 1px solid rgba(43, 128, 255, 0.5);
-            background-color: rgba(43, 128, 255, 0.2);
-            border-radius: 0.725rem;
-            color: #51A2FF;
-        }
-
-        &--selected {}
-    }
-
-    &__legend {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 16px;
-    }
-
-    &__legend-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    &__legend-dot {
-        width: 0.5rem;
-        height: 0.5rem;
-        border-radius: 50%;
-
-        &--completed {
-            background-color: #05DF72;
-        }
-
-        &--scheduled {
-            background-color: #51A2FF;
-        }
-    }
-
-    &__legend-label {
-        font-size: 0.75rem;
-        color: #90A1B9;
-    }
+  &__legend-label {
+    font-size: 0.75rem;
+    color: #90a1b9;
+  }
 }
