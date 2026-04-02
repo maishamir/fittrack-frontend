@@ -12,6 +12,7 @@ function ScheduleWorkoutModal({
 }) {
   const [routines, setRoutines] = useState([]);
   const [isClosing, setIsClosing] = useState(false);
+  const [scheduledSessions, setScheduledSessions] = useState();
   const [loadingId, setLoadingId] = useState(null);
   const navigate = useNavigate();
 
@@ -31,6 +32,10 @@ function ScheduleWorkoutModal({
     }
     fetchRoutines();
   }, []);
+
+  useEffect(() => {
+    setScheduledSessions(scheduled);
+  }, [scheduled]);
 
   // === HELPER FUNCTIONS === //
   // Select a routine to schedule it and then close the modal
@@ -56,6 +61,22 @@ function ScheduleWorkoutModal({
     } finally {
       setLoadingId(null);
     }
+  }
+
+  function handleRemoveRoutine(sessionId) {
+    // console.log(scheduled);
+    const session = scheduledSessions.find(
+      (session) => session.id === sessionId,
+    );
+    const sessionName = session.routineNameSnapshot;
+    if (
+      !confirm(`Are you sure you want to remove the routine "${sessionName}?`)
+    )
+      return;
+
+    setScheduledSessions(
+      scheduledSessions.filter((session) => session.id != sessionId),
+    );
   }
 
   function formatDate(date) {
@@ -89,17 +110,23 @@ function ScheduleWorkoutModal({
           <small className="routine-modal__selectedDate">{formattedDate}</small>
         </div>
 
-        {scheduled.length > 0 && (
+        {scheduledSessions.length > 0 && (
           <div className="routine-modal__list">
-            {scheduled.map((session) => {
+            {scheduledSessions?.map((session) => {
               return (
                 <div className="routine-modal__exercise-btn">
                   {session.routineNameSnapshot}
                   <button
-                    className="routine-modal__start"
+                    className="routine-modal__action routine-modal__action--start"
                     onClick={() => handleStartRoutine(session)}
                   >
                     Start
+                  </button>
+                  <button
+                    className="routine-modal__action--remove"
+                    onClick={() => handleRemoveRoutine(session.id)}
+                  >
+                    Remove
                   </button>
                 </div>
               );
