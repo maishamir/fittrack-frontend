@@ -10,6 +10,7 @@
   border-top-right-radius: 1.5rem;
   border-top-left-radius: 1.5rem;
   animation: slideUp 0.3s ease-out;
+  overflow: scroll;
 
   &--closing {
     animation: slideOut 0.3s ease;

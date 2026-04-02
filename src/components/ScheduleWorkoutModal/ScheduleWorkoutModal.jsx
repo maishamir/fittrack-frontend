@@ -40,7 +40,7 @@ function ScheduleWorkoutModal({
         scheduledDate: routineDate,
       });
 
-      onSchedule(routineDate);
+      onSchedule(session);
     } catch (error) {
       console.error("Could not schedule routine", error);
     }
@@ -80,7 +80,11 @@ function ScheduleWorkoutModal({
         {scheduled.length > 0 && (
           <div className="routine-modal__list">
             {scheduled.map((session) => {
-              return <button className="routine-modal__exercise-btn">{session.routineNameSnapshot}</button>
+              return (
+                <button className="routine-modal__exercise-btn">
+                  {session.routineNameSnapshot}
+                </button>
+              );
             })}
           </div>
         )}
