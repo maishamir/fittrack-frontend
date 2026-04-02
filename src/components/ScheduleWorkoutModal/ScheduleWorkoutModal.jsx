@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ScheduleWorkoutModal.scss";
-import { getRoutines } from "../../api/routines";
-import { startSession } from "../../api/routines";
+import { getRoutines, startSession } from "../../api/routines";
+import { useNavigate } from "react-router-dom";
 
 function ScheduleWorkoutModal({
   isOpen,
@@ -12,6 +12,8 @@ function ScheduleWorkoutModal({
 }) {
   const [routines, setRoutines] = useState([]);
   const [isClosing, setIsClosing] = useState(false);
+  const [loadingId, setLoadingId] = useState(null);
+  const navigate = useNavigate();
 
   function handleModalClose() {
     setIsClosing(true);
@@ -43,6 +45,16 @@ function ScheduleWorkoutModal({
       onSchedule(session);
     } catch (error) {
       console.error("Could not schedule routine", error);
+    }
+  }
+
+  async function handleStartRoutine(session) {
+    try {
+      setLoadingId(session.id);
+
+      navigate(`/workout/${session.id}`);
+    } finally {
+      setLoadingId(null);
     }
   }
 
@@ -81,9 +93,15 @@ function ScheduleWorkoutModal({
           <div className="routine-modal__list">
             {scheduled.map((session) => {
               return (
-                <button className="routine-modal__exercise-btn">
+                <div className="routine-modal__exercise-btn">
                   {session.routineNameSnapshot}
-                </button>
+                  <button
+                    className="routine-modal__start"
+                    onClick={() => handleStartRoutine(session)}
+                  >
+                    Start
+                  </button>
+                </div>
               );
             })}
           </div>

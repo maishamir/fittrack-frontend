@@ -9,7 +9,6 @@ import RoutineCard from "../../components/Home/RoutineCard/RoutineCard";
 import Layout from "../../components/Layout/Layout";
 import "./Home.scss";
 
-
 function Home() {
   const [routines, setRoutines] = useState([]);
   const [loadingId, setLoadingId] = useState(null);
@@ -27,10 +26,15 @@ function Home() {
   async function handleStart(routineId) {
     try {
       setLoadingId(routineId);
-      const today = new Date()
-      const routineDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-      
-      const session = await startSession(routineId, {date: routineDate});
+      const today = new Date();
+      const routineDate = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+      );
+
+      const session = await startSession(routineId, { date: routineDate });
+      console.log(session);
 
       const sessionId = session.id ?? session.session.Id;
       navigate(`/workout/${sessionId}`);
@@ -39,15 +43,25 @@ function Home() {
     }
   }
 
-
   return (
     <Layout>
       <div className="home">
-
         <div className="home__stats">
-          <StatCard icon={<Flame color="#FF8904" />} text={"streak"} cardContent={"0"} />
-          <StatCard icon={<TrendingUp color="#51A2FF" />} text={"total"} cardContent={"0"} />
-          <StatCard icon={<Calendar color="#C27AFF" />} text={"today"} cardContent={"—"} />
+          <StatCard
+            icon={<Flame color="#FF8904" />}
+            text={"streak"}
+            cardContent={"0"}
+          />
+          <StatCard
+            icon={<TrendingUp color="#51A2FF" />}
+            text={"total"}
+            cardContent={"0"}
+          />
+          <StatCard
+            icon={<Calendar color="#C27AFF" />}
+            text={"today"}
+            cardContent={"—"}
+          />
         </div>
 
         <Message />
@@ -59,10 +73,10 @@ function Home() {
         <div className="home__routines-list">
           {routines.map((routine) => {
             const numExercises = routine.routineExercises?.length || 0;
-            const numSets = routine.routineExercises?.reduce((total, re) => {
-              return total + (re.routineSets?.length || 0);
-            }, 0) || 0;
-
+            const numSets =
+              routine.routineExercises?.reduce((total, re) => {
+                return total + (re.routineSets?.length || 0);
+              }, 0) || 0;
 
             return (
               <RoutineCard
