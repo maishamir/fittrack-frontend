@@ -12,6 +12,36 @@
   animation: slideUp 0.3s ease-out;
   overflow: scroll;
 
+    &__actions {
+        display: flex;
+        gap: 0.5rem;
+        
+    }
+
+  &__action {
+    background: transparent;
+    border: none;
+    font-size: .75rem;
+
+    &--start {
+        color: #51A2FF;
+        transition: color 0.15s;
+
+        &:hover {
+            color: #6fddff;
+        }
+    }
+
+    &--remove {
+        color: #FF6467;
+        transition: color 0.15s;
+
+        &:hover {
+            color: #fc9294;
+        }
+    }
+  }
+
   &--closing {
     animation: slideOut 0.3s ease;
   }
@@ -51,7 +81,7 @@
 
   &__exercise-btn {
     width: 100%;
-    padding: 0.75rem;
+    padding: 1rem 0.75rem;
     border: none;
     border-radius: 0.875rem;
     display: flex;
@@ -60,9 +90,14 @@
     background-color: rgba(29, 41, 61, 0.5);
     border: 1px solid #314158;
     cursor: pointer;
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between;
     gap: 0.25rem;
+
+    &--sched {
+        background-color: rgba(43, 128, 255, 0.1);
+        border: 0.5px solid #2b80ff8a;
+    }
+
   }
 
   &__numExercises {

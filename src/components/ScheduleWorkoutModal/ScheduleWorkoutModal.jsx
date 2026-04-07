@@ -114,20 +114,22 @@ function ScheduleWorkoutModal({
           <div className="routine-modal__list">
             {scheduledSessions?.map((session) => {
               return (
-                <div className="routine-modal__exercise-btn">
+                <div className="routine-modal__exercise-btn routine-modal__exercise-btn--sched" key={session.id}>
                   {session.routineNameSnapshot}
-                  <button
-                    className="routine-modal__action routine-modal__action--start"
-                    onClick={() => handleStartRoutine(session)}
-                  >
-                    Start
-                  </button>
-                  <button
-                    className="routine-modal__action--remove"
-                    onClick={() => handleRemoveRoutine(session.id)}
-                  >
-                    Remove
-                  </button>
+                  <div className="routine-modal__actions">
+                    <button
+                      className="routine-modal__action routine-modal__action--start"
+                      onClick={() => handleStartRoutine(session)}
+                    >
+                      Start
+                    </button>
+                    <button
+                      className="routine-modal__action routine-modal__action--remove"
+                      onClick={() => handleRemoveRoutine(session.id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               );
             })}
