@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ScheduleWorkoutModal.scss";
 import { getRoutines, startSession } from "../../api/routines";
 import { useNavigate } from "react-router-dom";
+import { deleteSession } from "../../api/sessions";
 
 function ScheduleWorkoutModal({
   isOpen,
@@ -9,6 +10,7 @@ function ScheduleWorkoutModal({
   routineDate,
   onSchedule,
   scheduled,
+  onRemove,
 }) {
   const [routines, setRoutines] = useState([]);
   const [isClosing, setIsClosing] = useState(false);
@@ -42,7 +44,6 @@ function ScheduleWorkoutModal({
   async function handleRoutineSelect(routineId) {
     // TODO: ADD FUNCTION TO SELECT ROUTINE
     try {
-      onClose();
       const session = await startSession(routineId, {
         scheduledDate: routineDate,
       });
@@ -63,20 +64,17 @@ function ScheduleWorkoutModal({
     }
   }
 
-  function handleRemoveRoutine(sessionId) {
-    // console.log(scheduled);
-    const session = scheduledSessions.find(
+  async function handleRemoveSession(sessionId) {
+    const sessionToRemove = scheduledSessions.find(
       (session) => session.id === sessionId,
     );
-    const sessionName = session.routineNameSnapshot;
-    if (
-      !confirm(`Are you sure you want to remove the routine "${sessionName}?`)
-    )
-      return;
 
-    setScheduledSessions(
-      scheduledSessions.filter((session) => session.id != sessionId),
-    );
+    try {
+      const response = await deleteSession(sessionId);
+      onRemove(sessionId);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function formatDate(date) {
@@ -114,7 +112,10 @@ function ScheduleWorkoutModal({
           <div className="routine-modal__list">
             {scheduledSessions?.map((session) => {
               return (
-                <div className="routine-modal__exercise-btn routine-modal__exercise-btn--sched" key={session.id}>
+                <div
+                  className="routine-modal__exercise-btn routine-modal__exercise-btn--sched"
+                  key={session.id}
+                >
                   {session.routineNameSnapshot}
                   <div className="routine-modal__actions">
                     <button
@@ -125,7 +126,7 @@ function ScheduleWorkoutModal({
                     </button>
                     <button
                       className="routine-modal__action routine-modal__action--remove"
-                      onClick={() => handleRemoveRoutine(session.id)}
+                      onClick={() => handleRemoveSession(session.id)}
                     >
                       Remove
                     </button>

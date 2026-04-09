@@ -12,33 +12,32 @@
   animation: slideUp 0.3s ease-out;
   overflow: scroll;
 
-    &__actions {
-        display: flex;
-        gap: 0.5rem;
-        
-    }
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+  }
 
   &__action {
     background: transparent;
     border: none;
-    font-size: .75rem;
+    font-size: 0.75rem;
 
     &--start {
-        color: #51A2FF;
-        transition: color 0.15s;
+      color: #51a2ff;
+      transition: color 0.15s;
 
-        &:hover {
-            color: #6fddff;
-        }
+      &:hover {
+        color: #6fddff;
+      }
     }
 
     &--remove {
-        color: #FF6467;
-        transition: color 0.15s;
+      color: #ff6467;
+      transition: color 0.15s;
 
-        &:hover {
-            color: #fc9294;
-        }
+      &:hover {
+        color: #fc9294;
+      }
     }
   }
 
@@ -48,7 +47,6 @@
 
   &__header {
     padding: 1rem;
-    
   }
 
   &__title {
@@ -69,12 +67,11 @@
     flex-direction: column;
     gap: 0.5rem;
 
-
     &-title {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        font-weight: normal;
-        color: #90A1B9;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: normal;
+      color: #90a1b9;
     }
     border-top: 0.7px solid #314158;
   }
@@ -94,10 +91,13 @@
     gap: 0.25rem;
 
     &--sched {
-        background-color: rgba(43, 128, 255, 0.1);
-        border: 0.5px solid #2b80ff8a;
-    }
+      background-color: rgba(43, 128, 255, 0.1);
+      border: 0.5px solid #2b80ff8a;
 
+      &:hover {
+        background-color: rgba(43, 128, 255, 0.2);
+      }
+    }
   }
 
   &__numExercises {

@@ -39,7 +39,7 @@ function RoutinesList() {
 
       const sessionId = session.id ?? session.session.Id;
       navigate(`/workout/${sessionId}`);
-    } finally {
+    } finally { 
       setLoadingId(null);
     }
   }

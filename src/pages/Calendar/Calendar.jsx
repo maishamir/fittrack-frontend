@@ -41,8 +41,22 @@ function Calendar({ onDateSelect }) {
     const dateStr = new Date(session.scheduledDate).toISOString().split("T")[0];
     setScheduledDates((prev) => new Set([...prev, dateStr]));
     setAllSessions((prev) => [...prev, session]);
-    console.log(allSessions);
+    setScheduledSessions(prev => [...prev, session])
   }
+
+  function handleRemove(sessionId) {
+    // So pass an onRemove prop from Calendar to the modal, and in handleRemoveRoutine call both the delete API and onRemove(sessionId). Then in Calendar, onRemove filters it out of allSessions and scheduledDates.  
+    let sessionToRemove = allSessions.find(session => session.id == sessionId)
+
+    setAllSessions(allSessions.filter((session) => session.id !== sessionId));
+
+    let sessionDate = new Date(sessionToRemove.scheduledDate).toISOString().split("T")[0];
+    setScheduledDates(new Set(Array.from(scheduledDates).filter(scheduled => scheduled !== sessionDate)))
+    setScheduledSessions(scheduledSessions.filter(session => session.id !== sessionId))
+      
+  }
+
+  
 
   // This function moves us to the PREVIOUS month
   function goToPreviousMonth() {
@@ -81,11 +95,7 @@ function Calendar({ onDateSelect }) {
       day, // The day they clicked (1-31)
     );
 
-    //// User clicks a day ✅
-    //// In handleDayClick, build the date string for that day (same format as your scheduledDates Set) ✅
     let clickedDateStr = clickedDate.toISOString().split("T")[0];
-
-    //// Filter allSessions to find any sessions where their scheduledDate matches that date string ✅
 
     const schedSessions = allSessions.filter(
       (session) => clickedDateStr === session.scheduledDate.split("T")[0],
@@ -93,7 +103,6 @@ function Calendar({ onDateSelect }) {
 
     setScheduledSessions(schedSessions);
 
-    //// Store the result in state like setSelectedDaySessions(matches) ✅
     // Pass selectedDaySessions to the modal
     // In the modal, if selectedDaySessions has items, render them with Start and Delete buttons. Otherwise just show the routine picker.
 
@@ -313,6 +322,7 @@ function Calendar({ onDateSelect }) {
         routineDate={selectedDate}
         onSchedule={handleScheduled}
         scheduled={scheduledSessions}
+        onRemove={handleRemove}
       />
     </Layout>
   );

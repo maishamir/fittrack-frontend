@@ -31,3 +31,8 @@ export async function getSessionById(sessionId) {
   const response = await axios.get(`${BASE_URL}/sessions/${sessionId}`);
   return response.data;
 }
+
+export async function deleteSession(sessionId) {
+    const response = await axios.delete(`${BASE_URL}/sessions/${sessionId}`);
+    return response.data;
+}

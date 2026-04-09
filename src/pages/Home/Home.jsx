@@ -34,7 +34,6 @@ function Home() {
       );
 
       const session = await startSession(routineId, { date: routineDate });
-      console.log(session);
 
       const sessionId = session.id ?? session.session.Id;
       navigate(`/workout/${sessionId}`);
