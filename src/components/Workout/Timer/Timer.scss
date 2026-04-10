@@ -17,23 +17,34 @@
   &__buttons {
     @extend .timer__display;
 
-    &--play {
+    &-btn {
       height: 2rem;
       width: 2rem;
-      background-color: #2b7fff;
       border: none;
       border-radius: 0.625rem;
       cursor: pointer;
-      
-    }
+      &--play {
+        background-color: #2b7fff;
+        transition: all 0.1s ease-in-out;
+        &:hover {
+          background-color: rgb(10, 107, 253);
+        }
+      }
 
-    &--restart {
-      height: 2rem;
-      width: 2rem;
-      background-color: #314158;
-      border: none;
-      border-radius: 0.625rem;
-      cursor: pointer;
+      &--pause {
+        background-color: #ff6900;
+        transition: all 0.1s ease-in-out;
+        &:hover {
+          background-color: #ff4800;
+        }
+      }
+      &--restart {
+        background-color: #314158;
+
+        &:hover {
+          background-color: #3f5470;
+        }
+      }
     }
   }
 }
