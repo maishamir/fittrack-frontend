@@ -1,18 +1,18 @@
 .header {
-    display: flex;
-    justify-content: flex-start;
-    gap: 0.625rem;
-    max-width: 575px;
-    align-items: center;
-    // padding: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.625rem;
+  max-width: 575px;
+  align-items: center;
+  padding: 0 1rem;
 
-    &__logo {
-        cursor: pointer;
-    }
+  &__logo {
+    cursor: pointer;
+  }
 
-    h1 {
-        font-size: 1.125rem;
-        font-weight: 400;
-        cursor: pointer;;
-    }
+  h1 {
+    font-size: 1.125rem;
+    font-weight: 400;
+    cursor: pointer;
+  }
 }

@@ -7,8 +7,7 @@ import "./Workout.scss";
 import ExerciseBlock from "../../components/Workout/ExerciseBlock/ExerciseBlock";
 import { X, Trophy, Recycle } from "lucide-react";
 import Timer from "../../components/Workout/Timer/Timer";
-import Layout from 
-"../../components/Layout/Layout";
+import Layout from "../../components/Layout/Layout";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Confetti from "react-confetti";
 
@@ -102,8 +101,10 @@ function Workout() {
   async function handleCompleteRoutine() {
     try {
       await completeSession(sessionId);
-      setIsComplete(completedSets === totalSets);
-      if (!isComplete) {
+      const allDone = completedSets === totalSets;
+      setIsComplete(allDone);
+
+      if (!allDone) {
         navigate("/");
       }
     } catch (error) {
