@@ -1,40 +1,45 @@
 .routineCard {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(29, 41, 61, 0.5);
+  padding: 1rem;
+  border: 1px solid #314158;
+  border-radius: 0.875rem;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: all 0.1s;
+  &:hover {
+    background-color: #31415894;
+  }
+
+  &__left {
     display: flex;
-    justify-content: space-between;
-    background-color: rgba(29, 41, 61, 0.50);
-    padding: 1rem;
-    border: 1px solid #314158;
-    border-radius: 0.875rem;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
 
-    &__left {
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
-    }
+  &__name {
+    font-size: 1rem;
+    font-weight: normal;
+  }
 
-    &__name {
-        font-size: 1rem;
-        font-weight: normal;
-    }
+  &__details {
+    font-size: 0.75rem;
+    color: #90a1b9;
+    display: flex;
+    gap: 0.75rem;
+  }
 
-    &__details {
-        font-size: 0.75rem;
-        color: #90A1B9;
-        display: flex;
-        gap: 0.75rem;
-    }
-
-    &__start {
-        border-radius: 50%;
-        height: 2.25rem;
-        width: 2.25rem;
-        border: none;
-        background-image: linear-gradient(to bottom right, #2B7FFF, #9810FA);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-    }
+  &__start {
+    border-radius: 50%;
+    height: 2.25rem;
+    width: 2.25rem;
+    border: none;
+    background-image: linear-gradient(to bottom right, #2b7fff, #9810fa);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 }

@@ -1,20 +1,25 @@
 .scheduled {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgba(43, 128, 255, 0.10);
-    border: 1px solid rgba(43, 128, 255, 0.30);
-    padding: 0.875rem;
-    border-radius: 0.875rem;
-    align-items: center;
-    
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(43, 128, 255, 0.1);
+  border: 1px solid rgba(43, 128, 255, 0.3);
+  padding: 0.875rem;
+  border-radius: 0.875rem;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 
-    &__title {
-        font-size: 0.875rem;
-        font-weight: normal;
-    }
+  &:hover {
+    background-color: rgba(43, 128, 255, 0.2);
+  }
 
-    &__count {
-        font-size: 0.75rem;
-        color: #90A1B9;
-    }
+  &__title {
+    font-size: 0.875rem;
+    font-weight: normal;
+  }
+
+  &__count {
+    font-size: 0.75rem;
+    color: #90a1b9;
+  }
 }
