@@ -12,6 +12,11 @@ export async function getScheduledSessions() {
   return response.data;
 }
 
+export async function getTodaysSessions() {
+  const response = await axios.get(`${BASE_URL}/sessions/today`);
+  return response.data;
+}
+
 export async function updateSet(setId, data) {
   const response = await axios.patch(
     `${BASE_URL}/sessions/sets/${setId}`,
@@ -33,6 +38,6 @@ export async function getSessionById(sessionId) {
 }
 
 export async function deleteSession(sessionId) {
-    const response = await axios.delete(`${BASE_URL}/sessions/${sessionId}`);
-    return response.data;
+  const response = await axios.delete(`${BASE_URL}/sessions/${sessionId}`);
+  return response.data;
 }

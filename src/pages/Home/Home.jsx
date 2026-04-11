@@ -4,14 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { Flame, TrendingUp, Calendar, CheckCircle2 } from "lucide-react";
 import StatCard from "../../components/Home/StatCard/StatCard";
 import Message from "../../components/Home/Message/Message";
-import ScheduledCard from "../../components/Home/Scheduled/Scheduled";
+import Scheduled from "../../components/Home/Scheduled/Scheduled";
 import RoutineCard from "../../components/Home/RoutineCard/RoutineCard";
 import Layout from "../../components/Layout/Layout";
 import "./Home.scss";
+import { getTodaysSessions } from "../../api/sessions";
 
 function Home() {
   const [routines, setRoutines] = useState([]);
   const [loadingId, setLoadingId] = useState(null);
+  const [todaySessions, setTodaySessions] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +24,14 @@ function Home() {
     }
 
     fetchRoutines();
+  }, []);
+
+  useEffect(() => {
+    async function fetchTodaysSessions() {
+      const data = await getTodaysSessions();
+      setTodaySessions(data);
+    }
+    fetchTodaysSessions();
   }, []);
 
   async function handleStart(routineId) {
@@ -41,6 +52,8 @@ function Home() {
       setLoadingId(null);
     }
   }
+
+  console.log(todaySessions);
 
   return (
     <Layout>
@@ -65,7 +78,19 @@ function Home() {
 
         <Message />
         <p className="home__section-title">Scheduled Today</p>
-        <ScheduledCard />
+
+        <div className="home__today">
+          {todaySessions?.map((session) => {
+            const numExercises = session.sessionExercises?.length || 0;
+            return (
+              <Scheduled
+                key={session.id}
+                routineName={session.routineNameSnapshot}
+                exerciseCount={numExercises}
+              />
+            );
+          })}
+        </div>
 
         <p className="home__section-title">Your Routines</p>
 
