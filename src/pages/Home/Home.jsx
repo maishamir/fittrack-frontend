@@ -53,8 +53,6 @@ function Home() {
     }
   }
 
-  console.log(todaySessions);
-
   return (
     <Layout>
       <div className="home">
@@ -87,6 +85,7 @@ function Home() {
                 key={session.id}
                 routineName={session.routineNameSnapshot}
                 exerciseCount={numExercises}
+                onStart={() => navigate(`/workout/${session.id}`)}
               />
             );
           })}
