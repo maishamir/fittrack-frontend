@@ -1,40 +1,57 @@
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(15, 23, 43, 0.95);
-    border-top: 0.6px solid #1D293D;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(15, 23, 43, 0.95);
+  border-top: 0.6px solid #1d293d;
 
-    &__list {
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        padding: 0.75rem 0;
-        gap: 5rem;
+  &__list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0.75rem 0;
+    gap: 5rem;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+
+    &:hover {
+      & > * {
+        color: #51a2ff;
+      }
     }
+  }
 
-    &__item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.25rem;
-        cursor: pointer;
+  &__label {
+    font-size: 0.75rem;
+    color: #90a1b9;
 
-        &:hover {
-            &>* {
-                color: #51A2FF;
-            }
-        }
-
+    &--active {
+      color: #51a2ff;
     }
+  }
 
-    &__label {
-        font-size: 0.75rem;
-        color: #90A1B9;
-    }
+  &__icon {
+    color: #90a1b9;
+    stroke: currentColor; // Lucide icons use stroke, not fill
 
-    &__icon {
-        color: #90A1B9;
+    &--active {
+      color: #51a2ff;
     }
+  }
+
+  &__item {
+    &:hover {
+      .footer__icon,
+      .footer__label {
+        color: #51a2ff;
+      }
+    }
+  }
 }
