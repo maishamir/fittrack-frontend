@@ -3,6 +3,7 @@ import "./ScheduleWorkoutModal.scss";
 import { getRoutines, startSession } from "../../api/routines";
 import { useNavigate } from "react-router-dom";
 import { deleteSession } from "../../api/sessions";
+import { Check } from "lucide-react";
 
 function ScheduleWorkoutModal({
   isOpen,
@@ -113,24 +114,37 @@ function ScheduleWorkoutModal({
             {scheduledSessions?.map((session) => {
               return (
                 <div
-                  className="routine-modal__exercise-btn routine-modal__exercise-btn--sched"
+                  className={`routine-modal__exercise-btn routine-modal__exercise-btn--sched ${session.completed ? "routine-modal__exercise-btn--complete" : ""}`}
                   key={session.id}
                 >
-                  {session.routineNameSnapshot}
-                  <div className="routine-modal__actions">
-                    <button
-                      className="routine-modal__action routine-modal__action--start"
-                      onClick={() => handleStartRoutine(session)}
-                    >
-                      Start
-                    </button>
-                    <button
-                      className="routine-modal__action routine-modal__action--remove"
-                      onClick={() => handleRemoveSession(session.id)}
-                    >
-                      Remove
-                    </button>
+                  <div className="routine-modal__routineName">
+                    {session.completed ? (
+                      <Check size={18} color="#05DF72" />
+                    ) : (
+                      ""
+                    )}
+                    {session.routineNameSnapshot}
                   </div>
+                  {!session.completed ? (
+                    <div className="routine-modal__actions">
+                      <button
+                        className="routine-modal__action routine-modal__action--start"
+                        onClick={() => handleStartRoutine(session)}
+                      >
+                        Start
+                      </button>
+                      <button
+                        className="routine-modal__action routine-modal__action--remove"
+                        onClick={() => handleRemoveSession(session.id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="routine-modal__actions routine-modal__actions--completed">
+                      <p>Completed</p>
+                    </div>
+                  )}
                 </div>
               );
             })}

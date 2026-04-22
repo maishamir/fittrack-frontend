@@ -95,6 +95,26 @@
         bottom: 0.25rem;
         border-radius: 1000px;
       }
+
+      &:hover {
+        border-radius: 0.5rem;
+      }
+    }
+
+    &--completed {
+      &::after {
+        content: "";
+        height: 4px;
+        width: 4px;
+        background-color: orange;
+        position: absolute;
+        bottom: 0.25rem;
+        border-radius: 1000px;
+      }
+    }
+
+    &:hover {
+      border-radius: 0.5rem;
     }
   }
 
@@ -117,7 +137,7 @@
     border-radius: 50%;
 
     &--completed {
-      background-color: #05df72;
+      background-color: orange;
     }
 
     &--scheduled {

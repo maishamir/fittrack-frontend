@@ -12,9 +12,19 @@
   animation: slideUp 0.3s ease-out;
   overflow: scroll;
 
+  &__routineName {
+    display: flex;
+    gap: 0.5rem;
+  }
+
   &__actions {
     display: flex;
     gap: 0.5rem;
+
+    &--completed {
+      color: #05df72;
+      font-size: 0.75rem;
+    }
   }
 
   &__action {
@@ -85,18 +95,35 @@
     color: white;
     font-size: 0.875rem;
     background-color: rgba(29, 41, 61, 0.5);
-    border: 1px solid #314158;
+    border: 0.5px solid #314158;
     cursor: pointer;
     justify-content: space-between;
     gap: 0.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.125s ease-in-out;
+
+    &:hover {
+      background-color: rgba(54, 68, 92, 0.418);
+      border: 0.5px solid rgba(79, 94, 120, 0.441);
+    }
 
     &--sched {
       background-color: rgba(43, 128, 255, 0.1);
       border: 0.5px solid #2b80ff8a;
+      flex-direction: row;
 
       &:hover {
         background-color: rgba(43, 128, 255, 0.2);
       }
+    }
+
+    &--complete {
+      background-color: rgba(0, 201, 80, 0.1);
+      border: 0.5px solid rgba(0, 201, 80, 0.595);
+      display: flex;
+      align-items: center;
+      pointer-events: none;
     }
   }
 

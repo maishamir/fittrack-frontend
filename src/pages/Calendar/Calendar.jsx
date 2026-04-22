@@ -41,22 +41,31 @@ function Calendar({ onDateSelect }) {
     const dateStr = new Date(session.scheduledDate).toISOString().split("T")[0];
     setScheduledDates((prev) => new Set([...prev, dateStr]));
     setAllSessions((prev) => [...prev, session]);
-    setScheduledSessions(prev => [...prev, session])
+    setScheduledSessions((prev) => [...prev, session]);
   }
 
   function handleRemove(sessionId) {
-    // So pass an onRemove prop from Calendar to the modal, and in handleRemoveRoutine call both the delete API and onRemove(sessionId). Then in Calendar, onRemove filters it out of allSessions and scheduledDates.  
-    let sessionToRemove = allSessions.find(session => session.id == sessionId)
+    // So pass an onRemove prop from Calendar to the modal, and in handleRemoveRoutine call both the delete API and onRemove(sessionId). Then in Calendar, onRemove filters it out of allSessions and scheduledDates.
+    let sessionToRemove = allSessions.find(
+      (session) => session.id == sessionId,
+    );
 
     setAllSessions(allSessions.filter((session) => session.id !== sessionId));
 
-    let sessionDate = new Date(sessionToRemove.scheduledDate).toISOString().split("T")[0];
-    setScheduledDates(new Set(Array.from(scheduledDates).filter(scheduled => scheduled !== sessionDate)))
-    setScheduledSessions(scheduledSessions.filter(session => session.id !== sessionId))
-      
+    let sessionDate = new Date(sessionToRemove.scheduledDate)
+      .toISOString()
+      .split("T")[0];
+    setScheduledDates(
+      new Set(
+        Array.from(scheduledDates).filter(
+          (scheduled) => scheduled !== sessionDate,
+        ),
+      ),
+    );
+    setScheduledSessions(
+      scheduledSessions.filter((session) => session.id !== sessionId),
+    );
   }
-
-  
 
   // This function moves us to the PREVIOUS month
   function goToPreviousMonth() {
@@ -223,6 +232,22 @@ function Calendar({ onDateSelect }) {
     return scheduledDates?.has(dateStr) ?? false;
   }
 
+  function isDayComplete(day) {
+    const dateStr = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      day,
+    )
+      .toISOString()
+      .split("T")[0];
+
+    const daySessions = allSessions?.filter(
+      (session) => session.scheduledDate?.split("T")[0] === dateStr,
+    );
+
+    return daySessions?.length > 0 && daySessions.every((s) => s.completed);
+  }
+
   // This formats the month and year for display at the top
   // Example: "March 2026"
   // WHY a function? So if we want to change the format later, we only change it in one place
@@ -290,6 +315,7 @@ function Calendar({ onDateSelect }) {
                   ${isToday(day) ? "calendar__day-btn--today" : ""}  
                   ${isSelectedDay(day) ? "calendar__day-btn--selected" : ""}
                   ${isScheduledDay(day) ? "calendar__day-btn--scheduled calendar__day-btn--selected" : ""}
+                  ${isDayComplete(day) ? "calendar__day-btn--scheduled calendar__day-btn--completed" : ""}
                 `}
                 >
                   {day} {/* Display the actual day number */}
