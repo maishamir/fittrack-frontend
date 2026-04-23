@@ -53,6 +53,9 @@ function Home() {
     }
   }
 
+    // meant for showing upto 3 routines on the homepage to avoid clutter
+    const visibleCards = routines.slice(0, 3);
+
   return (
     <Layout>
       <div className="home">
@@ -94,7 +97,7 @@ function Home() {
         <p className="home__section-title">Your Routines</p>
 
         <div className="home__routines-list">
-          {routines.map((routine) => {
+          {visibleCards.map((routine) => {
             const numExercises = routine.routineExercises?.length || 0;
             const numSets =
               routine.routineExercises?.reduce((total, re) => {
@@ -112,6 +115,8 @@ function Home() {
               />
             );
           })}
+
+          <button className="home__seeAllRoutines" onClick={() => navigate("/routines")}>See all routines</button>
         </div>
       </div>
     </Layout>
