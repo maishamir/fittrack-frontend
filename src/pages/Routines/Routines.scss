@@ -1,159 +1,173 @@
 .routines-list {
-    overflow: scroll;
-    margin-top: 0.75rem;
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
+  overflow: scroll;
+  margin-top: 0.75rem;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: normal;
+  }
+
+  &__new-btn {
+    display: flex;
+    font-size: 1rem;
+    color: white;
+    background-color: #2b7fff;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: none;
+    gap: 0.5rem;
+    border-radius: 0.875rem;
+    cursor: pointer;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin-top: 1rem;
+  }
+
+  &__card {
+    background-color: #131d30;
+    border: 1px solid #314158;
+    padding: 1rem 1rem 0.5rem 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
     }
 
-    &__title {
-        font-size: 1rem;
-        font-weight: normal;
+    &-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
     }
 
-    &__new-btn {
-        display: flex;
-        font-size: 1rem;
-        color: white;
-        background-color: #2B7FFF;
-        align-items: center;
-        padding: 0.5rem 1rem;
-        border: none;
-        gap: 0.5rem;
-        border-radius: 0.875rem;
-        cursor: pointer;
+    &-name {
+      font-size: 1rem;
+      font-weight: normal;
     }
 
-    &__cards {
-        display: flex;
-        flex-direction: column;
-        gap: 0.875rem;
+    &-stats {
+      color: #90a1b9;
+      font-size: 0.75rem;
     }
 
-    &__card {
-        background-color: #131D30;
+    &-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    &-footer {
+      display: flex;
+      gap: 0.5rem;
+      border-top: 1px solid #314158;
+      margin-left: -1rem; // Negative of card padding
+      margin-right: -1rem; // Negative of card padding
+      padding-left: 0.5rem; // Add padding back for the content
+      padding-right: 0.5rem; // Add padding back for the content
+      padding-top: 0.5rem;
+    }
+  }
+
+  &__edit-btn {
+    color: white;
+    flex: 1;
+    border-radius: 0.875rem;
+    border: none;
+    background-color: #314158;
+    cursor: pointer;
+  }
+
+  &__delete-btn {
+    background-color: #2c2033;
+    color: #ff6467;
+    border: none;
+    padding: 0.65rem 0.75rem;
+    flex: 1;
+    border-radius: 0.875rem;
+    cursor: pointer;
+  }
+
+  &__play-btn {
+    border-radius: 50%;
+    height: 2.25rem;
+    width: 2.25rem;
+    border: none;
+    background-image: linear-gradient(to bottom right, #2b7fff, #9810fa);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__section {
+    background-color: #0f172b9a;
+    border-radius: 0.625rem;
+    padding: 0.5rem;
+
+    &-label {
+      font-size: 0.75rem;
+      color: #62748e;
+      font-weight: normal;
+      margin-bottom: 0.25rem;
+    }
+
+    &-exercises {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+
+  &__exercise {
+    // background-color: red;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+
+    &-name {
+      color: #cad5e2;
+    }
+
+    &-sets {
+      color: #62748e;
+    }
+  }
+
+  &__search {
+    position: relative;
+    &-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0.5rem;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.75rem 0 0.75rem 2.5rem;
         border: 1px solid #314158;
-        padding: 1rem 1rem 0.5rem 1rem;
-        border-radius: 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-
-        &-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-
-        }
-
-        &-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        &-name {
-            font-size: 1rem;
-            font-weight: normal;
-        }
-
-        &-stats {
-            color: #90A1B9;
-            font-size: 0.75rem;
-
-        }
-
-        &-body {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-
-        }
-
-        &-footer {
-            // border: 1px solid red;
-            display: flex;
-            gap: 0.5rem;
-            border-top: 1px solid #314158;
-            margin-left: -1rem; // Negative of card padding
-            margin-right: -1rem; // Negative of card padding
-            padding-left: 0.5rem; // Add padding back for the content
-            padding-right: 0.5rem; // Add padding back for the content
-            padding-top: 0.5rem;
-
-        }
-
-
-    }
-
-    &__edit-btn {
+        border-radius: 0.75rem;
+        background-color: #131d30;
         color: white;
-        flex: 1;
-        border-radius: 0.875rem;
-        border: none;
-        background-color: #314158;
-        cursor: pointer;
-    }
 
-
-    &__delete-btn {
-        background-color: #2C2033;
-        color: #FF6467;
-        border: none;
-        padding: 0.65rem 0.75rem;
-        flex: 1;
-        border-radius: 0.875rem;
-        cursor: pointer;
-    }
-
-    &__play-btn {
-        border-radius: 50%;
-        height: 2.25rem;
-        width: 2.25rem;
-        border: none;
-        background-image: linear-gradient(to bottom right, #2B7FFF, #9810FA);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-    }
-
-    &__section {
-        background-color: #0f172b9a;
-        border-radius: 0.625rem;
-        padding: 0.5rem;
-
-        &-label {
-            font-size: 0.75rem;
-            color: #62748E;
-            font-weight: normal;
-            margin-bottom: 0.25rem;
-        }
-
-        &-exercises {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
+        &:focus {
+            // outline: 1px solid #85a1c9;
+            outline: none;
         }
     }
-
-    &__exercise {
-        // background-color: red;
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.75rem;
-
-
-        &-name {
-            color: #CAD5E2;
-        }
-
-        &-sets {
-            color: #62748E;
-        }
-    }
-
-
+  }
 }

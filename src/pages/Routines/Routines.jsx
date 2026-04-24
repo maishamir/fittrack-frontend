@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus, Play } from "lucide-react";
+import { Plus, Play, Search } from "lucide-react";
 import "./Routines.scss";
 import { deleteRoutine, getRoutines, startSession } from "../../api/routines";
 import Layout from "../../components/Layout/Layout";
@@ -85,11 +85,10 @@ function RoutinesList() {
     return grouped;
   }
 
-
-    // TODO calculate the filtered list of routines based on the search query
-    const filteredRoutines = routines.filter(routine => routine.name.includes(searchQuery))
-    
-  
+  // TODO calculate the filtered list of routines based on the search query
+  const filteredRoutines = routines.filter((routine) =>
+    routine.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   return (
     <Layout>
@@ -104,19 +103,21 @@ function RoutinesList() {
           </button>
         </div>
 
-        <input
-          type="text"
-          name="routine"
-          id=""
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search for a routine"
-        />
+        <div className="routines-list__search">
+            <Search className="routines-list__search-icon" color="#85a1c9" size={20}/>
+          <input
+            type="text"
+            name="routine"
+            id=""
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search for a routine"
+          />
+        </div>
 
         {/* List of routine cards */}
         <div className="routines-list__cards">
-        
-          {filteredRoutines.map((routine) => {
+        {(filteredRoutines.length === 0 && searchQuery !== "") ? <p>No routines match your search</p> : filteredRoutines.map((routine) => {
             const numExercises = routine.routineExercises?.length || 0;
             const numSets =
               routine.routineExercises?.reduce((total, re) => {
@@ -198,7 +199,7 @@ function RoutinesList() {
                 </div>
               </div>
             );
-          })}
+          })} 
         </div>
       </div>
     </Layout>
