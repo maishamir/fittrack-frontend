@@ -23,11 +23,11 @@ function Calendar({ onDateSelect }) {
   const [scheduledSessions, setScheduledSessions] = useState([]);
 
   async function fetchAndSetSessions() {
-    const data = await getScheduledSessions();
+    const data = await getSessions();
     const dates = new Set(
-      data
-        .filter((s) => s.scheduledDate)
-        .map((s) => new Date(s.scheduledDate).toISOString().split("T")[0]),
+      data.map(
+        (s) => new Date(s.scheduledDate ?? s.date).toISOString().split("T")[0],
+      ),
     );
     setAllSessions(data);
     setScheduledDates(dates);
@@ -107,7 +107,9 @@ function Calendar({ onDateSelect }) {
     let clickedDateStr = clickedDate.toISOString().split("T")[0];
 
     const schedSessions = allSessions.filter(
-      (session) => clickedDateStr === session.scheduledDate.split("T")[0],
+      (session) =>
+        clickedDateStr ===
+        (session.scheduledDate ?? session.date).split("T")[0],
     );
 
     setScheduledSessions(schedSessions);
