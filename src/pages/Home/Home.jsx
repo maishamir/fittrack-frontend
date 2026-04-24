@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getRoutines, startSession } from "../../api/routines";
 import { useNavigate } from "react-router-dom";
-import { Flame, TrendingUp, Calendar, CheckCircle2 } from "lucide-react";
+import { Flame, TrendingUp, Calendar, CheckCircle2, Check } from "lucide-react";
 import StatCard from "../../components/Home/StatCard/StatCard";
 import Message from "../../components/Home/Message/Message";
 import Scheduled from "../../components/Home/Scheduled/Scheduled";
@@ -53,8 +53,14 @@ function Home() {
     }
   }
 
-    // meant for showing upto 3 routines on the homepage to avoid clutter
-    const visibleCards = routines.slice(0, 3);
+  // meant for showing upto 3 routines on the homepage to avoid clutter
+  const visibleCards = routines.slice(0, 3);
+
+  // console.log(todaySessions.every());
+  //   todaySessions?.forEach((session) => console.log(session.completed));
+  let allComplete = todaySessions?.every((session) => session.completed);
+
+  let numTotal = todaySessions?.filter((session) => session.completed);
 
   return (
     <Layout>
@@ -68,12 +74,12 @@ function Home() {
           <StatCard
             icon={<TrendingUp color="#51A2FF" />}
             text={"total"}
-            cardContent={"0"}
+            cardContent={numTotal ? numTotal.length : 0}
           />
           <StatCard
             icon={<Calendar color="#C27AFF" />}
             text={"today"}
-            cardContent={"—"}
+            cardContent={allComplete ? <Check /> : "-"}
           />
         </div>
 
@@ -116,7 +122,12 @@ function Home() {
             );
           })}
 
-          <button className="home__seeAllRoutines" onClick={() => navigate("/routines")}>See all routines</button>
+          <button
+            className="home__seeAllRoutines"
+            onClick={() => navigate("/routines")}
+          >
+            See all routines
+          </button>
         </div>
       </div>
     </Layout>
