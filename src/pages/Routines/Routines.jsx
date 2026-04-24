@@ -11,8 +11,9 @@ function RoutinesList() {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [loadingId, setLoadingId] = useState(null);
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   // State to hold all routines
-  // HARDCODED TEST DATA - Replace with actual API call later
   const [routines, setRoutines] = useState([]);
 
   // Fetch routines on component mount
@@ -39,7 +40,7 @@ function RoutinesList() {
 
       const sessionId = session.id ?? session.session.Id;
       navigate(`/workout/${sessionId}`);
-    } finally { 
+    } finally {
       setLoadingId(null);
     }
   }
@@ -84,6 +85,12 @@ function RoutinesList() {
     return grouped;
   }
 
+
+    // TODO calculate the filtered list of routines based on the search query
+    const filteredRoutines = routines.filter(routine => routine.name.includes(searchQuery))
+    
+  
+
   return (
     <Layout>
       <div className="routines-list">
@@ -97,9 +104,19 @@ function RoutinesList() {
           </button>
         </div>
 
+        <input
+          type="text"
+          name="routine"
+          id=""
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search for a routine"
+        />
+
         {/* List of routine cards */}
         <div className="routines-list__cards">
-          {routines.map((routine) => {
+        
+          {filteredRoutines.map((routine) => {
             const numExercises = routine.routineExercises?.length || 0;
             const numSets =
               routine.routineExercises?.reduce((total, re) => {
