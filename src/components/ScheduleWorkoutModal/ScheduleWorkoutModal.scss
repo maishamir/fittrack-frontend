@@ -123,7 +123,18 @@
       border: 0.5px solid rgba(0, 201, 80, 0.595);
       display: flex;
       align-items: center;
-      pointer-events: none;
+      //   pointer-events: none;
+
+      &:hover {
+        background-color: rgba(
+          0,
+          201,
+          80,
+          0.1
+        ); // same as resting state, so nothing changes visually
+        border: 0.5px solid rgba(0, 201, 80, 0.595);
+        cursor: default;
+      }
     }
   }
 

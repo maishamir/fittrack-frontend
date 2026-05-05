@@ -118,8 +118,10 @@ function ScheduleWorkoutModal({
                   key={session.id}
                 >
                   <div className="routine-modal__routineName">
-                    {session.completed ? (
+                    {session.completed && session.scheduledDate ? (
                       <Check size={18} color="#05DF72" />
+                    ) : session.completed && !session.scheduledDate ? (
+                      <span title="Completed an impromptu workout! Nice 💪🏼">⭐️</span>
                     ) : (
                       ""
                     )}
