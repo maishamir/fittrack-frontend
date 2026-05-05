@@ -19,11 +19,25 @@ function Workout() {
   const [isComplete, setIsComplete] = useState(false);
   const navigate = useNavigate();
 
+
+  const [totalSets, setTotalSets] = useState(0);
+
+
+  function handleSetAdded() {
+    setTotalSets(prev => prev + 1)
+  }
+
+
+
+
   useEffect(() => {
     async function fetchSession() {
       const data = await getSessionById(sessionId);
       setSession(data);
       setLoading(false);
+      setTotalSets(data.sessionExercises.reduce(
+        (total, exercise) => total + exercise.sessionSets.length, 0
+      ));
     }
     fetchSession();
   }, [sessionId]);
@@ -32,10 +46,10 @@ function Workout() {
   if (!session) return <p>No session found.</p>;
 
   const groupedExercises = groupExercisesBySection(session.sessionExercises);
-  const totalSets = session.sessionExercises.reduce(
-    (total, exercise) => total + exercise.sessionSets.length,
-    0,
-  );
+  // const totalSets = session.sessionExercises.reduce(
+  //   (total, exercise) => total + exercise.sessionSets.length,
+  //   0,
+
 
   /**
    * When user finishes typing reps and clicks away, send that number to the backend to save it
@@ -148,6 +162,7 @@ function Workout() {
                     onRepsBlur={handleRepsBlur}
                     onWeightBlur={handleWeightBlur}
                     onSetComplete={handleSetComplete}
+                    onSetAdded={handleSetAdded}
                   />
                 ))}
               </div>

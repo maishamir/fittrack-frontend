@@ -10,15 +10,32 @@ import SetRow from "./../SetRow/SetRow";
  * - rendering all sets for that exercise
  *
  */
-import { ChevronDown, ChevronUp, Check, Trophy } from "lucide-react";
+import { ChevronDown, ChevronUp, Check, Trophy, Plus } from "lucide-react";
 
-function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete }) {
+
+
+function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete, onSetAdded }) {
   const [isOpen, setIsOpen] = useState(false);
   const [completedSets, setCompletedSets] = useState(0);
-
+  const [sessionSets, setSessionSets] = useState(exercise.sessionSets);
   function handleSetComplete(isNowChecked) {
     setCompletedSets((prev) => (isNowChecked ? prev + 1 : prev - 1));
     onSetComplete(isNowChecked);
+  }
+
+
+  function handleAddSet() {
+    // console.log(sessionSets);
+    const newSet = {
+      id: null,
+      orderIndex: sessionSets.length,
+      actualReps: null,
+      actualWeight: null,
+      targetExactReps: null,
+      isNew: true
+    };
+    setSessionSets(prev => [...prev, newSet])
+    onSetAdded()
   }
 
   return (
@@ -28,11 +45,11 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete }) {
           <div className="exercise__name">{exercise.exercise.name}</div>
 
           <div className="exercise__meta">
-            {exercise.sessionSets.length} ×{" "}
-            {exercise.sessionSets[0]?.targetExactReps ??
-              `${exercise.sessionSets[0]?.targetMinReps} - ${exercise.sessionSets[0]?.targetMaxReps}`}{" "}
+            {sessionSets.length} ×{" "}
+            {sessionSets[0]?.targetExactReps ??
+              `${sessionSets[0]?.targetMinReps} - ${sessionSets[0]?.targetMaxReps}`}{" "}
             <span className="exercise__meta-marker">•</span> {completedSets}/
-            {exercise.sessionSets.length} done
+            {sessionSets.length} done
           </div>
         </div>
 
@@ -47,7 +64,7 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete }) {
 
       {isOpen && (
         <div className="exercise__content">
-          {exercise.sessionSets.map((set, index) => (
+          {sessionSets.map((set, index) => (
             <SetRow
               key={set.id}
               set={set}
@@ -57,6 +74,7 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete }) {
               onSetComplete={handleSetComplete}
             />
           ))}
+          <button onClick={handleAddSet} ><Plus /></button>
         </div>
       )}
     </div>
