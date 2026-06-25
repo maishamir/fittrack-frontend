@@ -2,6 +2,8 @@
 // Responsive Mixins
 // =====================================
 
+@use "../../styles/abstracts/variables" as *;
+
 @mixin tablet {
     @media (min-width: $breakpoint-tablet) {
         @content;
