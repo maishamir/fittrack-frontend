@@ -10,11 +10,11 @@ import SetRow from "./../SetRow/SetRow";
  * - rendering all sets for that exercise
  *
  */
-import { ChevronDown, ChevronUp, Check, Trophy, Plus } from "lucide-react";
+import { ChevronDown, ChevronUp, Check, Trophy, Plus, X } from "lucide-react";
 
 
 
-function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete, onSetAdded }) {
+function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete, onSetAdded, onSetDeleted }) {
   const [isOpen, setIsOpen] = useState(false);
   const [completedSets, setCompletedSets] = useState(0);
   const [sessionSets, setSessionSets] = useState(exercise.sessionSets);
@@ -27,7 +27,7 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete, onSe
   function handleAddSet() {
     // console.log(sessionSets);
     const newSet = {
-      id: null,
+      id: `temp-${Date.now()}`,
       orderIndex: sessionSets.length,
       actualReps: null,
       actualWeight: null,
@@ -36,6 +36,11 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete, onSe
     };
     setSessionSets(prev => [...prev, newSet])
     onSetAdded()
+  }
+
+  function deleteSet(setId) {
+    setSessionSets(prev => prev.filter(set => set.id !== setId));
+    onSetDeleted();
   }
 
   return (
@@ -72,9 +77,11 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete, onSe
               onRepsBlur={onRepsBlur}
               onWeightBlur={onWeightBlur}
               onSetComplete={handleSetComplete}
+              onDeleteSet={() => deleteSet(set.id)}
             />
           ))}
-          <button onClick={handleAddSet} ><Plus /></button>
+          <button className="exercise__add-set" onClick={handleAddSet} ><Plus color="white" /></button>
+
         </div>
       )}
     </div>

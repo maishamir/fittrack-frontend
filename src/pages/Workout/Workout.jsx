@@ -27,6 +27,10 @@ function Workout() {
     setTotalSets(prev => prev + 1)
   }
 
+  function handleSetDeleted() {
+    setTotalSets(prev => prev - 1)
+  }
+
 
 
 
@@ -105,6 +109,8 @@ function Workout() {
       grouped[section].push(exercise);
     });
 
+    console.log("GROUPED ===> ")
+    console.log(grouped)
     return grouped;
   }
 
@@ -125,6 +131,8 @@ function Workout() {
       console.error("Couldn't complete session: ", error);
     }
   }
+
+  const sectionOrder = ["Warm Up", "Main Workout", "Cool Down"]
   return (
     <Layout>
       {isComplete && <Confetti recycle={false} />}
@@ -148,11 +156,13 @@ function Workout() {
         <Timer />
 
         <div className="sections">
-          {Object.entries(groupedExercises).map(([sectionName, exercises]) => (
+          {Object.entries(groupedExercises).sort(([a], [b]) => sectionOrder.indexOf(a) - sectionOrder.indexOf(b)).map(([sectionName, exercises]) => (
             <div key={sectionName} className="section-card">
               <div className="section-card__header">
                 <h3 className="section-card__title">{sectionName}</h3>
               </div>
+
+
 
               <div className="section-card__body">
                 {exercises.map((exercise) => (
@@ -163,6 +173,7 @@ function Workout() {
                     onWeightBlur={handleWeightBlur}
                     onSetComplete={handleSetComplete}
                     onSetAdded={handleSetAdded}
+                    onSetDeleted={handleSetDeleted}
                   />
                 ))}
               </div>
