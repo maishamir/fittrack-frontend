@@ -21,6 +21,8 @@ function EditRoutine() {
   ]);
   const navigate = useNavigate();
 
+
+  // delete an exercise from a section (ex. barbell bench press from Warm Up)
   function handleDeleteExercise(exerciseId, sectionId) {
     const updatedSections = routineSections.map((section) => {
       if (section.id !== sectionId) return section;
@@ -34,6 +36,7 @@ function EditRoutine() {
   }
 
   function handleExerciseUpdate(sectionId, exerciseId, field, value) {
+    console.log("CALLING HANDLEEXERCISEUPDATEEEEEE")
     setRoutineSections(
       routineSections.map((section) => {
         if (section.id !== sectionId) return section;
@@ -85,7 +88,7 @@ function EditRoutine() {
   function handleAddExercise(exercise) {
     const newExercise = {
       ...exercise,
-      exercise: {name: exercise.name},
+      exercise: { name: exercise.name },
       sets: 3,
       reps: 10,
     };
@@ -185,7 +188,7 @@ function EditRoutine() {
                         }
                         sectionId={section.id}
                         exerciseId={exercise.id}
-                        onUpdate={handleEditRoutine}
+                        onUpdate={handleExerciseUpdate}
                         exerciseName={exercise.exercise.name}
                       />
                     ))}

@@ -60,6 +60,7 @@ function CreateRoutine() {
   }
 
   function handleExerciseUpdate(sectionId, exerciseId, field, value) {
+    console.log("CALLING HANDLEeXERICSEUPDATE!!!!")
     setSections(
       sections.map((section) => {
         if (section.id !== sectionId) return section;
