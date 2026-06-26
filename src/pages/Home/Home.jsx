@@ -8,12 +8,13 @@ import Scheduled from "../../components/Home/Scheduled/Scheduled";
 import RoutineCard from "../../components/Home/RoutineCard/RoutineCard";
 import Layout from "../../components/Layout/Layout";
 import "./Home.scss";
-import { getTodaysSessions } from "../../api/sessions";
+import { getTodaysSessions, getStreak } from "../../api/sessions";
 
 function Home() {
   const [routines, setRoutines] = useState([]);
   const [loadingId, setLoadingId] = useState(null);
   const [todaySessions, setTodaySessions] = useState(null);
+  const [streak, setStreak] = useState(0)
 
   const navigate = useNavigate();
 
@@ -33,6 +34,16 @@ function Home() {
     }
     fetchTodaysSessions();
   }, []);
+
+
+  useEffect(() => {
+    async function fetchStreak() {
+      const data = await getStreak();
+      setStreak(data.streak);
+    }
+    fetchStreak();
+  }, []);
+
 
   async function handleStart(routineId) {
     try {
@@ -69,7 +80,7 @@ function Home() {
           <StatCard
             icon={<Flame color="#FF8904" />}
             text={"streak"}
-            cardContent={"0"}
+            cardContent={streak}
           />
           <StatCard
             icon={<TrendingUp color="#51A2FF" />}
