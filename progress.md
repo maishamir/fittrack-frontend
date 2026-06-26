@@ -7,7 +7,7 @@
 - looked at some mockups in dribbble for inspo
 
 TODO:
-- [ ] fix "edit routine not working" issue
+- [x] fix "edit routine not working" issue
 - [ ] figure out some styling tweaks and the light vs dark theme LATER
 - [ ] add sign-in / sign-up with clerk
 - [ ] see if you can incorporate convex into app

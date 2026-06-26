@@ -7,6 +7,11 @@ export async function getSessions() {
   return response.data;
 }
 
+export async function getStreak() {
+  const response = await axios.get(`${BASE_URL}/sessions/streak`);
+  return response.data;
+}
+
 export async function getScheduledSessions() {
   const response = await axios.get(`${BASE_URL}/sessions/scheduled`);
   return response.data;
