@@ -223,6 +223,17 @@ function Calendar({ onDateSelect }) {
     );
   }
 
+
+  const isSelectedDateToday = () => {
+    const today = new Date();
+    if (selectedDate === null) return false;
+    return (
+      selectedDate.getDate() === today.getDate() &&
+      selectedDate.getMonth() === today.getMonth() &&
+      selectedDate.getFullYear() === today.getFullYear()
+    )
+  }
+
   function isScheduledDay(day) {
     const dateStr = new Date(
       currentDate.getFullYear(),
@@ -351,6 +362,7 @@ function Calendar({ onDateSelect }) {
         onSchedule={handleScheduled}
         scheduled={scheduledSessions}
         onRemove={handleRemove}
+        canStartToday={isSelectedDateToday}
       />
     </Layout>
   );

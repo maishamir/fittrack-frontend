@@ -12,12 +12,14 @@ function ScheduleWorkoutModal({
   onSchedule,
   scheduled,
   onRemove,
+  canStartToday
 }) {
   const [routines, setRoutines] = useState([]);
   const [isClosing, setIsClosing] = useState(false);
   const [scheduledSessions, setScheduledSessions] = useState();
   const [loadingId, setLoadingId] = useState(null);
   const navigate = useNavigate();
+  const startToday = canStartToday();
 
   function handleModalClose() {
     setIsClosing(true);
@@ -130,6 +132,7 @@ function ScheduleWorkoutModal({
                   {!session.completed ? (
                     <div className="routine-modal__actions">
                       <button
+                        disabled={!startToday}
                         className="routine-modal__action routine-modal__action--start"
                         onClick={() => handleStartRoutine(session)}
                       >
