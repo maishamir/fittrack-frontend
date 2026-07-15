@@ -40,7 +40,7 @@
         color: #6fddff;
       }
 
-      &:disabled {
+      &.disabled {
         color: gray;
       }
     }
@@ -87,6 +87,7 @@
       font-weight: normal;
       color: #90a1b9;
     }
+
     border-top: 0.7px solid #314158;
   }
 
@@ -130,12 +131,10 @@
       //   pointer-events: none;
 
       &:hover {
-        background-color: rgba(
-          0,
-          201,
-          80,
-          0.1
-        ); // same as resting state, so nothing changes visually
+        background-color: rgba(0,
+            201,
+            80,
+            0.1); // same as resting state, so nothing changes visually
         border: 0.5px solid rgba(0, 201, 80, 0.595);
         cursor: default;
       }
@@ -152,6 +151,7 @@
     transform: translateY(0);
     opacity: 1;
   }
+
   to {
     transform: translateY(100%);
     opacity: 0.25;

@@ -3,6 +3,7 @@ import Home from "./pages/Home/Home";
 import Workout from "./pages/Workout/Workout";
 import Calendar from "./pages/Calendar/Calendar";
 import Header from "./components/Layout/Header/Header";
+import toast, {Toaster} from 'react-hot-toast'
 
 import "./App.scss";
 import Routines from "./pages/Routines/Routines";
@@ -28,6 +29,7 @@ function App() {
 
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </div>
   );
 }

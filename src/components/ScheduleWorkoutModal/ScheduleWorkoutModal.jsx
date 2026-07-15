@@ -4,6 +4,8 @@ import { getRoutines, startSession } from "../../api/routines";
 import { useNavigate } from "react-router-dom";
 import { deleteSession } from "../../api/sessions";
 import { Check } from "lucide-react";
+import toast from "react-hot-toast";
+// import toast, {Toaster} from 'react-hot-toast';
 
 function ScheduleWorkoutModal({
   isOpen,
@@ -58,6 +60,15 @@ function ScheduleWorkoutModal({
   }
 
   async function handleStartRoutine(session) {
+    if (!startToday) {
+      toast.error("Whoops! Can't start a routine on the wrong day", {
+        style: {
+          fontSize: '0.875rem',
+          width: "90%"
+        }
+      });
+      return;
+    }
     try {
       setLoadingId(session.id);
 
@@ -132,8 +143,7 @@ function ScheduleWorkoutModal({
                   {!session.completed ? (
                     <div className="routine-modal__actions">
                       <button
-                        disabled={!startToday}
-                        className="routine-modal__action routine-modal__action--start"
+                        className={`${startToday ? "" : "disabled"} routine-modal__action routine-modal__action--start`}
                         onClick={() => handleStartRoutine(session)}
                       >
                         Start
