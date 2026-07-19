@@ -28,7 +28,7 @@ function Home() {
     }
 
     fetchRoutines();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     async function fetchTodaysSessions() {
