@@ -4,6 +4,8 @@ import "./Calendar.scss";
 import Layout from "../../components/Layout/Layout";
 import ScheduleWorkoutModal from "../../components/ScheduleWorkoutModal/ScheduleWorkoutModal";
 import { getScheduledSessions, getSessions } from "../../api/sessions";
+import { useUser } from "@clerk/react";
+import { getSessionsByUserId } from "../../api/users";
 
 function Calendar({ onDateSelect }) {
   // state to check to set open or close status on routine selector modal
@@ -21,9 +23,13 @@ function Calendar({ onDateSelect }) {
   const [allSessions, setAllSessions] = useState(null);
   const [scheduledDates, setScheduledDates] = useState(null);
   const [scheduledSessions, setScheduledSessions] = useState([]);
+  const { user } = useUser();
 
   async function fetchAndSetSessions() {
-    const data = await getSessions();
+    if (!user?.id) {
+      return;
+    }
+    const data = await getSessionsByUserId(user.id);
     const dates = new Set(
       data.map(
         (s) => new Date(s.scheduledDate ?? s.date).toISOString().split("T")[0],
@@ -35,7 +41,7 @@ function Calendar({ onDateSelect }) {
 
   useEffect(() => {
     fetchAndSetSessions();
-  }, []);
+  }, [user]);
 
   function handleScheduled(session) {
     const dateStr = new Date(session.scheduledDate).toISOString().split("T")[0];

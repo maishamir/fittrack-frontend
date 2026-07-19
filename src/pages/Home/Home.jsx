@@ -9,18 +9,21 @@ import RoutineCard from "../../components/Home/RoutineCard/RoutineCard";
 import Layout from "../../components/Layout/Layout";
 import "./Home.scss";
 import { getTodaysSessions, getStreak } from "../../api/sessions";
+import { useUser } from "@clerk/react";
 
 function Home() {
   const [routines, setRoutines] = useState([]);
   const [loadingId, setLoadingId] = useState(null);
   const [todaySessions, setTodaySessions] = useState(null);
   const [streak, setStreak] = useState(0)
+  const { user } = useUser();
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user?.id) return;
     async function fetchRoutines() {
-      const data = await getRoutines();
+      const data = await getRoutines(user.id);
       setRoutines(data);
     }
 

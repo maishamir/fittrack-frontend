@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteSession } from "../../api/sessions";
 import { Check } from "lucide-react";
 import toast from "react-hot-toast";
+import { useUser } from "@clerk/react";
 // import toast, {Toaster} from 'react-hot-toast';
 
 function ScheduleWorkoutModal({
@@ -22,6 +23,7 @@ function ScheduleWorkoutModal({
   const [loadingId, setLoadingId] = useState(null);
   const navigate = useNavigate();
   const startToday = canStartToday();
+  const { user } = useUser();
 
   function handleModalClose() {
     setIsClosing(true);
@@ -33,8 +35,9 @@ function ScheduleWorkoutModal({
 
   // fetch routines
   useEffect(() => {
+    if (!user?.id) return;
     async function fetchRoutines() {
-      const data = await getRoutines();
+      const data = await getRoutines(user.id);
       setRoutines(data);
     }
     fetchRoutines();

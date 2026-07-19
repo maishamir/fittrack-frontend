@@ -5,6 +5,8 @@ import "./Routines.scss";
 import { deleteRoutine, getRoutines, startSession } from "../../api/routines";
 import Layout from "../../components/Layout/Layout";
 import SelectExerciseModal from "../../components/SelectExerciseModal/SelectExerciseModal";
+// import { getRoutinesByUserId } from "../../api/users";
+import { useUser } from "@clerk/react";
 
 function RoutinesList() {
   const navigate = useNavigate();
@@ -15,17 +17,22 @@ function RoutinesList() {
 
   // State to hold all routines
   const [routines, setRoutines] = useState([]);
+  const { user } = useUser()
 
   // Fetch routines on component mount
   useEffect(() => {
     async function fetchRoutines() {
       // You'll replace this with your actual API call
-      const data = await getRoutines();
+      if (!user?.id) {
+        console.error("no user or userId found");
+        return;
+      }
+      const data = await getRoutines(user.id);
       setRoutines(data);
     }
 
     fetchRoutines();
-  }, []);
+  }, [user]);
 
   // Handle clicking the New button
   function handleNewRoutine() {
@@ -104,7 +111,7 @@ function RoutinesList() {
         </div>
 
         <div className="routines-list__search">
-            <Search className="routines-list__search-icon" color="#85a1c9" size={20}/>
+          <Search className="routines-list__search-icon" color="#85a1c9" size={20} />
           <input
             type="text"
             name="routine"
@@ -117,7 +124,7 @@ function RoutinesList() {
 
         {/* List of routine cards */}
         <div className="routines-list__cards">
-        {(filteredRoutines.length === 0 && searchQuery !== "") ? <p>No routines match your search</p> : filteredRoutines.map((routine) => {
+          {(filteredRoutines.length === 0 && searchQuery !== "") ? <p>No routines match your search</p> : filteredRoutines.map((routine) => {
             const numExercises = routine.routineExercises?.length || 0;
             const numSets =
               routine.routineExercises?.reduce((total, re) => {
@@ -199,7 +206,7 @@ function RoutinesList() {
                 </div>
               </div>
             );
-          })} 
+          })}
         </div>
       </div>
     </Layout>

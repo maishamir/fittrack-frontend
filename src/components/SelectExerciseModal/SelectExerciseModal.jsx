@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getExercises } from "../../api/exercises";
 
 function SelectExerciseModal({ isOpen, onClose, onSelect }) {
-    
+
   // HARDCODED TEST DATA - Replace with actual API call later
   // Organized by muscle group for easy browsing
 
@@ -12,16 +12,16 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
 
   useEffect(() => {
     async function fetchExercises() {
-        const data = await getExercises();
-        setExercises(data)
+      const data = await getExercises();
+      setExercises(data)
     }
     fetchExercises();
   }, [])
 
 
-  const groupedExercises = Object.groupBy(exercises, ({primaryMuscleGroup}) => primaryMuscleGroup);
+  const groupedExercises = Object.groupBy(exercises, ({ primaryMuscleGroup }) => primaryMuscleGroup);
 
-  
+
 
   const exercisesByMuscleGroup = {
     CHEST: [
@@ -54,7 +54,7 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
     ],
   };
 
-//   fetch all exercises
+  //   fetch all exercises
 
 
 
@@ -75,7 +75,7 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
 
         {/* Scrollable list of exercises grouped by muscle */}
         <div className="exercise-modal__content">
-          {Object.entries(exercisesByMuscleGroup).map(
+          {Object.entries(groupedExercises).map(
             ([muscleGroup, exercises]) => (
               <div key={muscleGroup} className="exercise-modal__group">
                 <h3 className="exercise-modal__group-label">{muscleGroup}</h3>

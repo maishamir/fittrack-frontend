@@ -6,11 +6,15 @@ import { useNavigate } from "react-router-dom";
 import SelectExerciseModal from "../../components/SelectExerciseModal/SelectExerciseModal";
 import { createRoutine } from "../../api/routines";
 import CreateSet from "../../components/CreateRoutine/CreateSet/CreateSet";
+import { useUser } from "@clerk/react";
 
 function CreateRoutine() {
   const [routineName, setRoutineName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentSectionId, setCurrentSectionId] = useState(null);
+  const { isSignedIn, user, isLoaded } = useUser();
+
+
   const navigate = useNavigate();
 
   // State for the three sections (Warm Up, Main Workout, Cool Down)
@@ -83,6 +87,12 @@ function CreateRoutine() {
   // Handle saving the routine
   async function handleSaveRoutine() {
     try {
+      if (!user) {
+        return;
+      }
+      const userId = user.id;
+      console.log(userId);
+
       const routineExercisesData = sections.flatMap((section) =>
         section.exercises.map((ex, index) => ({
           exerciseId: ex.id,
@@ -98,6 +108,7 @@ function CreateRoutine() {
       );
 
       const routineData = {
+        userId: userId,
         name: routineName,
         tags: [],
         routineExercises: routineExercisesData,
@@ -106,7 +117,7 @@ function CreateRoutine() {
       await createRoutine(routineData);
       navigate("/routines");
     } catch (error) {
-      console.error(error);
+      console.error("This is the error", error);
     }
 
     // You'll implement the save logic here later (API call, etc.)
