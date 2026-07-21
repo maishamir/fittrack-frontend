@@ -13,6 +13,7 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
   const [muscleGroup, setMuscleGroup] = useState("abs")
   const [filteredExercises, setFilteredExercises] = useState(null);
   const [loading, setLoading] = useState(false)
+  const [allMuscleGroups, setAllMuscleGroups] = useState([])
 
   useEffect(() => {
     async function fetchExercises() {
@@ -33,6 +34,7 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
       let muscles = new Set(exercises.map(ex => ex.primaryMuscleGroup))
       muscles = Array.from(muscles);
       muscles = muscles.sort();
+      setAllMuscleGroups(muscles)
       setMuscleGroup(muscles[0])
     }
     getDefaultMuscleGroup();
@@ -40,18 +42,21 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
 
   // console.log("muscle group ==> ", muscleGroup);
   // console.log("=== EXERCISE NAME ===", exerciseName)
+  console.log(allMuscleGroups);
+
 
   const groupedExercises = Object.groupBy(exercises, ({ primaryMuscleGroup }) => primaryMuscleGroup);
 
   // useEffect to filter by search or selected muscle group filter
   useEffect(() => {
     function filterBySearch() {
-      const filteredExercises = exercises.filter(ex => ex.name.toLowerCase().split(" ").some(exWord => exWord.startsWith(exerciseName.toLowerCase())));
+      const filteredExercises = exercises.filter(ex => (ex.name.toLowerCase().split(" ").some(exWord => exWord.startsWith(exerciseName.toLowerCase()))) || (ex.primaryMuscleGroup === muscleGroup));
+      // const filteredExercisesByMuscle = exercises.filter(ex => ex.primaryMuscleGroup === muscleGroup)
       setFilteredExercises(filteredExercises)
     }
 
     filterBySearch();
-  }, [exerciseName])
+  }, [exercises, exerciseName, muscleGroup])
 
   console.log(filteredExercises);
 
@@ -76,13 +81,28 @@ function SelectExerciseModal({ isOpen, onClose, onSelect }) {
         <label htmlFor="exerciseName">Exercise name</label>
         <input type="text" placeholder="eg. Squats" name="exerciseName" onChange={(e) => setExerciseName(e.target.value)} />
 
-        
+        {/* SUPER BASIC MUSCLE GROUP FILTER — TESTING LOGIC */}
+        <fieldset>
+          <legend>Muscle Group:</legend>
+        </fieldset>
+
+        <div className="allMuscles" style={{ "display": "flex", "textTransform": "lowercase", "flexWrap": "wrap" }}>
+          {allMuscleGroups.map(muscle => (
+
+            <div>
+              <input type="radio" name="muscleGroup" id={muscle.toLowerCase()} value={muscle.toLowerCase()} onChange={() => setMuscleGroup(muscle)} />
+              <label htmlFor={muscle.toLowerCase()}>{muscle}</label>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ "color": "red" }}>Muscle group selected: {muscleGroup}</p>
 
 
         <div className="exercise-modal__content">
           {filteredExercises.map(
             (ex) => (
-              <div key={ex} className="exercise-modal__group">
+              <div key={ex.id} className="exercise-modal__group">
                 {/* <h3 className="exercise-modal__group-label">{muscleGroup}</h3>
                 {exercises.map((exercise) => (
                   <button
