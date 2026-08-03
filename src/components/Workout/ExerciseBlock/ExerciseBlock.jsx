@@ -25,7 +25,6 @@ function ExerciseBlock({ exercise, onRepsBlur, onWeightBlur, onSetComplete, onSe
 
 
   function handleAddSet() {
-    // console.log(sessionSets);
     const newSet = {
       id: `temp-${Date.now()}`,
       orderIndex: sessionSets.length,

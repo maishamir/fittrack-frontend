@@ -7,11 +7,9 @@ export async function getRoutines(userId) {
   return response.data;
 }
 
-
-
-export async function startSession(routineId, routineDate) {
+export async function startSession(routineId, routineDate, userId) {
   const response = await axios.post(
-    `${BASE_URL}/routines/${routineId}/sessions`, routineDate
+    `${BASE_URL}/routines/${routineId}/sessions`, routineDate, { params: { userId } }
   );
   return response.data;
 }

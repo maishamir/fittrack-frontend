@@ -64,7 +64,6 @@ function CreateRoutine() {
   }
 
   function handleExerciseUpdate(sectionId, exerciseId, field, value) {
-    console.log("CALLING HANDLEeXERICSEUPDATE!!!!")
     setSections(
       sections.map((section) => {
         if (section.id !== sectionId) return section;
@@ -91,7 +90,6 @@ function CreateRoutine() {
         return;
       }
       const userId = user.id;
-      console.log(userId);
 
       const routineExercisesData = sections.flatMap((section) =>
         section.exercises.map((ex, index) => ({

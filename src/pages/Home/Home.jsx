@@ -31,21 +31,23 @@ function Home() {
   }, [user]);
 
   useEffect(() => {
+    if (!user?.id) return;
     async function fetchTodaysSessions() {
-      const data = await getTodaysSessions();
+      const data = await getTodaysSessions(user.id);
       setTodaySessions(data);
     }
     fetchTodaysSessions();
-  }, []);
+  }, [user]);
 
 
   useEffect(() => {
+    if (!user?.id) return;
     async function fetchStreak() {
-      const data = await getStreak();
+      const data = await getStreak(user.id);
       setStreak(data.streak);
     }
     fetchStreak();
-  }, []);
+  }, [user]);
 
 
   async function handleStart(routineId) {
@@ -58,7 +60,7 @@ function Home() {
         today.getDate(),
       );
 
-      const session = await startSession(routineId, { date: routineDate });
+      const session = await startSession(routineId, { date: routineDate, userId: user?.id });
 
       const sessionId = session.id ?? session.session.Id;
       navigate(`/workout/${sessionId}`);
@@ -70,8 +72,6 @@ function Home() {
   // meant for showing upto 3 routines on the homepage to avoid clutter
   const visibleCards = routines.slice(0, 3);
 
-  // console.log(todaySessions.every());
-  //   todaySessions?.forEach((session) => console.log(session.completed));
   let allComplete = todaySessions?.every((session) => session.completed);
 
   let numTotal = todaySessions?.filter((session) => session.completed);

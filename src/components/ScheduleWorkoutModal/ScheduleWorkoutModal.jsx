@@ -54,6 +54,7 @@ function ScheduleWorkoutModal({
     try {
       const session = await startSession(routineId, {
         scheduledDate: routineDate,
+        userId: user.id
       });
 
       onSchedule(session);

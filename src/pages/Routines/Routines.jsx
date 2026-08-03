@@ -24,7 +24,7 @@ function RoutinesList() {
     async function fetchRoutines() {
       // You'll replace this with your actual API call
       if (!user?.id) {
-        console.error("no user or userId found");
+        console.warn("no user or userId found...yet");
         return;
       }
       const data = await getRoutines(user.id);

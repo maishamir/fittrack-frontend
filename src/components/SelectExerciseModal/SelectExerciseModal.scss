@@ -14,6 +14,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -32,16 +33,89 @@
   border-top: 1px solid #314158;
   border-top-right-radius: 1.5rem;
   border-top-left-radius: 1.5rem;
+
+  &__contents {
+    display: flex;
+    padding: 1.5rem 2rem;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: scroll;
+
+  }
+
+  &__header {
+    padding: 1rem 0.5rem;
+    border-bottom: 0.5px solid #314158;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+  }
+
+  .searchEx {
+    position: relative;
+    display: flex;
+  }
+
+  &__search {
+    padding: 0.75rem 1rem 0.75rem 2.25rem;
+    border-radius: 0.75rem;
+    border: none;
+    width: 100%;
+    font-family: "Inter";
+    font-size: 1rem;
+
+    &:focus {
+      outline-color: #7B2DFB;
+    }
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0.5rem;
+  }
+
   
 
-    &__header {
-        padding: 1rem;
-        border-bottom: 0.5px solid #314158;
+  .allMuscles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75em;
+
+    input[type="checkbox"] {
+      opacity: 0;
+      position: absolute;
+      width: 1rem;
+
+      
+
+
+      &:checked+label {
+
+
+        background-color: #7B2DFB;
+        border-color: #7B2DFB;
+      }
     }
 
-    &__title {
-        font-size: 1.125rem;
+    label {
+      display: inline-block;
+      background-color: transparent;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 100px;
+      border: 1px solid white;
+      transition: 0.1s;
+
+      &:hover {
+        background: #924eff;
+        cursor: pointer;
+        border-color: #7B2DFB;
+      }
     }
+  }
 
   // Scrollable content area
   &__content {
@@ -50,11 +124,11 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 0.75rem;
+    margin-top: 1rem;
+    // padding: 0.75rem;
   }
 
-  &__group {
-  }
+  &__group {}
 
   &__group-label {
     font-size: 0.75rem;
@@ -74,6 +148,8 @@
     background-color: rgba(29, 41, 61, 0.5);
     color: white;
     border-radius: 0.875rem;
+    font-size: 1rem;
+    font-family: "Inter";
   }
 
   &__close {
@@ -83,11 +159,16 @@
 
 // Slide up animation
 @keyframes slideUp {
-  0%, 100% {
-    transform: translateY(0); /* Start and end at the bottom */
+
+  0%,
+  100% {
+    transform: translateY(0);
+    /* Start and end at the bottom */
     /* Use translateY for performance when possible */
   }
+
   50% {
-    transform: translateY(-20px); /* Move 100px upwards at the midpoint */
+    transform: translateY(-20px);
+    /* Move 100px upwards at the midpoint */
   }
 }

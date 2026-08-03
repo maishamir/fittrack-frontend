@@ -17,8 +17,8 @@ export async function getScheduledSessions() {
   return response.data;
 }
 
-export async function getTodaysSessions() {
-  const response = await axios.get(`${BASE_URL}/sessions/today`);
+export async function getTodaysSessions(userId) {
+  const response = await axios.get(`${BASE_URL}/sessions/today`, { params: { userId } });
   return response.data;
 }
 

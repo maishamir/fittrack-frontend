@@ -109,8 +109,6 @@ function Workout() {
       grouped[section].push(exercise);
     });
 
-    console.log("GROUPED ===> ")
-    console.log(grouped)
     return grouped;
   }
 
